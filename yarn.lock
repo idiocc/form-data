@@ -34,6 +34,13 @@
   resolved "https://registry.yarnpkg.com/@depack/split/-/split-1.0.0.tgz#37fea28d9bc6f01e5a2da87d393f402781bb7e99"
   integrity sha512-PNJPl01VFMKtyN7qBZ2cds4N/lO2KvzLrR7JamODFiuuL2X8mGoTKp1SI8fxlT2MwLV8mScCUKn55QPwsUX7iA==
 
+"@goa/busboy@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@goa/busboy/-/busboy-1.1.0.tgz#158780effc5403bb661c6dbe36ca528225741923"
+  integrity sha512-eurdGFvk0GYWd/NNSsgm21MjO3PgSs56FKBe60RDlgficgsgoNcYbKHmhKvJPNPCVC343yw1g+zwMLygf2u6ig==
+  dependencies:
+    text-decoding "^1.0.0"
+
 "@typedefs/parser@^1.3.0":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@typedefs/parser/-/parser-1.3.0.tgz#f920d85654c72ce9b41c45e9ee762f0161c567da"
@@ -257,6 +264,11 @@ static-analysis@^1.3.3, static-analysis@^1.7.1:
     fpj "^1.3.0"
     mismatch "^1.2.0"
     resolve-dependency "^1.0.3"
+
+text-decoding@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/text-decoding/-/text-decoding-1.0.0.tgz#38a5692d23b5c2b12942d6e245599cb58b1bc52f"
+  integrity sha512-/0TJD42KDnVwKmDK6jj3xP7E2MG7SHAOG4tyTgyUCRPdHwvkquYNLEQltmdMa3owq3TkddCVcTsoctJI8VQNKA==
 
 typal@^1.14.0:
   version "1.14.0"

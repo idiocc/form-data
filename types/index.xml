@@ -1,10 +1,60 @@
-<types namespace="_@goa/multer">
-  <type name="Config" desc="Options for the program.">
-    <prop boolean name="shouldRun" default="true">
-      A boolean option.
+<types namespace="_goa">
+  <import name="BusBoyLimits" ns="_goa" from="@goa/busboy" link="https://github.com/idiocc/busboy#type-_goabusboylimits" desc="Various limits on incoming data."/>
+  <type name="MulterConfig" noToc>
+    <prop opt string name="dest">
+      Where to store the files.
     </prop>
-    <prop string name="text">
-      A text to return.
+    <prop opt type="StorageEngine" name="storage">
+      Where to store the files.
+    </prop>
+    <prop opt type="(req: http.IncomingMessage, file: File, callback: (error: (Error|null), acceptFile: boolean)) => void" closure="function(http.IncomingMessage, _goa.MulterFile, function(Error, boolean)): void" name="fileFilter">
+      [Function](https://github.com/expressjs/multer#filefilter) to control which files are accepted.
+    </prop>
+    <prop opt type="_goa.BusBoyLimits" name="limits">
+      Limits of the uploaded data.
+    </prop>
+    <prop boolean name="preservePath" default="false">
+      Keep the full path of files instead of just the base name.
     </prop>
   </type>
+
+  <type record name="MulterFile" desc="The information about each file.">
+    <prop name="fieldname" string>
+      The field name specified in the form.
+    </prop>
+    <prop name="fieldname" string>
+      The name of the file on the user's computer.
+    </prop>
+    <prop name="encoding" string>
+      The encoding type of the file.
+    </prop>
+    <prop name="mimetype" string>
+      The mime type of the file.
+    </prop>
+    <prop name="size" number>
+      The size of the file in bytes.
+    </prop>
+    <prop name="destination" string>
+      The folder to which the file has been saved.
+    </prop>
+    <prop name="filename" string>
+      The name of the file within the `destination`.
+    </prop>
+    <prop name="path" string>
+      The full path to the uploaded file.
+    </prop>
+    <prop name="buffer" type="Buffer">
+      The `Buffer` of the entire file.
+    </prop>
+  </type>
+
+  <import
+    name="IncomingMessage"
+    from="http"
+    link="https://nodejs.org/api/http.html#http_class_http_incomingmessage"
+  />
+  <import name="Stats" from="fs"
+    link="https://nodejs.org/api/fs.html#fs_class_fs_stats" />
+  <import name="StorageEngine" from="koa-multer"
+    link="https://github.com/expressjs/multer#storage" />
 </types>
