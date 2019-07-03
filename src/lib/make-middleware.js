@@ -155,6 +155,7 @@ export default function makeMiddleware(options) {
     }
 
     await pendingWrites.awaitZero()
+    await next()
   }
 }
 

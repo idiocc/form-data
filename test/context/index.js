@@ -1,21 +1,12 @@
+import Http from '@contexts/http'
+import Goa from '@goa/koa'
 import { join } from 'path'
-import { debuglog } from 'util'
-
-const LOG = debuglog('@idio/multer')
+import { createReadStream, statSync } from 'fs'
 
 /**
  * A testing context for the package.
  */
-export default class Context {
-  async _init() {
-    LOG('init context')
-  }
-  /**
-   * Example method.
-   */
-  example() {
-    return 'OK'
-  }
+export default class Context extends Http {
   /**
    * A tagged template that returns the relative path to the fixture.
    * @param {string} file
@@ -26,7 +17,29 @@ export default class Context {
     const f = file.raw[0]
     return join('test/fixture', f)
   }
-  async _destroy() {
-    LOG('destroy context')
+  /**
+   * @param {Middleware} middleware
+   */
+  getApp(middleware) {
+    const app = new Goa()
+    app.use(middleware)
+    this._app = app
+    return app
+  }
+  startApp(plain = true) {
+    const cb = this._app.callback()
+    if (plain)
+      return this.startPlain(cb)
+    return this.start(cb)
+  }
+  file(name) {
+    return createReadStream(this.fixture`${name}`)
+  }
+  fileSize(path) {
+    return statSync(path).size
   }
 }
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('@goa/koa').Middleware} Middleware
+ */

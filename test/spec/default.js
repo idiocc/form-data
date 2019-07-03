@@ -1,22 +1,38 @@
-import { equal, ok } from '@zoroaster/assert'
+import { equal, deepEqual } from '@zoroaster/assert'
+import TempContext from 'temp-context'
 import Context from '../context'
-import multer from '../../src'
+import Multer, { } from '../../src'
 
-/** @type {Object.<string, (c: Context)>} */
+/** @type {Object.<string, (c: Context, t: TempContext)>} */
 const T = {
-  context: Context,
+  context: [Context, TempContext],
   'is a function'() {
     equal(typeof multer, 'function')
   },
-  async 'calls package without error'() {
-    await multer()
-  },
-  async 'gets a link to the fixture'({ fixture }) {
-    const text = fixture`text.txt`
-    const res = await multer({
-      text,
+  async 'processes parser/form-data POST request'({ getApp, startApp, fixture }, { TEMP, read }) {
+    const upload = new Multer({ dest: TEMP })
+    const mw = upload.single('file')
+    const app = getApp(mw)
+    app.use((ctx) => {
+      ctx.body = ctx.req.file
     })
-    ok(res, text)
+    let fn
+    await startApp()
+      .postForm('/', async (form) => {
+        await form.addFile(fixture`tiny0.dat`, 'file')
+      })
+      .assert(({ body: { stream, filename, path, ...data } }) => {
+        fn = filename
+        deepEqual(data, {
+          fieldname: 'file',
+          originalname: 'tiny0.dat',
+          encoding: '7bit',
+          mimetype: 'application/octet-stream',
+          destination: 'test/temp',
+          size: 122,
+        })
+      })
+    return read(fn)
   },
 }
 
