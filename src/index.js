@@ -1,6 +1,6 @@
 import makeMiddleware from './lib/make-middleware'
-import diskStorage from './storage/disk'
-import memoryStorage from './storage/memory'
+import DiskStorage from './storage/disk'
+import MemoryStorage from './storage/memory'
 import MulterError from './lib/multer-error'
 
 function allowAll(req, file, cb) {
@@ -10,20 +10,20 @@ function allowAll(req, file, cb) {
 export default class Multer {
   /**
    * @param {_idio.MulterConfig} options
-   * @param {string} [options.dest] Where to store the files.
-   * @param {StorageEngine} [options.storage] Where to store the files.
+   * @param {string} [options.dest] The directory where to store the files using the `DiskStorage`.
+   * @param {_idio.MulterStorageEngine} [options.storage] An _instance_ of a custom storage engine.
    * @param {_idio.MulterFileFilter} [options.fileFilter] The file filter.
-   * @param {_goa.BusBoyLimits} [options.limits] Limits of the uploaded data.
-   * @param {boolean} [options.preservePath=false] Keep the full path of files instead of just the base name. Default `false`.
+   * @param {_goa.BusBoyLimits} [options.limits] The limits of the uploaded data.
+   * @param {boolean} [options.preservePath=false] Whether to keep the full path of files instead of just the base name. Default `false`.
    */
   constructor (options = {}) {
     const { storage, dest, limits = {}, preservePath, fileFilter = allowAll } = options
     if (storage) {
       this.storage = storage
     } else if (dest) {
-      this.storage = diskStorage({ destination: dest })
+      this.storage = new DiskStorage({ destination: dest })
     } else {
-      this.storage = memoryStorage()
+      this.storage = new MemoryStorage()
     }
 
     this.limits = limits
@@ -95,6 +95,19 @@ export default class Multer {
 }
 
 /**
+ * @param {_idio.MulterDiskStorageOptions} [opt] Options for the disk storage.
+ */
+export const diskStorage = (opt = {}) => {
+  return new DiskStorage(opt)
+}
+
+export const memoryStorage = () => {
+  return new MemoryStorage()
+}
+
+export { MulterError }
+
+/**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('../types').MulterConfig} _idio.MulterConfig
  */
@@ -105,6 +118,10 @@ export default class Multer {
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('../types').MulterFileFilter} _idio.MulterFileFilter
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('../types').MulterDiskStorageOptions} _idio.MulterDiskStorageOptions
  */
 /**
  * @suppress {nonStandardJsDocs}

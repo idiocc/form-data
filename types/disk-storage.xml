@@ -1,0 +1,13 @@
+<types namespace="_idio">
+  <type record name="MulterDiskStorageOptions">
+    <prop type="string|function(http.IncomingRequest, _idio.MulterFile): !Promise<string>" name="destination" opt>
+      Used to determine within which folder the uploaded files should be stored. If given as a string, the location will be ensured prior at the start. Default is `tmpdir()`.
+    </prop>
+    <prop type="function(http.IncomingRequest, _idio.MulterFile): !Promise<string>"  name="filename" opt>
+      Used to determine what the file should be named inside the folder. If no filename is given, each file will be given a random name that doesn't include any file extension.
+    </prop>
+  </type>
+
+  <import name="IncomingMessage" from="http"
+    link="https://nodejs.org/api/http.html#http_class_http_incomingmessage" desc="The request object from the server callback."/>
+</types>

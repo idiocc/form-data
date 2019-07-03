@@ -12,11 +12,19 @@ export {}
  */
 /**
  * @typedef {Object} _idio.MulterConfig
- * @prop {string} [dest] Where to store the files.
- * @prop {StorageEngine} [storage] Where to store the files.
+ * @prop {string} [dest] The directory where to store the files using the `DiskStorage`.
+ * @prop {_idio.MulterStorageEngine} [storage] An _instance_ of a custom storage engine.
  * @prop {_idio.MulterFileFilter} [fileFilter] The file filter.
- * @prop {_goa.BusBoyLimits} [limits] Limits of the uploaded data.
- * @prop {boolean} [preservePath=false] Keep the full path of files instead of just the base name. Default `false`.
+ * @prop {_goa.BusBoyLimits} [limits] The limits of the uploaded data.
+ * @prop {boolean} [preservePath=false] Whether to keep the full path of files instead of just the base name. Default `false`.
+ */
+/**
+ * @typedef {_idio.MulterStorageEngine} MulterStorageEngine `＠interface`
+ */
+/**
+ * @typedef {Object} _idio.MulterStorageEngine `＠interface`
+ * @prop {function(http.IncomingMessage, _idio.MulterFile): !Promise} _handleFile Saves the file asynchronously.
+ * @prop {function(http.IncomingMessage, _idio.MulterFile): !Promise} _removeFile Removes the file asynchronously.
  */
 /**
  * @typedef {_idio.MulterFile} MulterFile `＠record` The information about each file.
@@ -24,7 +32,7 @@ export {}
 /**
  * @typedef {Object} _idio.MulterFile `＠record` The information about each file.
  * @prop {string} fieldname The field name specified in the form.
- * @prop {string} fieldname The name of the file on the user's computer.
+ * @prop {string} originalname The name of the file on the user's computer.
  * @prop {string} encoding The encoding type of the file.
  * @prop {string} mimetype The mime type of the file.
  * @prop {number} size The size of the file in bytes.
@@ -50,6 +58,16 @@ export {}
 /**
  * @typedef {import('fs').Stats} fs.Stats
  */
+
+/* typal types/disk-storage.xml closure noSuppress */
 /**
- * @typedef {import('koa-multer').StorageEngine} koa-multer.StorageEngine
+ * @typedef {_idio.MulterDiskStorageOptions} MulterDiskStorageOptions `＠record`
+ */
+/**
+ * @typedef {Object} _idio.MulterDiskStorageOptions `＠record`
+ * @prop {string|function(http.IncomingRequest, _idio.MulterFile): !Promise<string>} [destination] Used to determine within which folder the uploaded files should be stored. If given as a string, the location will be ensured prior at the start. Default is `tmpdir()`.
+ * @prop {function(http.IncomingRequest, _idio.MulterFile): !Promise<string>} [filename] Used to determine what the file should be named inside the folder. If no filename is given, each file will be given a random name that doesn't include any file extension.
+ */
+/**
+ * @typedef {import('http').IncomingMessage} http.IncomingMessage
  */

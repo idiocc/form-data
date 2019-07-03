@@ -16,7 +16,7 @@ function drainStream(stream) {
 /**
  * @param {{ limits: _goa.BusBoyLimits,
  *           preservePath: boolean,
- *           storage,
+ *           storage: _idio.MulterStorageEngine,
  *           fileFilter: _idio.MulterFileFilter,
  *           fileStrategy: string }} options
  * @returns {_goa.Middleware}
@@ -38,44 +38,8 @@ export default function makeMiddleware(options) {
     })
 
     const appender = new FileAppender(fileStrategy, req)
-    // var isDone = false
-    // var readFinished = false
-    // var errorOccured = false
     const pendingWrites = new Counter()
     const uploadedFiles = []
-
-    // function done(err) {
-    //   if (isDone) return
-    //   isDone = true
-
-    //   req.unpipe(busboy)
-    //   drainStream(req)
-    //   busboy.removeAllListeners()
-
-    //   onFinished(req, () => { next(err) })
-    // }
-
-    // function indicateDone () {
-    //   if (readFinished && pendingWrites.isZero() && !errorOccured) done()
-    // }
-
-    // function abortWithError(uploadError) {
-    //   if (errorOccured) return
-    //   errorOccured = true
-
-    //   pendingWrites.onceZero(() => {
-    //     function remove (file, cb) {
-    //       storage._removeFile(req, file, cb)
-    //     }
-
-    //     removeUploadedFiles(uploadedFiles, remove, (err, storageErrors) => {
-    //       if (err) return done(err)
-
-    //       uploadError.storageErrors = storageErrors
-    //       done(uploadError)
-    //     })
-    //   })
-    // }
 
     busboy.on('field', (fieldname, value, fieldnameTruncated, valueTruncated) => {
       // if (fieldnameTruncated) return abortWithCode('LIMIT_FIELD_KEY')
@@ -129,18 +93,18 @@ export default function makeMiddleware(options) {
 
         file['stream'] = fileStream
 
-        fileStream.on('error', () => {
-          pendingWrites.decrement()
-          busboy.emit('error', err)
-        })
-
-        fileStream.on('limit', function () {
-          aborting = true
-          busboy.emit('error', new MulterError('LIMIT_FILE_SIZE', fieldname))
-        })
+        fileStream
+          .on('error', () => {
+            pendingWrites.decrement()
+            busboy.emit('error', err)
+          })
+          .on('limit', () => {
+            aborting = true
+            busboy.emit('error', new MulterError('LIMIT_FILE_SIZE', fieldname))
+          })
 
         try {
-          const info = await storage._handleFile()
+          const info = await storage._handleFile(req, file)
           const fileInfo = { ...file, ...info }
 
           if (aborting) {
@@ -224,6 +188,10 @@ async function removeUploadedFiles(uploadedFiles, remove) {
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('../../types').MulterFileFilter} _idio.MulterFileFilter
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('../../types').MulterStorageEngine} _idio.MulterStorageEngine
  */
 /**
  * @suppress {nonStandardJsDocs}

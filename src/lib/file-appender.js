@@ -21,7 +21,16 @@ export default class FileAppender {
     }
   }
   /**
-   * @param {_idio.MulterFile} placeholder
+   * @param {_idio.MulterFile} placeholder The information about each file.
+   * @param {string} placeholder.fieldname The field name specified in the form.
+   * @param {string} placeholder.originalname The name of the file on the user's computer.
+   * @param {string} placeholder.encoding The encoding type of the file.
+   * @param {string} placeholder.mimetype The mime type of the file.
+   * @param {number} placeholder.size The size of the file in bytes.
+   * @param {string} placeholder.destination The folder to which the file has been saved.
+   * @param {string} placeholder.filename The name of the file within the `destination`.
+   * @param {string} placeholder.path The full path to the uploaded file.
+   * @param {Buffer} placeholder.buffer The `Buffer` of the entire file.
    */
   insertPlaceholder({ fieldname }) {
     const placeholder = {
@@ -44,7 +53,16 @@ export default class FileAppender {
     return placeholder
   }
   /**
-   * @param {_idio.MulterFile} placeholder
+   * @param {_idio.MulterFile} placeholder The information about each file.
+   * @param {string} placeholder.fieldname The field name specified in the form.
+   * @param {string} placeholder.originalname The name of the file on the user's computer.
+   * @param {string} placeholder.encoding The encoding type of the file.
+   * @param {string} placeholder.mimetype The mime type of the file.
+   * @param {number} placeholder.size The size of the file in bytes.
+   * @param {string} placeholder.destination The folder to which the file has been saved.
+   * @param {string} placeholder.filename The name of the file within the `destination`.
+   * @param {string} placeholder.path The full path to the uploaded file.
+   * @param {Buffer} placeholder.buffer The `Buffer` of the entire file.
    */
   removePlaceholder(placeholder) {
     switch (this.strategy) {
@@ -61,8 +79,26 @@ export default class FileAppender {
     }
   }
   /**
-   * @param {_idio.MulterFile} placeholder
-   * @param {_idio.MulterFile} file
+   * @param {_idio.MulterFile} placeholder The information about each file.
+   * @param {string} placeholder.fieldname The field name specified in the form.
+   * @param {string} placeholder.originalname The name of the file on the user's computer.
+   * @param {string} placeholder.encoding The encoding type of the file.
+   * @param {string} placeholder.mimetype The mime type of the file.
+   * @param {number} placeholder.size The size of the file in bytes.
+   * @param {string} placeholder.destination The folder to which the file has been saved.
+   * @param {string} placeholder.filename The name of the file within the `destination`.
+   * @param {string} placeholder.path The full path to the uploaded file.
+   * @param {Buffer} placeholder.buffer The `Buffer` of the entire file.
+   * @param {_idio.MulterFile} file The information about each file.
+   * @param {string} file.fieldname The field name specified in the form.
+   * @param {string} file.originalname The name of the file on the user's computer.
+   * @param {string} file.encoding The encoding type of the file.
+   * @param {string} file.mimetype The mime type of the file.
+   * @param {number} file.size The size of the file in bytes.
+   * @param {string} file.destination The folder to which the file has been saved.
+   * @param {string} file.filename The name of the file within the `destination`.
+   * @param {string} file.path The full path to the uploaded file.
+   * @param {Buffer} file.buffer The `Buffer` of the entire file.
    */
   replacePlaceholder(placeholder, file) {
     if (this.strategy == 'VALUE') {

@@ -7,9 +7,23 @@ var _idio = {}
  */
 _idio.MulterFileFilter
 /**
- * @typedef {{ dest: (string|undefined), storage: (StorageEngine|undefined), fileFilter: (_idio.MulterFileFilter|undefined), limits: (_goa.BusBoyLimits|undefined), preservePath: (boolean|undefined) }}
+ * @typedef {{ dest: (string|undefined), storage: (_idio.MulterStorageEngine|undefined), fileFilter: (_idio.MulterFileFilter|undefined), limits: (_goa.BusBoyLimits|undefined), preservePath: (boolean|undefined) }}
  */
 _idio.MulterConfig
+/**
+ * @interface
+ */
+_idio.MulterStorageEngine
+/**
+ * Saves the file asynchronously.
+ * @type {function(http.IncomingMessage, _idio.MulterFile): !Promise}
+ */
+_idio.MulterStorageEngine.prototype._handleFile
+/**
+ * Removes the file asynchronously.
+ * @type {function(http.IncomingMessage, _idio.MulterFile): !Promise}
+ */
+_idio.MulterStorageEngine.prototype._removeFile
 /**
  * The information about each file.
  * @record
@@ -24,7 +38,7 @@ _idio.MulterFile.prototype.fieldname
  * The name of the file on the user's computer.
  * @type {string}
  */
-_idio.MulterFile.prototype.fieldname
+_idio.MulterFile.prototype.originalname
 /**
  * The encoding type of the file.
  * @type {string}
@@ -65,6 +79,22 @@ _idio.MulterFile.prototype.buffer
  * @typedef {{ name: string, maxCount: (number|undefined) }}
  */
 _idio.MulterField
+
+/* typal types/disk-storage.xml externs */
+/**
+ * @record
+ */
+_idio.MulterDiskStorageOptions
+/**
+ * Used to determine within which folder the uploaded files should be stored. If given as a string, the location will be ensured prior at the start. Default is `tmpdir()`.
+ * @type {(string|function(http.IncomingRequest, _idio.MulterFile): !Promise<string>)|undefined}
+ */
+_idio.MulterDiskStorageOptions.prototype.destination
+/**
+ * Used to determine what the file should be named inside the folder. If no filename is given, each file will be given a random name that doesn't include any file extension.
+ * @type {(function(http.IncomingRequest, _idio.MulterFile): !Promise<string>)|undefined}
+ */
+_idio.MulterDiskStorageOptions.prototype.filename
 
 /**
  * @type {!Object}

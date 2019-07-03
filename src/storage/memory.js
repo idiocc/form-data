@@ -1,6 +1,9 @@
 import { collect } from 'catchment'
 
-class MemoryStorage {
+/**
+ * @implements {_idio.MulterStorageEngine}
+ */
+export default class MemoryStorage {
   /**
    * @param {?} req
    * @param {{ stream }} file
@@ -18,8 +21,4 @@ class MemoryStorage {
     delete file['buffer']
     cb(null)
   }
-}
-
-export default function() {
-  return new MemoryStorage()
 }

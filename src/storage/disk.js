@@ -14,7 +14,13 @@ async function getFilename() {
   })
 }
 
-class DiskStorage {
+/**
+ * @implements {_idio.MulterStorageEngine}
+ */
+export default class DiskStorage {
+  /**
+   * @param {_idio.MulterDiskStorageOptions} [opts] The options.
+   */
   constructor(opts = {}) {
     const {
       filename = getFilename,
@@ -61,7 +67,11 @@ class DiskStorage {
   }
 }
 
-
-export default function(opts) {
-  return new DiskStorage(opts)
-}
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('../../types').MulterStorageEngine} _idio.MulterStorageEngine
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('../../types').MulterDiskStorageOptions} _idio.MulterDiskStorageOptions
+ */
