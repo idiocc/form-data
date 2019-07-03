@@ -1,57 +1,76 @@
 /* typal types/index.xml externs */
 /** @const */
-var _goa = {}
+var _idio = {}
 /**
- * @typedef {{ dest: (string|undefined), storage: (StorageEngine|undefined), fileFilter: ((function(http.IncomingMessage, _goa.MulterFile, function(Error, boolean)): void)|undefined), limits: (_goa.BusBoyLimits|undefined), preservePath: (boolean|undefined) }}
+ * The function to control which files are accepted.
+ * @typedef {function(http.IncomingMessage, _idio.MulterFile, function(Error, boolean)): void}
  */
-_goa.MulterConfig
+_idio.MulterFileFilter
+/**
+ * @typedef {{ dest: (string|undefined), storage: (StorageEngine|undefined), fileFilter: (_idio.MulterFileFilter|undefined), limits: (_goa.BusBoyLimits|undefined), preservePath: (boolean|undefined) }}
+ */
+_idio.MulterConfig
 /**
  * The information about each file.
  * @record
  */
-_goa.MulterFile
+_idio.MulterFile
 /**
  * The field name specified in the form.
  * @type {string}
  */
-_goa.MulterFile.prototype.fieldname
+_idio.MulterFile.prototype.fieldname
 /**
  * The name of the file on the user's computer.
  * @type {string}
  */
-_goa.MulterFile.prototype.fieldname
+_idio.MulterFile.prototype.fieldname
 /**
  * The encoding type of the file.
  * @type {string}
  */
-_goa.MulterFile.prototype.encoding
+_idio.MulterFile.prototype.encoding
 /**
  * The mime type of the file.
  * @type {string}
  */
-_goa.MulterFile.prototype.mimetype
+_idio.MulterFile.prototype.mimetype
 /**
  * The size of the file in bytes.
  * @type {number}
  */
-_goa.MulterFile.prototype.size
+_idio.MulterFile.prototype.size
 /**
  * The folder to which the file has been saved.
  * @type {string}
  */
-_goa.MulterFile.prototype.destination
+_idio.MulterFile.prototype.destination
 /**
  * The name of the file within the `destination`.
  * @type {string}
  */
-_goa.MulterFile.prototype.filename
+_idio.MulterFile.prototype.filename
 /**
  * The full path to the uploaded file.
  * @type {string}
  */
-_goa.MulterFile.prototype.path
+_idio.MulterFile.prototype.path
 /**
  * The `Buffer` of the entire file.
  * @type {Buffer}
  */
-_goa.MulterFile.prototype.buffer
+_idio.MulterFile.prototype.buffer
+/**
+ * The item to use in the .fields method.
+ * @typedef {{ name: string, maxCount: (number|undefined) }}
+ */
+_idio.MulterField
+
+/**
+ * @type {!Object}
+ */
+http.IncomingMessage.prototype.body
+/**
+ * @type {!Array<_idio.MulterFile>|!Object<string, !Array<_idio.MulterFile>>|_idio.MulterFile}
+ */
+http.IncomingMessage.prototype.files

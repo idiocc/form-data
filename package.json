@@ -1,5 +1,5 @@
 {
-  "name": "@goa/multer",
+  "name": "@idio/multer",
   "version": "0.0.0-pre",
   "description": "[fork] The Multer Middleware For Handling Multipart/Form-Data Written For Koa In ES6 And Optimised With JavaScript Compiler.",
   "main": "build/index.js",
@@ -40,8 +40,14 @@
   },
   "homepage": "https://github.com/idiocc/multer#readme",
   "devDependencies": {
+    "@goa/append-field": "^1.0.0",
     "@goa/busboy": "^1.1.0",
+    "@goa/type-is": "^1.0.1",
+    "@typedefs/goa": "^0.0.2",
+    "@wrote/ensure-path": "^1.1.0",
+    "@wrote/rm": "^1.1.5",
     "alamode": "^2.3.4",
+    "catchment": "^3.3.0",
     "documentary": "^1.27.4",
     "eslint-config-artdeco": "1.0.1",
     "yarn-s": "1.1.0",

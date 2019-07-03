@@ -2,5 +2,5 @@
 
 ### 0.0.0-pre
 
-- Create `@goa/multer` with _[`My New Package`](https://mnpjs.org)_
+- Create `@idio/multer` with _[`My New Package`](https://mnpjs.org)_
 - [repository]: `src`, [`test`](https://contexttesting.com), [`documentary`](https://readme.page) & [`types`](https://typedef.page).

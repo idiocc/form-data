@@ -1,5 +1,4 @@
 import makeMiddleware from './lib/make-middleware'
-
 import diskStorage from './storage/disk'
 import memoryStorage from './storage/memory'
 import MulterError from './lib/multer-error'
@@ -10,15 +9,15 @@ function allowAll(req, file, cb) {
 
 export default class Multer {
   /**
-   * @param {_goa.MulterConfig} options
+   * @param {_idio.MulterConfig} options
    * @param {string} [options.dest] Where to store the files.
    * @param {StorageEngine} [options.storage] Where to store the files.
-   * @param {function(http.IncomingMessage, _goa.MulterFile, function(Error, boolean)): void} [options.fileFilter] [Function](https://github.com/expressjs/multer#filefilter) to control which files are accepted.
+   * @param {_idio.MulterFileFilter} [options.fileFilter] The file filter.
    * @param {_goa.BusBoyLimits} [options.limits] Limits of the uploaded data.
    * @param {boolean} [options.preservePath=false] Keep the full path of files instead of just the base name. Default `false`.
    */
   constructor (options = {}) {
-    const { storage, dest, limits, preservePath, fileFilter = allowAll } = options
+    const { storage, dest, limits = {}, preservePath, fileFilter = allowAll } = options
     if (storage) {
       this.storage = storage
     } else if (dest) {
@@ -31,69 +30,81 @@ export default class Multer {
     this.preservePath = preservePath
     this.fileFilter = fileFilter
   }
-  _makeMiddleware(fields, fileStrategy) {
-    function setup () {
-      var fileFilter = this.fileFilter
-      var filesLeft = Object.create(null)
 
-      fields.forEach((field) => {
-        if (typeof field.maxCount === 'number') {
-          filesLeft[field.name] = field.maxCount
-        } else {
-          filesLeft[field.name] = Infinity
-        }
-      })
+  /**
+   * @param {!Array<_idio.MulterField>} fields The fields to accept.
+   * @param {string} fileStrategy The strategy.
+   */
+  setup(fields, fileStrategy) {
+    const fileFilter = this.fileFilter
+    const filesLeft = {}
 
-      function wrappedFileFilter (req, file, cb) {
-        if ((filesLeft[file.fieldname] || 0) <= 0) {
-          return cb(new MulterError('LIMIT_UNEXPECTED_FILE', file.fieldname))
-        }
+    fields.forEach(({ maxCount = Infinity, name }) => {
+      filesLeft[name] = maxCount
+    })
 
-        filesLeft[file.fieldname] -= 1
-        fileFilter(req, file, cb)
+    /**
+     * @type {_idio.MulterFileFilter}
+     */
+    function wrappedFileFilter(req, file, cb) {
+      if ((filesLeft[file.fieldname] || 0) <= 0) {
+        return cb(new MulterError('LIMIT_UNEXPECTED_FILE', file.fieldname))
       }
 
-      return {
-        limits: this.limits,
-        preservePath: this.preservePath,
-        storage: this.storage,
-        fileFilter: wrappedFileFilter,
-        fileStrategy: fileStrategy,
-      }
+      filesLeft[file.fieldname] -= 1
+      fileFilter(req, file, cb)
     }
 
-    return makeMiddleware(setup.bind(this))
+    return {
+      limits: this.limits,
+      preservePath: this.preservePath,
+      storage: this.storage,
+      fileFilter: wrappedFileFilter,
+      fileStrategy: fileStrategy,
+    }
   }
+
   single(name) {
-    return this._makeMiddleware([{ name: name, maxCount: 1 }], 'VALUE')
+    const conf = this.setup([{ name: name, maxCount: 1 }], 'VALUE')
+    return makeMiddleware(conf)
   }
   array(name, maxCount) {
-    return this._makeMiddleware([{ name: name, maxCount: maxCount }], 'ARRAY')
+    const conf = this.setup([{ name: name, maxCount: maxCount }], 'ARRAY')
+    return makeMiddleware(conf)
   }
+  /**
+   * @param {Array<_idio.MulterField>} fields The fields to accept.
+   */
   fields(fields) {
-    return this._makeMiddleware(fields, 'OBJECT')
+    const conf = this.setup(fields, 'OBJECT')
+    return makeMiddleware(conf)
   }
   none() {
-    return this._makeMiddleware([], 'NONE')
+    const conf = this.setup([], 'NONE')
+    return makeMiddleware(conf)
   }
   any() {
-    function setup () {
-      return {
-        limits: this.limits,
-        preservePath: this.preservePath,
-        storage: this.storage,
-        fileFilter: this.fileFilter,
-        fileStrategy: 'ARRAY',
-      }
-    }
-
-    return makeMiddleware(setup.bind(this))
+    return makeMiddleware({
+      limits: this.limits,
+      preservePath: this.preservePath,
+      storage: this.storage,
+      fileFilter: this.fileFilter,
+      fileStrategy: 'ARRAY',
+    })
   }
 }
 
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../types').MulterConfig} _goa.MulterConfig
+ * @typedef {import('../types').MulterConfig} _idio.MulterConfig
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('../types').MulterField} _idio.MulterField
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('../types').MulterFileFilter} _idio.MulterFileFilter
  */
 /**
  * @suppress {nonStandardJsDocs}

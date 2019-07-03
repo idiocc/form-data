@@ -1,5 +1,11 @@
-<types namespace="_goa">
+<types namespace="_idio">
   <import name="BusBoyLimits" ns="_goa" from="@goa/busboy" link="https://github.com/idiocc/busboy#type-_goabusboylimits" desc="Various limits on incoming data."/>
+
+  <type
+    type="function(http.IncomingMessage, _idio.MulterFile, function(Error, boolean)): void"
+    name="MulterFileFilter"
+    desc="The function to control which files are accepted." />
+
   <type name="MulterConfig" noToc>
     <prop opt string name="dest">
       Where to store the files.
@@ -7,8 +13,8 @@
     <prop opt type="StorageEngine" name="storage">
       Where to store the files.
     </prop>
-    <prop opt type="(req: http.IncomingMessage, file: File, callback: (error: (Error|null), acceptFile: boolean)) => void" closure="function(http.IncomingMessage, _goa.MulterFile, function(Error, boolean)): void" name="fileFilter">
-      [Function](https://github.com/expressjs/multer#filefilter) to control which files are accepted.
+    <prop opt type="_idio.MulterFileFilter" name="fileFilter">
+      The file filter.
     </prop>
     <prop opt type="_goa.BusBoyLimits" name="limits">
       Limits of the uploaded data.
@@ -46,6 +52,11 @@
     <prop name="buffer" type="Buffer">
       The `Buffer` of the entire file.
     </prop>
+  </type>
+
+  <type name="MulterField" desc="The item to use in the .fields method.">
+    <prop name="name" string>The name of the field.</prop>
+    <prop opt name="maxCount" number>The maximum count of the field.</prop>
   </type>
 
   <import
