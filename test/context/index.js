@@ -51,7 +51,7 @@ export default class Context extends Http {
   /**
    * Removes random data not suitable for testing.
    */
-  normalise({ stream, filename, path, ...data }) {
+  normalise({ buffer, stream, filename, path, ...data }) {
     return data
   }
 }

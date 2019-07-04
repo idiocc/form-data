@@ -10,7 +10,7 @@
       "name": "Launch Zoroaster",
       "program": "${workspaceFolder}/node_modules/.bin/zoroaster",
       "env": {
-        "NODE_DEBUG": "@idio/multer",
+        "NODE_DEBUG": "@multipart/form-data",
       },
       "console": "integratedTerminal",
       "args": [

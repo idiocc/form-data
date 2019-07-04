@@ -1,0 +1,27 @@
+{
+  "file": [
+    {
+      "fieldname": "file",
+      "originalname": "small0.dat",
+      "encoding": "7bit",
+      "mimetype": "application/octet-stream",
+      "size": 1777
+    },
+    {
+      "fieldname": "file",
+      "originalname": "small1.dat",
+      "encoding": "7bit",
+      "mimetype": "application/octet-stream",
+      "size": 315
+    }
+  ],
+  "picture": [
+    {
+      "fieldname": "picture",
+      "originalname": "small1.dat",
+      "encoding": "7bit",
+      "mimetype": "application/octet-stream",
+      "size": 315
+    }
+  ]
+}

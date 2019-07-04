@@ -1,5 +1,5 @@
 {
-  "name": "@idio/multer",
+  "name": "@multipart/form-data",
   "version": "0.0.0-pre",
   "description": "[fork] The Multer Middleware For Handling Multipart/Form-Data Written For Koa In ES6 And Optimised With JavaScript Compiler.",
   "main": "build/index.js",

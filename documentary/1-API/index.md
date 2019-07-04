@@ -3,7 +3,7 @@
 The package is available by importing its default function:
 
 ```js
-import multer from '@idio/multer'
+import multer from '@multipart/form-data'
 ```
 
 %~%
@@ -19,7 +19,7 @@ Call this function to get the result you want.
 
 %TYPEDEF types/index.xml%
 
-%EXAMPLE: example, ../src => @idio/multer%
+%EXAMPLE: example, ../src => @multipart/form-data%
 %FORK example%
 
 %~%

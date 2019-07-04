@@ -1,11 +1,11 @@
-# @idio/multer
+# @multipart/form-data
 
-%NPM: @idio/multer%
+%NPM: @multipart/form-data%
 
-`@idio/multer` is [fork] The Multer Middleware For Handling Multipart/Form-Data Written For Koa In ES6 And Optimised With JavaScript Compiler.
+`@multipart/form-data` is [fork] The Multer Middleware For Handling Multipart/Form-Data Written For Koa In ES6 And Optimised With JavaScript Compiler.
 
 ```sh
-yarn add @idio/multer
+yarn add @multipart/form-data
 ```
 
 ## Table Of Contents
