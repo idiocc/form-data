@@ -1,14 +1,28 @@
 import makeTestSuite from '@zoroaster/mask'
 import Context from '../context'
-import multer from '../../src'
+import Multer from '../../src'
 
-// export default
-makeTestSuite('test/result', {
-  async getResults() {
-    const res = await multer({
-      text: this.input,
-    })
+export default makeTestSuite('node_modules/@multipart/test-form-data/default.md', {
+  /** @param {Context} p */
+  async getResults({ getApp, startApp, updateStore }) {
+    const upload = new Multer()
+    const mw = upload.fields([])
+    const app = getApp(mw)
+    app.use((ctx) => { ctx.body = ctx.req.body })
+    let res
+    await startApp()
+      .postForm('/', (form) => {
+        const data = JSON.parse(this.input)
+        data.forEach(({ key, value }) => {
+          form.addSection(key, value)
+        })
+      })
+      .assert(({ body }) => {
+        res = body
+      })
+    updateStore(res)
     return res
   },
+  jsonProps: ['expected'],
   context: Context,
 })

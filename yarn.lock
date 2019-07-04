@@ -46,11 +46,6 @@
   resolved "https://registry.yarnpkg.com/@depack/split/-/split-1.0.0.tgz#37fea28d9bc6f01e5a2da87d393f402781bb7e99"
   integrity sha512-PNJPl01VFMKtyN7qBZ2cds4N/lO2KvzLrR7JamODFiuuL2X8mGoTKp1SI8fxlT2MwLV8mScCUKn55QPwsUX7iA==
 
-"@goa/append-field@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@goa/append-field/-/append-field-1.0.0.tgz#f186775bda74bf92310cb65077f08040c242ef6d"
-  integrity sha512-7Fu2VO3V1lF7sSlCgfQfZEE7S6VW5Dy0WFgjKXkuP02kA35yg3kVoiT8REg8usA1vMoHeLTa+RcRdWso97Zj9w==
-
 "@goa/busboy@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@goa/busboy/-/busboy-1.1.1.tgz#b51fdf295544ac3f4dc59178633036fed7f19d90"
@@ -76,6 +71,16 @@
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@idio/dicer/-/dicer-1.0.2.tgz#335e0ed34a421285799ca97de0fe81209f36f2db"
   integrity sha512-/9fjfYQBdhV7ZA/rS4+8B8QS1k+78wyB9gW/5KclslDnduaFpAV8Qd0BcBYEpzr+fsCd0dOJq11zw6o6J+Ssmg==
+
+"@multipart/append-field@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@multipart/append-field/-/append-field-1.0.1.tgz#75e018bb986aaf8dd186c98520d584a0f7d1d4cb"
+  integrity sha512-VKFpXy/6SdUrWpU2iHBvung//7kb0hak/gnasstJQhLVWFnrq4bYvQNvrlK/gQpIwJzw4KbeytbcoEh+MgsaVg==
+
+"@multipart/test-form-data@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@multipart/test-form-data/-/test-form-data-1.0.0.tgz#d815df5427b2b3a1b045471c0a3bbb23ed837435"
+  integrity sha512-uMA4BTDEnr8fwqO3MySs7y2CwJswh4IvQVFzI8opjDA5CW0NPHiWDnH5dhPB6Od8wEx9P57nStvcBP0Y3dFkog==
 
 "@rqt/aqt@^1.2.5":
   version "1.2.6"

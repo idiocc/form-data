@@ -2,6 +2,7 @@ import Http from '@contexts/http'
 import Goa from '@goa/koa'
 import { join } from 'path'
 import { createReadStream, statSync } from 'fs'
+import { updateStore } from '@multipart/test-form-data'
 
 /**
  * A testing context for the package.
@@ -47,6 +48,9 @@ export default class Context extends Http {
   }
   fileSize(path) {
     return statSync(path).size
+  }
+  get updateStore() {
+    return updateStore
   }
   /**
    * Removes random data not suitable for testing.

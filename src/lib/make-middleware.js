@@ -1,13 +1,9 @@
 import is from '@goa/type-is'
 import Busboy from '@goa/busboy'
-import appendField from '@goa/append-field'
+import appendField from '@multipart/append-field'
 import FileAppender from './file-appender'
 import MulterError from './multer-error'
 import Counter from './counter'
-
-// var onFinished = require('on-finished')
-
-// var removeUploadedFiles = require('./remove-uploaded-files')
 
 function drainStream(stream) {
   stream.on('readable', stream.read.bind(stream))

@@ -41,11 +41,12 @@
   "homepage": "https://github.com/idiocc/multer#readme",
   "devDependencies": {
     "@contexts/http": "^1.4.0",
-    "@goa/append-field": "^1.0.0",
     "@goa/busboy": "^1.1.1",
     "@goa/koa": "^1.1.3",
     "@goa/type-is": "^1.0.2",
     "@idio/dicer": "^1.0.2",
+    "@multipart/append-field": "^1.0.1",
+    "@multipart/test-form-data": "^1.0.0",
     "@typedefs/goa": "^0.0.2",
     "@wrote/ensure-path": "^1.1.0",
     "@wrote/read": "^1.0.4",
