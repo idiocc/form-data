@@ -58,6 +58,16 @@ export default class Context extends Http {
   normalise({ buffer, stream, filename, path, ...data }) {
     return data
   }
+  /**
+   * Returns files specified with `fields`.
+   */
+  updateFiles(body) {
+    const files = Object.entries(body).reduce((acc, [key, val]) => {
+      acc[key] = val.map(this.normalise)
+      return acc
+    }, {})
+    return files
+  }
 }
 /**
  * @suppress {nonStandardJsDocs}

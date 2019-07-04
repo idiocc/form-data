@@ -1,8 +1,8 @@
 {
   "name": "@multipart/form-data",
   "version": "0.0.0-pre",
-  "description": "[fork] The Multer Middleware For Handling Multipart/Form-Data Written For Koa In ES6 And Optimised With JavaScript Compiler.",
-  "main": "build/index.js",
+  "description": "Multipart/Form-Data And File Upload Middleware For Koa Written In ES6 And Optimised With JavaScript Compiler.",
+  "main": "depack/index.js",
   "module": "src/index.js",
   "scripts": {
     "t": "zoroaster -a",
@@ -20,7 +20,7 @@
     "e": "alanode"
   },
   "files": [
-    "build",
+    "depack",
     "src",
     "types/externs.js"
   ],
@@ -31,7 +31,15 @@
   },
   "keywords": [
     "multer",
-    "goa"
+    "goa",
+    "koa",
+    "koa2",
+    "multipart",
+    "form-data",
+    "form",
+    "middleware",
+    "file",
+    "upload"
   ],
   "author": "Anton <anton@adc.sh>",
   "license": "MIT",
@@ -58,5 +66,8 @@
     "temp-context": "^2.1.3",
     "yarn-s": "1.1.0",
     "zoroaster": "^4.1.1-alpha"
+  },
+  "dependencies": {
+    "text-decoding": "^1.0.0"
   }
 }
