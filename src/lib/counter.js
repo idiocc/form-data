@@ -20,8 +20,9 @@ export default class Counter extends EventEmitter {
     this.once('zero', fn)
   }
   async awaitZero() {
-    await new Promise((r) => {
+    await new Promise((r, j) => {
       this.onceZero(r)
+      this.once('error', j)
     })
   }
 }

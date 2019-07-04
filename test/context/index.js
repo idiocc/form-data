@@ -38,6 +38,12 @@ export default class Context extends Http {
   fileSize(path) {
     return statSync(path).size
   }
+  /**
+   * Removes random data not suitable for testing.
+   */
+  normalise({ stream, filename, path, ...data }) {
+    return data
+  }
 }
 /**
  * @suppress {nonStandardJsDocs}

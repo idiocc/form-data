@@ -40,6 +40,7 @@ export default function makeMiddleware(options) {
     const appender = new FileAppender(fileStrategy, req)
     const pendingWrites = new Counter()
     const uploadedFiles = []
+    let busboyFinished = false
 
     busboy.on('field', (fieldname, value, fieldnameTruncated, valueTruncated) => {
       // if (fieldnameTruncated) return abortWithCode('LIMIT_FIELD_KEY')
@@ -117,7 +118,9 @@ export default function makeMiddleware(options) {
           uploadedFiles.push(fileInfo)
         } catch (error) {
           appender.removePlaceholder(placeholder)
-          busboy.emit('error', error)
+          if (!busboyFinished) {
+            busboy.emit('error', error)
+          } else pendingWrites.emit('error', error)
         } finally {
           pendingWrites.decrement()
         }
@@ -149,11 +152,11 @@ export default function makeMiddleware(options) {
 
       throw err
     } finally {
+      busboyFinished = true
       drainStream(req)
       req.unpipe(busboy)
       busboy.removeAllListeners()
     }
-
     await pendingWrites.awaitZero()
     await next()
   }
