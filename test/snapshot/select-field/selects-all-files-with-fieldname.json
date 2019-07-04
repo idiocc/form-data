@@ -1,0 +1,57 @@
+{
+  "CA$|-|": [
+    {
+      "fieldname": "CA$|-|",
+      "originalname": "empty.dat",
+      "encoding": "7bit",
+      "mimetype": "application/octet-stream",
+      "size": 0
+    }
+  ],
+  "set-1": [
+    {
+      "fieldname": "set-1",
+      "originalname": "tiny0.dat",
+      "encoding": "7bit",
+      "mimetype": "application/octet-stream",
+      "size": 122
+    },
+    {
+      "fieldname": "set-1",
+      "originalname": "empty.dat",
+      "encoding": "7bit",
+      "mimetype": "application/octet-stream",
+      "size": 0
+    },
+    {
+      "fieldname": "set-1",
+      "originalname": "tiny1.dat",
+      "encoding": "7bit",
+      "mimetype": "application/octet-stream",
+      "size": 7
+    }
+  ],
+  "set-2": [
+    {
+      "fieldname": "set-2",
+      "originalname": "tiny1.dat",
+      "encoding": "7bit",
+      "mimetype": "application/octet-stream",
+      "size": 7
+    },
+    {
+      "fieldname": "set-2",
+      "originalname": "tiny0.dat",
+      "encoding": "7bit",
+      "mimetype": "application/octet-stream",
+      "size": 122
+    },
+    {
+      "fieldname": "set-2",
+      "originalname": "empty.dat",
+      "encoding": "7bit",
+      "mimetype": "application/octet-stream",
+      "size": 0
+    }
+  ]
+}
