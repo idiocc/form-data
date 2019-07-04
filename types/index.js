@@ -5,7 +5,7 @@ export {}
  * @typedef {_idio.MulterFileFilter} MulterFileFilter The function to control which files are accepted.
  */
 /**
- * @typedef {function(http.IncomingMessage, _idio.MulterFile, function(Error, boolean)): void} _idio.MulterFileFilter The function to control which files are accepted.
+ * @typedef {function(http.IncomingMessage, _idio.MulterFile): !Promise<boolean>} _idio.MulterFileFilter The function to control which files are accepted.
  */
 /**
  * @typedef {_idio.MulterConfig} MulterConfig
@@ -40,6 +40,7 @@ export {}
  * @prop {string} filename The name of the file within the `destination`.
  * @prop {string} path The full path to the uploaded file.
  * @prop {Buffer} buffer The `Buffer` of the entire file.
+ * @prop {stream.Readable} stream The _Readable_ stream with the file data.
  */
 /**
  * @typedef {_idio.MulterField} MulterField The item to use in the .fields method.
@@ -57,6 +58,9 @@ export {}
  */
 /**
  * @typedef {import('fs').Stats} fs.Stats
+ */
+/**
+ * @typedef {import('stream').Readable} stream.Readable
  */
 
 /* typal types/disk-storage.xml closure noSuppress */

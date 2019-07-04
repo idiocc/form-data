@@ -3,7 +3,7 @@
 var _idio = {}
 /**
  * The function to control which files are accepted.
- * @typedef {function(http.IncomingMessage, _idio.MulterFile, function(Error, boolean)): void}
+ * @typedef {function(http.IncomingMessage, _idio.MulterFile): !Promise<boolean>}
  */
 _idio.MulterFileFilter
 /**
@@ -74,6 +74,11 @@ _idio.MulterFile.prototype.path
  * @type {Buffer}
  */
 _idio.MulterFile.prototype.buffer
+/**
+ * The _Readable_ stream with the file data.
+ * @type {stream.Readable}
+ */
+_idio.MulterFile.prototype.stream
 /**
  * The item to use in the .fields method.
  * @typedef {{ name: string, maxCount: (number|undefined) }}

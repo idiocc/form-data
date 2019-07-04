@@ -1,13 +1,13 @@
+// import alamode from 'alamode'
+// alamode({
+//   ignoreNodeModules: false,
+// })
 import is from '@goa/type-is'
 import Busboy from '@goa/busboy'
 import appendField from '@multipart/append-field'
 import FileAppender from './file-appender'
 import MulterError from './multer-error'
 import Counter from './counter'
-
-function drainStream(stream) {
-  stream.on('readable', stream.read.bind(stream))
-}
 
 /**
  * @param {{ limits: _goa.BusBoyLimits,
@@ -52,9 +52,9 @@ export default function makeMiddleware(options) {
     })
 
     // handle files
-    busboy.on('file', (fieldname, fileStream, filename, encoding, mimetype) => {
+    busboy.on('file', async (fieldname, stream, filename, encoding, mimetype) => {
       // don't attach to the files object, if there is no file
-      if (!filename) return fileStream.resume()
+      if (!filename) return stream.resume()
 
       // Work around bug in Busboy (https://github.com/mscdex/busboy/issues/6)
       if (limits.fieldNameSize && fieldname.length > limits.fieldNameSize) {
@@ -70,62 +70,69 @@ export default function makeMiddleware(options) {
         originalname: filename,
         encoding,
         mimetype,
+        stream,
       }
 
       const placeholder = appender.insertPlaceholder(file)
-
-      fileFilter(req, file, async (err, includeFile) => {
-        if (err) {
+      let aborting = false
+      const tryCancel = () => {
+        if (aborting) {
           appender.removePlaceholder(placeholder)
-          return busboy.emit('error', err)
+          return aborting
         }
+      }
 
-        if (!includeFile) {
-          appender.removePlaceholder(placeholder)
-          return fileStream.resume()
-        }
-
-        let aborting = false
-        pendingWrites.increment()
-
-        file['stream'] = fileStream
-
-        fileStream
-          .on('error', () => {
-            pendingWrites.decrement()
-            busboy.emit('error', err)
-          })
-          .on('limit', () => {
-            aborting = true
-            busboy.emit('error', new MulterError('LIMIT_FILE_SIZE', fieldname))
-          })
-
-        try {
-          const info = await storage._handleFile(req, file)
-          const fileInfo = { ...file, ...info }
-
-          if (aborting) {
-            appender.removePlaceholder(placeholder)
-            uploadedFiles.push(fileInfo)
-            return
-          }
-
-          appender.replacePlaceholder(placeholder, fileInfo)
-          uploadedFiles.push(fileInfo)
-        } catch (error) {
-          appender.removePlaceholder(placeholder)
-          if (!busboyFinished) {
-            busboy.emit('error', error)
-          } else pendingWrites.emit('error', error)
-        } finally {
+      stream
+        .on('error', (err) => {
           pendingWrites.decrement()
+          busboy.emit('error', err)
+        })
+        .on('limit', () => {
+          aborting = true
+          busboy.emit('error', new MulterError('LIMIT_FILE_SIZE', fieldname))
+        })
+
+      let res
+      try {
+        res = await fileFilter(req, file)
+      } catch (err) {
+        appender.removePlaceholder(placeholder)
+        busboy.emit('error', err)
+        return
+      }
+
+      if (!res) {
+        appender.removePlaceholder(placeholder)
+        stream.resume()
+        return
+      }
+
+      pendingWrites.increment()
+
+      try {
+        if (tryCancel()) return
+
+        const info = await storage._handleFile(req, file)
+        const fileInfo = { ...file, ...info }
+
+        if (tryCancel()) {
+          return uploadedFiles.push(fileInfo)
         }
-      })
+
+        appender.replacePlaceholder(placeholder, fileInfo)
+        uploadedFiles.push(fileInfo)
+      } catch (error) {
+        appender.removePlaceholder(placeholder)
+        if (!busboyFinished) {
+          busboy.emit('error', error)
+        } else pendingWrites.emit('error', error)
+      } finally {
+        pendingWrites.decrement()
+      }
     })
 
-    const remove = file => storage._removeFile(req, file)
-
     req.pipe(busboy)
+    const remove = file => storage._removeFile(req, file)
 
     try {
       await new Promise((r, j) => {
@@ -149,7 +156,6 @@ export default function makeMiddleware(options) {
       throw err
     } finally {
       busboyFinished = true
-      drainStream(req)
       req.unpipe(busboy)
       busboy.removeAllListeners()
     }

@@ -31,6 +31,7 @@ export default class FileAppender {
    * @param {string} placeholder.filename The name of the file within the `destination`.
    * @param {string} placeholder.path The full path to the uploaded file.
    * @param {Buffer} placeholder.buffer The `Buffer` of the entire file.
+   * @param {stream.Readable} placeholder.stream The _Readable_ stream with the file data.
    */
   insertPlaceholder({ fieldname }) {
     const placeholder = {
@@ -63,6 +64,7 @@ export default class FileAppender {
    * @param {string} placeholder.filename The name of the file within the `destination`.
    * @param {string} placeholder.path The full path to the uploaded file.
    * @param {Buffer} placeholder.buffer The `Buffer` of the entire file.
+   * @param {stream.Readable} placeholder.stream The _Readable_ stream with the file data.
    */
   removePlaceholder(placeholder) {
     switch (this.strategy) {
@@ -89,6 +91,7 @@ export default class FileAppender {
    * @param {string} placeholder.filename The name of the file within the `destination`.
    * @param {string} placeholder.path The full path to the uploaded file.
    * @param {Buffer} placeholder.buffer The `Buffer` of the entire file.
+   * @param {stream.Readable} placeholder.stream The _Readable_ stream with the file data.
    * @param {_idio.MulterFile} file The information about each file.
    * @param {string} file.fieldname The field name specified in the form.
    * @param {string} file.originalname The name of the file on the user's computer.
@@ -99,6 +102,7 @@ export default class FileAppender {
    * @param {string} file.filename The name of the file within the `destination`.
    * @param {string} file.path The full path to the uploaded file.
    * @param {Buffer} file.buffer The `Buffer` of the entire file.
+   * @param {stream.Readable} file.stream The _Readable_ stream with the file data.
    */
   replacePlaceholder(placeholder, file) {
     if (this.strategy == 'VALUE') {

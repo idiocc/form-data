@@ -3,8 +3,8 @@ import DiskStorage from './storage/disk'
 import MemoryStorage from './storage/memory'
 import MulterError from './lib/multer-error'
 
-function allowAll(req, file, cb) {
-  cb(null, true)
+function allowAll() {
+  return true
 }
 
 export default class Multer {
@@ -46,13 +46,12 @@ export default class Multer {
     /**
      * @type {_idio.MulterFileFilter}
      */
-    function wrappedFileFilter(req, file, cb) {
-      if ((filesLeft[file.fieldname] || 0) <= 0) {
-        return cb(new MulterError('LIMIT_UNEXPECTED_FILE', file.fieldname))
-      }
+    function wrappedFileFilter(req, file) {
+      if ((filesLeft[file.fieldname] || 0) <= 0)
+        throw new MulterError('LIMIT_UNEXPECTED_FILE', file.fieldname)
 
       filesLeft[file.fieldname] -= 1
-      fileFilter(req, file, cb)
+      return fileFilter(req, file)
     }
 
     return {

@@ -2,7 +2,7 @@
   <import name="BusBoyLimits" ns="_goa" from="@goa/busboy" link="https://github.com/idiocc/busboy#type-_goabusboylimits" desc="Various limits on incoming data."/>
 
   <type
-    type="function(http.IncomingMessage, _idio.MulterFile, function(Error, boolean)): void"
+    type="function(http.IncomingMessage, _idio.MulterFile): !Promise<boolean>"
     name="MulterFileFilter"
     desc="The function to control which files are accepted." />
 
@@ -61,6 +61,9 @@
     <prop name="buffer" type="Buffer">
       The `Buffer` of the entire file.
     </prop>
+    <prop name="stream" type="stream.Readable">
+      The _Readable_ stream with the file data.
+    </prop>
   </type>
 
   <type name="MulterField" desc="The item to use in the .fields method.">
@@ -75,4 +78,5 @@
   />
   <import name="Stats" from="fs"
     link="https://nodejs.org/api/fs.html#fs_class_fs_stats" />
+  <import name="Readable" from="stream" />
 </types>

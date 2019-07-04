@@ -1,14 +1,14 @@
 import Context from '../context'
 import Multer from '../../src'
-import { throws } from '@zoroaster/assert'
+import { strictEqual } from 'assert'
 
 /** @type {Object.<string, (c: Context, t: TempContext)>} */
 const T = {
   context: Context,
   async 'skips some files'({ getApp, startApp, fixture, updateFiles }) {
     const upload = new Multer({
-      fileFilter(req, file, cb) {
-        cb(null, file.fieldname != 'skip')
+      async fileFilter(req, file) {
+        return file.fieldname != 'skip'
       },
     })
     const mw = upload.fields([
@@ -30,9 +30,7 @@ const T = {
   async 'reports errors from fileFilter'({ error, startApp, fixture }) {
     const err = new Error('test')
     const upload = new Multer({
-      fileFilter(req, file, cb) {
-        cb(err)
-      },
+      fileFilter() { throw err },
     })
     const mw = upload.fields([
       { name: 'test', maxCount: 1 },
@@ -43,15 +41,9 @@ const T = {
         await form.addFile(fixture`tiny0.dat`, 'test')
       })
       .assert(500)
-    await throws({
-      async fn() {
-        const e = await p
-        throw e
-      },
-      error: err,
-    })
+    const e = await p
+    strictEqual(e, err)
   },
-
 }
 
 export default T
