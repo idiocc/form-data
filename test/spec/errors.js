@@ -1,7 +1,7 @@
 import { ok, equal, throws } from '@zoroaster/assert'
 import TempContext from 'temp-context'
 import Context from '../context'
-import Multer, { diskStorage, MulterError, memoryStorage } from '../../src'
+import MultipartFormData, { diskStorage, FormDataError, memoryStorage } from '../../src'
 
 /** @type {Object.<string, (c: Context, t: TempContext)>} */
 const T = {
@@ -9,7 +9,7 @@ const T = {
   async 'is an instance of both `Error` and `MulterError` classes'(
     { error, startApp, fixture }, { TEMP }) {
     const storage = diskStorage({ destination: TEMP })
-    const upload = new Multer({ storage })
+    const upload = new MultipartFormData({ storage })
     const mw = upload.fields([
       { name: 'small0', maxCount: 1 },
     ])
@@ -21,13 +21,13 @@ const T = {
       })
       .assert(500)
     const err = await p
-    ok(err instanceof MulterError)
+    ok(err instanceof FormDataError)
     ok(err instanceof Error)
     equal(err.code, 'LIMIT_UNEXPECTED_FILE')
   },
   async 'respects parts limit'({ error, startApp, fixture }) {
     const storage = memoryStorage()
-    const upload = new Multer({ storage, limits: { parts: 1 } })
+    const upload = new MultipartFormData({ storage, limits: { parts: 1 } })
     const mw = upload.fields([
       { name: 'small0', maxCount: 1 },
     ])
@@ -43,7 +43,7 @@ const T = {
   },
   async 'respects file size limit'({ error, startApp, fixture }) {
     const storage = memoryStorage()
-    const upload = new Multer({ storage, limits: { fileSize: 1500 } })
+    const upload = new MultipartFormData({ storage, limits: { fileSize: 1500 } })
     const mw = upload.fields([
       { name: 'tiny0', maxCount: 1 },
       { name: 'small0', maxCount: 1 },
@@ -61,7 +61,7 @@ const T = {
   },
   async 'respects file count limit'({ error, startApp, fixture }) {
     const storage = memoryStorage()
-    const upload = new Multer({ storage, limits: { files: 1 } })
+    const upload = new MultipartFormData({ storage, limits: { files: 1 } })
     const mw = upload.fields([
       { name: 'tiny0', maxCount: 1 },
       { name: 'small0', maxCount: 1 },
@@ -78,7 +78,7 @@ const T = {
   },
   async 'respects file key limit'({ error, startApp, fixture }) {
     const storage = memoryStorage()
-    const upload = new Multer({ storage, limits: { fieldNameSize: 4 } })
+    const upload = new MultipartFormData({ storage, limits: { fieldNameSize: 4 } })
     const mw = upload.fields([
       { name: 'small0', maxCount: 1 },
     ])
@@ -93,7 +93,7 @@ const T = {
   },
   async 'respects field key limit'({ startApp, error }) {
     const storage = memoryStorage()
-    const upload = new Multer({ storage, limits: { fieldNameSize: 4 } })
+    const upload = new MultipartFormData({ storage, limits: { fieldNameSize: 4 } })
     const mw = upload.fields([])
     const p = error(mw)
     await startApp()
@@ -107,7 +107,7 @@ const T = {
   },
   async 'respects field value limit'({ startApp, error }) {
     const storage = memoryStorage()
-    const upload = new Multer({ storage, limits: { fieldSize: 16 } })
+    const upload = new MultipartFormData({ storage, limits: { fieldSize: 16 } })
     const mw = upload.fields([])
     const p = error(mw)
     await startApp()
@@ -122,7 +122,7 @@ const T = {
   },
   async 'respects field count limit'({ startApp, error }) {
     const storage = memoryStorage()
-    const upload = new Multer({ storage, limits: { fields: 1 } })
+    const upload = new MultipartFormData({ storage, limits: { fields: 1 } })
     const mw = upload.fields([])
     const p = error(mw)
     await startApp()
@@ -136,7 +136,7 @@ const T = {
   },
   async 'respects fields given'({ startApp, error, fixture }) {
     const storage = memoryStorage()
-    const upload = new Multer({ storage })
+    const upload = new MultipartFormData({ storage })
     const mw = upload.fields([
       { name: 'wrongname', maxCount: 1 },
     ])
@@ -157,7 +157,7 @@ const T = {
     storage._removeFile = () => {
       throw e
     }
-    const upload = new Multer({ storage })
+    const upload = new MultipartFormData({ storage })
     const mw = upload.single('tiny0')
     const p = error(mw)
     await startApp()
@@ -179,7 +179,7 @@ const T = {
   },
   async 'reports errors from busboy constructor'({ startApp, error }) {
     const storage = memoryStorage()
-    const upload = new Multer({ storage })
+    const upload = new MultipartFormData({ storage })
     const mw = upload.single('tiny0')
     const p = error(mw)
     await startApp()
@@ -193,7 +193,7 @@ const T = {
   },
   async 'reports errors from busboy parsing'({ startApp, error }) {
     const storage = memoryStorage()
-    const upload = new Multer({ storage })
+    const upload = new MultipartFormData({ storage })
     const mw = upload.single('tiny0')
     const p = error(mw)
     const boundary = 'AaB03x'
@@ -214,7 +214,7 @@ const T = {
     equal(err.message, 'Unexpected end of multipart data')
   },
   async 'gracefully handles more than one error at a time'({ startApp, error, fixture }, { TEMP }) {
-    const upload = new Multer({ dest: TEMP, limits: { fileSize: 1, files: 1 } })
+    const upload = new MultipartFormData({ dest: TEMP, limits: { fileSize: 1, files: 1 } })
     const mw = upload.fields([
       { name: 'small0', maxCount: 1 },
     ])
@@ -229,7 +229,7 @@ const T = {
     equal(err.code, 'LIMIT_FILE_SIZE')
   },
   async 'reports limit errors'({ startApp, error, fixture }, { TEMP }) {
-    const upload = new Multer({ dest: TEMP, limits: { fileSize: 100 } })
+    const upload = new MultipartFormData({ dest: TEMP, limits: { fileSize: 100 } })
     const mw = upload.single('file')
     const p = error(mw)
     await throws({

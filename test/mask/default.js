@@ -1,11 +1,11 @@
 import makeTestSuite from '@zoroaster/mask'
 import Context from '../context'
-import Multer from '../../src'
+import MultipartFormData from '../../src'
 
 export default makeTestSuite('node_modules/@multipart/test-form-data/default.md', {
   /** @param {Context} p */
   async getResults({ getApp, startApp, updateStore }) {
-    const upload = new Multer()
+    const upload = new MultipartFormData()
     const mw = upload.fields([])
     const app = getApp(mw)
     app.use((ctx) => { ctx.body = ctx.req.body })

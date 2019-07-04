@@ -1,5 +1,5 @@
 import Context from '../context'
-import Multer from '../../src'
+import MultipartFormData from '../../src'
 
 async function fillForm(form, fixture) {
   await form.addFile(fixture`empty.dat`, 'CA$|-|')
@@ -15,7 +15,7 @@ async function fillForm(form, fixture) {
 const T = {
   context: Context,
   async 'selects all files with fieldname'({ getApp, startApp, fixture, updateFiles }) {
-    const upload = new Multer()
+    const upload = new MultipartFormData()
     const mw = upload.fields([
       { name: 'CA$|-|', maxCount: 1 },
       { name: 'set-1', maxCount: 3 },

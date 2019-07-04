@@ -1,13 +1,13 @@
 import { equal } from '@zoroaster/assert'
 import TempContext from 'temp-context'
 import Context from '../context'
-import Multer, { diskStorage } from '../../src'
+import MultipartFormData, { diskStorage } from '../../src'
 
 /** @type {Object.<string, (c: Context, t: TempContext)>} */
 const T = {
   context: [Context, TempContext],
   async 'rejects single unexpected file'({ error, startApp, fixture }) {
-    const upload = new Multer()
+    const upload = new MultipartFormData()
     const mw = upload.single('butme')
     const p = error(mw)
     await startApp()
@@ -20,7 +20,7 @@ const T = {
     equal(err.field, 'notme')
   },
   async 'rejects array of multiple files'({ error, startApp, fixture }) {
-    const upload = new Multer()
+    const upload = new MultipartFormData()
     const mw = upload.array('butme', 4)
     const p = error(mw)
     await startApp()
@@ -34,7 +34,7 @@ const T = {
     equal(err.field, 'notme')
   },
   async 'rejects overflowing arrays'({ error, startApp, fixture }) {
-    const upload = new Multer()
+    const upload = new MultipartFormData()
     const mw = upload.array('file', 1)
     const p = error(mw)
     await startApp()
@@ -48,7 +48,7 @@ const T = {
     equal(err.field, 'file')
   },
   async 'accepts files with expected fieldname'({ getApp, startApp, fixture, normalise }) {
-    const upload = new Multer()
+    const upload = new MultipartFormData()
     const mw = upload.fields([
       { name: 'file', maxCount: 2 },
       { name: 'picture', maxCount: 2 },
@@ -73,7 +73,7 @@ const T = {
     return files
   },
   async 'rejects files with unexpected fieldname'({ error, startApp, fixture }) {
-    const upload = new Multer()
+    const upload = new MultipartFormData()
     const mw = upload.fields([
       { name: 'file', maxCount: 2 },
       { name: 'picture', maxCount: 2 },
@@ -91,7 +91,7 @@ const T = {
     equal(err.field, 'error')
   },
   async 'allows any file to come thru'({ getApp, startApp, fixture, normalise }) {
-    const upload = new Multer()
+    const upload = new MultipartFormData()
     const mw = upload.any()
     const app = getApp(mw)
     app.use((ctx) => ctx.body = ctx.req.files)
@@ -108,7 +108,7 @@ const T = {
     return files
   },
   async 'renames files'({ getApp, startApp, fixture }, { snapshot, TEMP }) {
-    const upload = new Multer({
+    const upload = new MultipartFormData({
       storage: diskStorage({
         filename(a, { fieldname, originalname }) {
           return `${fieldname}-${originalname}`

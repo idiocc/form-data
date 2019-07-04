@@ -1,11 +1,11 @@
 import Context from '../context'
-import Multer from '../../src'
+import MultipartFormData from '../../src'
 
 /** @type {Object.<string, (c: Context)>} */
 const T = {
   context: Context,
   async 'reuses middleware'({ getApp, startApp, fixture, normalise }) {
-    const upload = new Multer()
+    const upload = new MultipartFormData()
     const mw = upload.array('files')
     const app = getApp(mw)
     app.use((ctx) => { ctx.body = {

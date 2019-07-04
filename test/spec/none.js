@@ -1,12 +1,12 @@
 import { equal } from '@zoroaster/assert'
 import Context from '../context'
-import Multer from '../../src'
+import MultipartFormData from '../../src'
 
 /** @type {Object.<string, (c: Context)>} */
 const T = {
   context: [Context],
   async 'does not allow file uploads'({ error, startApp, fixture }) {
-    const upload = new Multer()
+    const upload = new MultipartFormData()
     const mw = upload.none()
     const p = error(mw)
     await startApp()
@@ -20,7 +20,7 @@ const T = {
     equal(err.field, 'file')
   },
   async 'handles text fields'({ getApp, startApp }) {
-    const upload = new Multer()
+    const upload = new MultipartFormData()
     const mw = upload.single('empty')
     const app = getApp(mw)
     app.use((ctx) => { ctx.body = ctx.req.body })

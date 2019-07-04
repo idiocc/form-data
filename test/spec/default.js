@@ -1,18 +1,18 @@
 import { equal, deepEqual } from '@zoroaster/assert'
 import TempContext from 'temp-context'
 import Context from '../context'
-import Multer, { diskStorage } from '../../src'
+import MultipartFormData, { diskStorage } from '../../src'
 import { join } from 'path'
 
 /** @type {Object.<string, (c: Context, t: TempContext)>} */
 const T = {
   context: [Context, TempContext],
   'is a function'() {
-    equal(typeof Multer, 'function')
+    equal(typeof MultipartFormData, 'function')
   },
   async 'processes parser/form-data POST request'(
     { getApp, startApp, fixture, normalise }, { TEMP, read }) {
-    const upload = new Multer({ dest: TEMP })
+    const upload = new MultipartFormData({ dest: TEMP })
     const mw = upload.single('file')
     const app = getApp(mw)
     app.use((ctx) => {
@@ -38,7 +38,7 @@ const T = {
   },
   async 'processes empty fields and an empty file'(
     { getApp, startApp, fixture, normalise }, { TEMP, read }) {
-    const upload = new Multer({ dest: TEMP })
+    const upload = new MultipartFormData({ dest: TEMP })
     const mw = upload.single('empty')
     const app = getApp(mw)
     app.use((ctx) => {
@@ -82,7 +82,7 @@ const T = {
   },
   async 'processes multiple files'(
     { getApp, startApp, fixture, normalise }, { TEMP, read }) {
-    const upload = new Multer({ dest: TEMP })
+    const upload = new MultipartFormData({ dest: TEMP })
     const mw = upload.fields([
       { name: 'empty', maxCount: 1 },
       { name: 'tiny0', maxCount: 1 },
@@ -175,7 +175,7 @@ const T = {
   },
   async 'removes uploaded files on error'(
     { getApp, startApp, fixture }, { TEMP, snapshot }) {
-    const upload = new Multer({ dest: TEMP })
+    const upload = new MultipartFormData({ dest: TEMP })
     const mw = upload.single('tiny0')
     const app = getApp(mw)
     app.silent = true
@@ -194,7 +194,7 @@ const T = {
     const storage = diskStorage({ destination() {
       return dir
     } })
-    const upload = new Multer({ storage })
+    const upload = new MultipartFormData({ storage })
     const mw = upload.single('tiny0')
     const app = getApp(mw)
     const p = new Promise((r) => app.on('error', r))

@@ -21,17 +21,7 @@ export default class FileAppender {
     }
   }
   /**
-   * @param {_idio.MulterFile} placeholder The information about each file.
-   * @param {string} placeholder.fieldname The field name specified in the form.
-   * @param {string} placeholder.originalname The name of the file on the user's computer.
-   * @param {string} placeholder.encoding The encoding type of the file.
-   * @param {string} placeholder.mimetype The mime type of the file.
-   * @param {number} placeholder.size The size of the file in bytes.
-   * @param {string} placeholder.destination The folder to which the file has been saved. Set by _DiskStorage_.
-   * @param {string} placeholder.filename The name of the file within the `destination`. Set by _DiskStorage_.
-   * @param {string} placeholder.path The full path to the uploaded file. Set by _DiskStorage_.
-   * @param {Buffer} placeholder.buffer The `Buffer` of the entire file. Set by _MemoryStorage_.
-   * @param {stream.Readable} placeholder.stream The _Readable_ stream with the file data. This stream should not be read other than by a storage engine.
+   * @param {_multipart.FormDataFile} placeholder The information about each file.
    */
   insertPlaceholder({ fieldname }) {
     const placeholder = {
@@ -54,17 +44,7 @@ export default class FileAppender {
     return placeholder
   }
   /**
-   * @param {_idio.MulterFile} placeholder The information about each file.
-   * @param {string} placeholder.fieldname The field name specified in the form.
-   * @param {string} placeholder.originalname The name of the file on the user's computer.
-   * @param {string} placeholder.encoding The encoding type of the file.
-   * @param {string} placeholder.mimetype The mime type of the file.
-   * @param {number} placeholder.size The size of the file in bytes.
-   * @param {string} placeholder.destination The folder to which the file has been saved. Set by _DiskStorage_.
-   * @param {string} placeholder.filename The name of the file within the `destination`. Set by _DiskStorage_.
-   * @param {string} placeholder.path The full path to the uploaded file. Set by _DiskStorage_.
-   * @param {Buffer} placeholder.buffer The `Buffer` of the entire file. Set by _MemoryStorage_.
-   * @param {stream.Readable} placeholder.stream The _Readable_ stream with the file data. This stream should not be read other than by a storage engine.
+   * @param {_multipart.FormDataFile} placeholder The information about each file.
    */
   removePlaceholder(placeholder) {
     switch (this.strategy) {
@@ -81,28 +61,8 @@ export default class FileAppender {
     }
   }
   /**
-   * @param {_idio.MulterFile} placeholder The information about each file.
-   * @param {string} placeholder.fieldname The field name specified in the form.
-   * @param {string} placeholder.originalname The name of the file on the user's computer.
-   * @param {string} placeholder.encoding The encoding type of the file.
-   * @param {string} placeholder.mimetype The mime type of the file.
-   * @param {number} placeholder.size The size of the file in bytes.
-   * @param {string} placeholder.destination The folder to which the file has been saved. Set by _DiskStorage_.
-   * @param {string} placeholder.filename The name of the file within the `destination`. Set by _DiskStorage_.
-   * @param {string} placeholder.path The full path to the uploaded file. Set by _DiskStorage_.
-   * @param {Buffer} placeholder.buffer The `Buffer` of the entire file. Set by _MemoryStorage_.
-   * @param {stream.Readable} placeholder.stream The _Readable_ stream with the file data. This stream should not be read other than by a storage engine.
-   * @param {_idio.MulterFile} file The information about each file.
-   * @param {string} file.fieldname The field name specified in the form.
-   * @param {string} file.originalname The name of the file on the user's computer.
-   * @param {string} file.encoding The encoding type of the file.
-   * @param {string} file.mimetype The mime type of the file.
-   * @param {number} file.size The size of the file in bytes.
-   * @param {string} file.destination The folder to which the file has been saved. Set by _DiskStorage_.
-   * @param {string} file.filename The name of the file within the `destination`. Set by _DiskStorage_.
-   * @param {string} file.path The full path to the uploaded file. Set by _DiskStorage_.
-   * @param {Buffer} file.buffer The `Buffer` of the entire file. Set by _MemoryStorage_.
-   * @param {stream.Readable} file.stream The _Readable_ stream with the file data. This stream should not be read other than by a storage engine.
+   * @param {_multipart.FormDataFile} placeholder The information about each file.
+   * @param {_multipart.FormDataFile} file The information about each file.
    */
   replacePlaceholder(placeholder, file) {
     if (this.strategy == 'VALUE') {
@@ -117,7 +77,7 @@ export default class FileAppender {
 
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../../types').MulterFile} _idio.MulterFile
+ * @typedef {import('../../types').FormDataFile} _multipart.FormDataFile
  */
 /**
  * @suppress {nonStandardJsDocs}

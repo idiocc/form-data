@@ -1,11 +1,11 @@
 import Context from '../context'
-import Multer from '../../src'
+import MultipartFormData from '../../src'
 
 /** @type {Object.<string, (c: Context, t: TempContext)>} */
 const T = {
   context: Context,
   async 'processes multiple fields'({ getApp, startApp }) {
-    const upload = new Multer()
+    const upload = new MultipartFormData()
     const mw = upload.fields([])
     const app = getApp(mw)
     app.use((ctx) => { ctx.body = ctx.req.body })
@@ -22,7 +22,7 @@ const T = {
       })
   },
   async 'processes empty fields'({ getApp, startApp }) {
-    const upload = new Multer()
+    const upload = new MultipartFormData()
     const mw = upload.fields([])
     const app = getApp(mw)
     app.use((ctx) => { ctx.body = ctx.req.body })
@@ -48,7 +48,7 @@ const T = {
       })
   },
   async 'does not process non-multipart POST request'({ getApp, startApp }) {
-    const upload = new Multer()
+    const upload = new MultipartFormData()
     const mw = upload.fields([])
     const app = getApp(mw)
     app.use((ctx) => ctx.body = {
@@ -65,7 +65,7 @@ const T = {
       })
   },
   async 'does not process non-multipart GET request'({ getApp, startApp }) {
-    const upload = new Multer()
+    const upload = new MultipartFormData()
     const mw = upload.fields([])
     const app = getApp(mw)
     app.use((ctx) => ctx.body = {
@@ -82,7 +82,7 @@ const T = {
       })
   },
   async 'converts arrays into objects'({ getApp, startApp }) {
-    const upload = new Multer()
+    const upload = new MultipartFormData()
     const mw = upload.fields([])
     const app = getApp(mw)
     app.use((ctx) => ctx.body = ctx.req.body)

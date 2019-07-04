@@ -1,18 +1,18 @@
 import makeMiddleware from './lib/make-middleware'
 import DiskStorage from './storage/disk'
 import MemoryStorage from './storage/memory'
-import MulterError from './lib/multer-error'
+import FormDataError from './lib/error'
 
 function allowAll() {
   return true
 }
 
-export default class Multer {
+export default class MultipartFormData {
   /**
-   * @param {_idio.MulterConfig} options
+   * @param {_multipart.FormDataConfig} options
    * @param {string} [options.dest] The directory where to store the files using the `DiskStorage`.
-   * @param {_idio.MulterStorageEngine} [options.storage] An _instance_ of a custom storage engine.
-   * @param {_idio.MulterFileFilter} [options.fileFilter] The file filter.
+   * @param {_multipart.FormDataStorageEngine} [options.storage] An _instance_ of a custom storage engine.
+   * @param {_multipart.FormDataFileFilter} [options.fileFilter] The file filter.
    * @param {_goa.BusBoyLimits} [options.limits] The limits of the uploaded data.
    * @param {boolean} [options.preservePath=false] Whether to keep the full path of files instead of just the base name. Default `false`.
    */
@@ -32,7 +32,7 @@ export default class Multer {
   }
 
   /**
-   * @param {!Array<_idio.MulterField>} fields The fields to accept.
+   * @param {!Array<_multipart.FormDataField>} fields The fields to accept.
    * @param {string} fileStrategy The strategy.
    */
   setup(fields, fileStrategy) {
@@ -44,11 +44,11 @@ export default class Multer {
     })
 
     /**
-     * @type {_idio.MulterFileFilter}
+     * @type {_multipart.FormDataFileFilter}
      */
     function wrappedFileFilter(req, file) {
       if ((filesLeft[file.fieldname] || 0) <= 0)
-        throw new MulterError('LIMIT_UNEXPECTED_FILE', file.fieldname)
+        throw FormDataError.create('LIMIT_UNEXPECTED_FILE', file.fieldname)
 
       filesLeft[file.fieldname] -= 1
       return fileFilter(req, file)
@@ -72,7 +72,7 @@ export default class Multer {
     return makeMiddleware(conf)
   }
   /**
-   * @param {Array<_idio.MulterField>} fields The fields to accept.
+   * @param {!Array<_multipart.FormDataField>} fields The fields to accept.
    */
   fields(fields) {
     const conf = this.setup(fields, 'OBJECT')
@@ -94,7 +94,7 @@ export default class Multer {
 }
 
 /**
- * @param {_idio.MulterDiskStorageOptions} [opt] Options for the disk storage.
+ * @param {_multipart.FormDataDiskStorageOptions} [opt] Options for the disk storage.
  */
 export const diskStorage = (opt = {}) => {
   return new DiskStorage(opt)
@@ -104,29 +104,25 @@ export const memoryStorage = () => {
   return new MemoryStorage()
 }
 
-export { MulterError }
+export { FormDataError }
 
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../types').MulterConfig} _idio.MulterConfig
+ * @typedef {import('../types').FormDataConfig} _multipart.FormDataConfig
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../types').MulterField} _idio.MulterField
+ * @typedef {import('../types').FormDataField} _multipart.FormDataField
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../types').MulterFileFilter} _idio.MulterFileFilter
+ * @typedef {import('../types').FormDataFileFilter} _multipart.FormDataFileFilter
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../types').MulterDiskStorageOptions} _idio.MulterDiskStorageOptions
+ * @typedef {import('../types').FormDataDiskStorageOptions} _multipart.FormDataDiskStorageOptions
  */
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('@goa/busboy').BusBoyLimits} _goa.BusBoyLimits
  */
-
-// module.exports.diskStorage = diskStorage
-// module.exports.memoryStorage = memoryStorage
-// module.exports.MulterError = MulterError

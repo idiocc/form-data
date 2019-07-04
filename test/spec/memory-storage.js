@@ -1,13 +1,13 @@
 import { equal } from '@zoroaster/assert'
 import Context from '../context'
-import Multer from '../../src'
+import MultipartFormData from '../../src'
 
 /** @type {Object.<string, (c: Context)>} */
 const T = {
   context: [Context],
   async 'processes multipart/form-data POST request'(
     { getApp, startApp, fixture, normalise }) {
-    const upload = new Multer()
+    const upload = new MultipartFormData()
     const mw = upload.single('file')
     const app = getApp(mw)
     let file
@@ -26,7 +26,7 @@ const T = {
   },
   async 'processes empty fields and an empty file'(
     { getApp, startApp, fixture, normalise }) {
-    const upload = new Multer()
+    const upload = new MultipartFormData()
     const mw = upload.single('empty')
     const app = getApp(mw)
     let file
@@ -57,7 +57,7 @@ const T = {
     return normalise(data)
   },
   async 'processes multiple files'({ getApp, startApp, fixture, updateFiles }) {
-    const upload = new Multer()
+    const upload = new MultipartFormData()
     const mw = upload.fields([
       { name: 'empty', maxCount: 1 },
       { name: 'tiny0', maxCount: 1 },

@@ -6,14 +6,14 @@ import is from '@goa/type-is'
 import Busboy from '@goa/busboy'
 import appendField from '@multipart/append-field'
 import FileAppender from './file-appender'
-import MulterError from './multer-error'
+import FormDataError from './error'
 import Counter from './counter'
 
 /**
  * @param {{ limits: _goa.BusBoyLimits,
  *           preservePath: boolean,
- *           storage: _idio.MulterStorageEngine,
- *           fileFilter: _idio.MulterFileFilter,
+ *           storage: _multipart.FormDataStorageEngine,
+ *           fileFilter: _multipart.FormDataFileFilter,
  *           fileStrategy: string }} options
  * @returns {_goa.Middleware}
  */
@@ -41,11 +41,11 @@ export default function makeMiddleware(options) {
     busboy.on('field', (fieldname, value, fieldnameTruncated, valueTruncated) => {
       // if (fieldnameTruncated) return abortWithCode('LIMIT_FIELD_KEY')
       if (valueTruncated)
-        return busboy.emit('error', new MulterError('LIMIT_FIELD_VALUE', fieldname))
+        return busboy.emit('error', FormDataError.create('LIMIT_FIELD_VALUE', fieldname))
 
       // Work around bug in Busboy (https://github.com/mscdex/busboy/issues/6)
       if (limits.fieldNameSize && fieldname.length > limits.fieldNameSize) {
-        return busboy.emit('error', new MulterError('LIMIT_FIELD_KEY'))
+        return busboy.emit('error', FormDataError.create('LIMIT_FIELD_KEY'))
       }
 
       appendField(body, fieldname, value)
@@ -58,12 +58,12 @@ export default function makeMiddleware(options) {
 
       // Work around bug in Busboy (https://github.com/mscdex/busboy/issues/6)
       if (limits.fieldNameSize && fieldname.length > limits.fieldNameSize) {
-        return busboy.emit('error', new MulterError('LIMIT_FIELD_KEY'))
+        return busboy.emit('error', FormDataError.create('LIMIT_FIELD_KEY'))
       }
 
       /**
        * @suppress {checkTypes}
-       * @type {_idio.MulterFile}
+       * @type {_multipart.FormDataFile}
        */
       const file = {
         fieldname,
@@ -89,7 +89,7 @@ export default function makeMiddleware(options) {
         })
         .on('limit', () => {
           aborting = true
-          busboy.emit('error', new MulterError('LIMIT_FILE_SIZE', fieldname))
+          busboy.emit('error', FormDataError.create('LIMIT_FILE_SIZE', fieldname))
         })
 
       let res
@@ -138,13 +138,13 @@ export default function makeMiddleware(options) {
       await new Promise((r, j) => {
         busboy.on('error', j)
           .on('partsLimit', () => {
-            j(new MulterError('LIMIT_PART_COUNT'))
+            j(FormDataError.create('LIMIT_PART_COUNT'))
           })
           .on('filesLimit', () => {
-            j(new MulterError('LIMIT_FILE_COUNT'))
+            j(FormDataError.create('LIMIT_FILE_COUNT'))
           })
           .on('fieldsLimit', () => {
-            j(new MulterError('LIMIT_FIELD_COUNT'))
+            j(FormDataError.create('LIMIT_FIELD_COUNT'))
           })
           .on('finish', r)
       })
@@ -165,7 +165,8 @@ export default function makeMiddleware(options) {
 }
 
 /**
- * @param {Array<_idio.MulterFile>} uploadedFiles
+ * @param {!Array<_multipart.FormDataFile>} uploadedFiles The list of uploaded files.
+ * @param {!Function} remove The remove function.
  */
 async function removeUploadedFiles(uploadedFiles, remove) {
   const errors = await uploadedFiles.reduce(async (acc, file) => {
@@ -193,13 +194,13 @@ async function removeUploadedFiles(uploadedFiles, remove) {
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../../types').MulterFileFilter} _idio.MulterFileFilter
+ * @typedef {import('../../types').FormDataFileFilter} _multipart.FormDataFileFilter
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../../types').MulterStorageEngine} _idio.MulterStorageEngine
+ * @typedef {import('../../types').FormDataStorageEngine} _multipart.FormDataStorageEngine
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../../types').MulterFile} _idio.MulterFile
+ * @typedef {import('../../types').FormDataFile} _multipart.FormDataFile
  */
