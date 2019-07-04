@@ -26,6 +26,16 @@ export default class Context extends Http {
     this._app = app
     return app
   }
+  /**
+   * @param {Middleware} middleware
+   */
+  error(middleware) {
+    if (!this._app) {
+      this.getApp(middleware)
+    }
+    const p = new Promise((r) => this._app.on('error', r))
+    return p
+  }
   startApp(plain = true) {
     const cb = this._app.callback()
     if (plain)
