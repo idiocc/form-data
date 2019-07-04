@@ -50,19 +50,19 @@
       The size of the file in bytes.
     </prop>
     <prop name="destination" string>
-      The folder to which the file has been saved.
+      The folder to which the file has been saved. Set by _DiskStorage_.
     </prop>
     <prop name="filename" string>
-      The name of the file within the `destination`.
+      The name of the file within the `destination`. Set by _DiskStorage_.
     </prop>
     <prop name="path" string>
-      The full path to the uploaded file.
+      The full path to the uploaded file. Set by _DiskStorage_.
     </prop>
     <prop name="buffer" type="Buffer">
-      The `Buffer` of the entire file.
+      The `Buffer` of the entire file. Set by _MemoryStorage_.
     </prop>
     <prop name="stream" type="stream.Readable">
-      The _Readable_ stream with the file data.
+      The _Readable_ stream with the file data. This stream should not be read other than by a storage engine.
     </prop>
   </type>
 

@@ -1,0 +1,65 @@
+{
+  "empty": [
+    {
+      "fieldname": "empty",
+      "originalname": "empty.dat",
+      "encoding": "7bit",
+      "mimetype": "application/octet-stream",
+      "size": 0
+    }
+  ],
+  "tiny0": [
+    {
+      "fieldname": "tiny0",
+      "originalname": "tiny0.dat",
+      "encoding": "7bit",
+      "mimetype": "application/octet-stream",
+      "size": 122
+    }
+  ],
+  "tiny1": [
+    {
+      "fieldname": "tiny1",
+      "originalname": "tiny1.dat",
+      "encoding": "7bit",
+      "mimetype": "application/octet-stream",
+      "size": 7
+    }
+  ],
+  "small0": [
+    {
+      "fieldname": "small0",
+      "originalname": "small0.dat",
+      "encoding": "7bit",
+      "mimetype": "application/octet-stream",
+      "size": 1777
+    }
+  ],
+  "small1": [
+    {
+      "fieldname": "small1",
+      "originalname": "small1.dat",
+      "encoding": "7bit",
+      "mimetype": "application/octet-stream",
+      "size": 315
+    }
+  ],
+  "medium": [
+    {
+      "fieldname": "medium",
+      "originalname": "medium.dat",
+      "encoding": "7bit",
+      "mimetype": "application/octet-stream",
+      "size": 13196
+    }
+  ],
+  "large": [
+    {
+      "fieldname": "large",
+      "originalname": "large.jpg",
+      "encoding": "7bit",
+      "mimetype": "application/octet-stream",
+      "size": 2845021
+    }
+  ]
+}

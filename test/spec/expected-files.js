@@ -1,7 +1,7 @@
 import { equal } from '@zoroaster/assert'
 import TempContext from 'temp-context'
 import Context from '../context'
-import Multer from '../../src'
+import Multer, { diskStorage } from '../../src'
 
 /** @type {Object.<string, (c: Context, t: TempContext)>} */
 const T = {
@@ -106,6 +106,27 @@ const T = {
         files = body.map(normalise)
       })
     return files
+  },
+  async 'renames files'({ getApp, startApp, fixture }, { snapshot, TEMP }) {
+    const upload = new Multer({
+      storage: diskStorage({
+        filename(a, { fieldname, originalname }) {
+          return `${fieldname}-${originalname}`
+        },
+        destination() {
+          return TEMP
+        },
+      }),
+    })
+    const mw = upload.any()
+    const app = getApp(mw)
+    app.use((ctx) => ctx.body = ctx.req.files)
+    await startApp()
+      .postForm('/', async (form) => {
+        await form.addFile(fixture`tiny1.dat`, 'file')
+      })
+      .assert(200)
+    return snapshot()
   },
 }
 

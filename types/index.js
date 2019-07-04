@@ -36,11 +36,11 @@ export {}
  * @prop {string} encoding The encoding type of the file.
  * @prop {string} mimetype The mime type of the file.
  * @prop {number} size The size of the file in bytes.
- * @prop {string} destination The folder to which the file has been saved.
- * @prop {string} filename The name of the file within the `destination`.
- * @prop {string} path The full path to the uploaded file.
- * @prop {Buffer} buffer The `Buffer` of the entire file.
- * @prop {stream.Readable} stream The _Readable_ stream with the file data.
+ * @prop {string} destination The folder to which the file has been saved. Set by _DiskStorage_.
+ * @prop {string} filename The name of the file within the `destination`. Set by _DiskStorage_.
+ * @prop {string} path The full path to the uploaded file. Set by _DiskStorage_.
+ * @prop {Buffer} buffer The `Buffer` of the entire file. Set by _MemoryStorage_.
+ * @prop {stream.Readable} stream The _Readable_ stream with the file data. This stream should not be read other than by a storage engine.
  */
 /**
  * @typedef {_idio.MulterField} MulterField The item to use in the .fields method.
@@ -69,8 +69,8 @@ export {}
  */
 /**
  * @typedef {Object} _idio.MulterDiskStorageOptions `＠record`
- * @prop {string|function(http.IncomingRequest, _idio.MulterFile): !Promise<string>} [destination] Used to determine within which folder the uploaded files should be stored. If given as a string, the location will be ensured prior at the start. Default is `tmpdir()`.
- * @prop {function(http.IncomingRequest, _idio.MulterFile): !Promise<string>} [filename] Used to determine what the file should be named inside the folder. If no filename is given, each file will be given a random name that doesn't include any file extension.
+ * @prop {string|function(http.IncomingMessage, _idio.MulterFile): !Promise<string>} [destination] Used to determine within which folder the uploaded files should be stored. If given as a string, the location will be ensured prior at the start. Default is `tmpdir()`.
+ * @prop {function(http.IncomingMessage, _idio.MulterFile): !Promise<string>} [filename] Used to determine what the file should be named inside the folder. If no filename is given, each file will be given a random name that doesn't include any file extension.
  */
 /**
  * @typedef {import('http').IncomingMessage} http.IncomingMessage

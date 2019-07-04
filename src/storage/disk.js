@@ -37,8 +37,8 @@ export default class DiskStorage {
     }
   }
   async _handleFile(req, file) {
-    const destination = await this.getDestination()
-    const filename = await this.getFilename()
+    const destination = await this.getDestination(req, file)
+    const filename = await this.getFilename(req, file)
 
     const path = join(destination, filename)
     const outStream = createWriteStream(path)

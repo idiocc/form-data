@@ -55,27 +55,27 @@ _idio.MulterFile.prototype.mimetype
  */
 _idio.MulterFile.prototype.size
 /**
- * The folder to which the file has been saved.
+ * The folder to which the file has been saved. Set by _DiskStorage_.
  * @type {string}
  */
 _idio.MulterFile.prototype.destination
 /**
- * The name of the file within the `destination`.
+ * The name of the file within the `destination`. Set by _DiskStorage_.
  * @type {string}
  */
 _idio.MulterFile.prototype.filename
 /**
- * The full path to the uploaded file.
+ * The full path to the uploaded file. Set by _DiskStorage_.
  * @type {string}
  */
 _idio.MulterFile.prototype.path
 /**
- * The `Buffer` of the entire file.
+ * The `Buffer` of the entire file. Set by _MemoryStorage_.
  * @type {Buffer}
  */
 _idio.MulterFile.prototype.buffer
 /**
- * The _Readable_ stream with the file data.
+ * The _Readable_ stream with the file data. This stream should not be read other than by a storage engine.
  * @type {stream.Readable}
  */
 _idio.MulterFile.prototype.stream
@@ -92,12 +92,12 @@ _idio.MulterField
 _idio.MulterDiskStorageOptions
 /**
  * Used to determine within which folder the uploaded files should be stored. If given as a string, the location will be ensured prior at the start. Default is `tmpdir()`.
- * @type {(string|function(http.IncomingRequest, _idio.MulterFile): !Promise<string>)|undefined}
+ * @type {(string|function(http.IncomingMessage, _idio.MulterFile): !Promise<string>)|undefined}
  */
 _idio.MulterDiskStorageOptions.prototype.destination
 /**
  * Used to determine what the file should be named inside the folder. If no filename is given, each file will be given a random name that doesn't include any file extension.
- * @type {(function(http.IncomingRequest, _idio.MulterFile): !Promise<string>)|undefined}
+ * @type {(function(http.IncomingMessage, _idio.MulterFile): !Promise<string>)|undefined}
  */
 _idio.MulterDiskStorageOptions.prototype.filename
 

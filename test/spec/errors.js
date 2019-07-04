@@ -228,6 +228,23 @@ const T = {
     const err = await p
     equal(err.code, 'LIMIT_FILE_SIZE')
   },
+  async 'reports limit errors'({ startApp, error, fixture }, { TEMP }) {
+    const upload = new Multer({ dest: TEMP, limits: { fileSize: 100 } })
+    const mw = upload.single('file')
+    const p = error(mw)
+    await throws({
+      async fn() {
+        await startApp()
+          .postForm('/', async (form) => {
+            await form.addFile(fixture`large.jpg`, 'file')
+          })
+      },
+      code: 'EPIPE',
+    })
+    const err = await p
+    equal(err.code, 'LIMIT_FILE_SIZE')
+    equal(err.field, 'file')
+  },
 }
 
 export default T
