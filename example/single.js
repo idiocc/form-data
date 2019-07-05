@@ -21,7 +21,7 @@ app.use((ctx) => {
 
 ;(async () => {
   temp._TEMP = 'temp'
-  await temp._init()
+  try { await temp._init() } catch (err) { /** */ }
   await http.startPlain(app.callback())
     .postForm('/', async (form) => {
       form.addSection('hello', 'world')
@@ -29,7 +29,7 @@ app.use((ctx) => {
       await form.addFile('test/fixture/test.txt', 'file')
     })
   await http._destroy()
-  await temp._destroy()
+  // try { await temp._destroy() } catch (err) { /** */}
 })()
 
 /* end example */

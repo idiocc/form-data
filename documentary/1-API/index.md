@@ -58,6 +58,17 @@ The constructor will create an instance with the methods described below.
 %FORK-js example/array%
 </td></tr>
 <tr><td colspan="2"><md2html>[`array(fieldname, maxCount)`](###): Accept multiple files under the same field name.</md2html></td></tr>
+
+<!-- block-start -->
+<tr><td>
+
+%EXAMPLE: example/fields, ../src => @multipart/form-data%
+</td>
+<td>
+
+%FORK-js example/fields%
+</td></tr>
+<tr><td colspan="2"><md2html>[`fields(Array<FormDataField>)`](###): Accept files according to the configured fields and place them in a hashmap.</md2html></td></tr>
 </table>
 
 %~%

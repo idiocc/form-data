@@ -77,6 +77,7 @@ export default class MultipartFormData {
     return makeMiddleware(conf)
   }
   /**
+   *
    * @param {!Array<_multipart.FormDataField>} fields The fields to accept.
    */
   fields(fields) {

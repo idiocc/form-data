@@ -23,6 +23,7 @@ yarn add @multipart/form-data
     * [`FormDataConfig`](#type-formdataconfig)
   * [<code>single(fieldname)</code>](#singlefieldname)
   * [<code>array(fieldname, maxCount)</code>](#arrayfieldname-maxcount)
+  * [<code>fields(Array<FormDataField>)</code>](#fieldsarrayformdatafield)
 - [`FormDataFile`](#formdatafile)
 - [Copyright](#copyright)
 
@@ -104,8 +105,8 @@ File: { fieldname: 'file',
   encoding: '7bit',
   mimetype: 'application/octet-stream',
   destination: 'temp',
-  filename: '5c35e781fbb0305f157ea498e8b6e462',
-  path: 'temp/5c35e781fbb0305f157ea498e8b6e462',
+  filename: '3f9f0a389368d08f142ba8642a991b3d',
+  path: 'temp/3f9f0a389368d08f142ba8642a991b3d',
   size: 12 }
 ```
 </td></tr>
@@ -119,6 +120,7 @@ import Goa from '@goa/koa'
 const app = new Goa()
 const multipart = new Multipart({
   dest: 'temp',
+  preservePath: true,
 })
 const middleware = multipart.array('file', 2)
 app.use(middleware)
@@ -133,24 +135,79 @@ app.use((ctx) => {
 ```js
 Fields: { hello: 'world', name: 'multipart' }
 Files: [ { fieldname: 'file',
-    originalname: 'test.txt',
+    originalname: 'test/fixture/test.txt',
     encoding: '7bit',
     mimetype: 'application/octet-stream',
     destination: 'temp',
-    filename: '8aa883127f',
-    path: 'temp/8aa883127f',
+    filename: '8ebcc2c287',
+    path: 'temp/8ebcc2c287',
     size: 12 },
   { fieldname: 'file',
-    originalname: 'test.txt',
+    originalname: 'test/fixture/test.txt',
     encoding: '7bit',
     mimetype: 'application/octet-stream',
     destination: 'temp',
-    filename: '2a45e32e56',
-    path: 'temp/2a45e32e56',
+    filename: 'e069da8cda',
+    path: 'temp/e069da8cda',
     size: 12 } ]
 ```
 </td></tr>
 <tr><td colspan="2"><a name="arrayfieldname-maxcount"><code>array(fieldname, maxCount)</code></a>: Accept multiple files under the same field name.</td></tr>
+
+<tr><td>
+
+```js
+import Multipart from '@multipart/form-data'
+import Goa from '@goa/koa'
+
+const app = new Goa()
+const multipart = new Multipart({
+  dest: 'temp',
+})
+const middleware = multipart.fields([
+  { name: 'file', maxCount: 2 },
+  { name: 'picture', maxCount: 1 },
+])
+app.use(middleware)
+app.use((ctx) => {
+  log('Fields', ctx.req.body)
+  log('Files', ctx.req.files)
+})
+```
+</td>
+<td>
+
+```js
+Fields: { hello: 'world', name: 'multipart' }
+Files: { file: 
+   [ { fieldname: 'file',
+       originalname: 'test.txt',
+       encoding: '7bit',
+       mimetype: 'application/octet-stream',
+       destination: 'temp',
+       filename: '9d884ab2a3',
+       path: 'temp/9d884ab2a3',
+       size: 12 },
+     { fieldname: 'file',
+       originalname: 'test.txt',
+       encoding: '7bit',
+       mimetype: 'application/octet-stream',
+       destination: 'temp',
+       filename: 'e413a27fd2',
+       path: 'temp/e413a27fd2',
+       size: 12 } ],
+  picture: 
+   [ { fieldname: 'picture',
+       originalname: 'large.jpg',
+       encoding: '7bit',
+       mimetype: 'application/octet-stream',
+       destination: 'temp',
+       filename: 'ce4e1c30e3',
+       path: 'temp/ce4e1c30e3',
+       size: 2845021 } ] }
+```
+</td></tr>
+<tr><td colspan="2"><a name="fieldsarrayformdatafield"><code>fields(Array<FormDataField>)</code></a>: Accept files according to the configured fields and place them in a hashmap.</td></tr>
 </table>
 
 <p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/2.svg?sanitize=true"></a></p>

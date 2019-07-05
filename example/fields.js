@@ -9,9 +9,11 @@ import Goa from '@goa/koa'
 const app = new Goa()
 const multipart = new Multipart({
   dest: 'temp',
-  preservePath: true,
 })
-const middleware = multipart.array('file', 2)
+const middleware = multipart.fields([
+  { name: 'file', maxCount: 2 },
+  { name: 'picture', maxCount: 1 },
+])
 app.use(middleware)
 app.use((ctx) => {
   log('Fields', ctx.req.body)
@@ -20,11 +22,13 @@ app.use((ctx) => {
 /* end example */
 
 function log(label, data) {
-  if (Array.isArray(data))
-    data.forEach((file) => {
-      delete file.stream
-      file.filename = file.filename.substring(0, 10)
-      file.path = file.path.substring(0, 15)
+  if (label == 'Files')
+    Object.entries(data).forEach(([, files]) => {
+      files.forEach((file) => {
+        delete file.stream
+        file.filename = file.filename.substring(0, 10)
+        file.path = file.path.substring(0, 15)
+      })
     })
   console.log('%s: %O', label, data)
 }
@@ -38,6 +42,7 @@ function log(label, data) {
       form.addSection('name', 'multipart')
       await form.addFile('test/fixture/test.txt', 'file')
       await form.addFile('test/fixture/test.txt', 'file')
+      await form.addFile('test/fixture/large.jpg', 'picture')
     })
   await http._destroy()
   // try { await temp._destroy() } catch (err) { /** */}
