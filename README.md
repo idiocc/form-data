@@ -59,7 +59,7 @@ __<a name="type-formdataconfig">`FormDataConfig`</a>__
 
 The constructor will create an instance with the methods described below.
 
-__<a name="type-formdata">`FormData`</a>__
+__<a name="type-formdata">`FormData`</a>__: An instance to create middleware.
 
 |    Name     |                              Type                               |                                                       Description                                                       |
 | ----------- | --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
@@ -74,10 +74,10 @@ import MultipartFormData from '@multipart/form-data'
 import Goa from '@goa/koa'
 
 const app = new Goa()
-const multer = new MultipartFormData({
+const multipart = new MultipartFormData({
   dest: 'example/temp',
 })
-const middleware = multer.single('file')
+const middleware = multipart.single('file')
 app.use(middleware)
 app.use((ctx) => {
   console.log('Fields: %O', ctx.req.body)
@@ -92,8 +92,8 @@ File: { fieldname: 'file',
   encoding: '7bit',
   mimetype: 'application/octet-stream',
   destination: 'example/temp',
-  filename: '271d4dcf17d420dcf2def1880a138e51',
-  path: 'example/temp/271d4dcf17d420dcf2def1880a138e51',
+  filename: 'ff6d1810a8b3f7e41cecab162a31a430',
+  path: 'example/temp/ff6d1810a8b3f7e41cecab162a31a430',
   size: 12 }
 ```
 

@@ -24,7 +24,7 @@
     </prop>
   </type>
 
-  <type name="FormData">
+  <type name="FormData" desc="An instance to create middleware.">
     <prop type="function(string): _goa.Middleware" name="single">
       Accept a single file. The first argument is the name of the field.
     </prop>

@@ -7,10 +7,10 @@ import MultipartFormData from '../src'
 import Goa from '@goa/koa'
 
 const app = new Goa()
-const multer = new MultipartFormData({
+const multipart = new MultipartFormData({
   dest: 'example/temp',
 })
-const middleware = multer.single('file')
+const middleware = multipart.single('file')
 app.use(middleware)
 app.use((ctx) => {
   console.log('Fields: %O', ctx.req.body)
