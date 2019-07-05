@@ -21,7 +21,6 @@ yarn add @multipart/form-data
 - [`class MultipartFormData`](#class-multipartformdata)
   * [`constructor(options: FormDataConfig?): MultipartFormData`](#constructoroptions-formdataconfig-multipartformdata)
     * [`FormDataConfig`](#type-formdataconfig)
-    * [`FormData`](#type-formdata)
   * [`single`](#single)
 - [`FormDataFile`](#formdatafile)
 - [Copyright](#copyright)
@@ -58,7 +57,10 @@ __<a name="type-formdataconfig">`FormDataConfig`</a>__: The configuration for th
 | limits       | <em>_goa.BusBoyLimits</em>     | The limits of the uploaded data.                                                                                                                      | -       |
 | preservePath | <em>boolean</em>               | Whether to keep the full path of files instead of just the base name.                                                                                 | `false` |
 
+<details>
+<summary>
 The constructor will create an instance with the methods described below.
+</summary>
 
 __<a name="type-formdata">`FormData`</a>__: An instance to create middleware.
 
@@ -69,6 +71,7 @@ __<a name="type-formdata">`FormData`</a>__: An instance to create middleware.
 | __fields*__ | <em>function(!Array&lt;FormDataField&gt;): _goa.Middleware</em> | Accept files according to the configured fields.                                                                        |
 | __none*__   | <em>function(): _goa.Middleware</em>                            | Do not accept files, only fields.                                                                                       |
 | __any*__    | <em>function(): _goa.Middleware</em>                            | Accept any fields and files.                                                                                            |
+</details>
 
 ### `single`
 

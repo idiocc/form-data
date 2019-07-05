@@ -24,9 +24,13 @@ Creates a new instance according to the config. It is later used to access the m
 
 %TYPEDEF types/index.xml FormDataConfig%
 
+<details>
+<summary>
 The constructor will create an instance with the methods described below.
+</summary>
 
 %TYPEDEF types/index.xml FormData%
+</details>
 
 ### `single`
 
