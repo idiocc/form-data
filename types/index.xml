@@ -51,7 +51,7 @@
     </prop>
   </type>
 
-  <type record name="FormDataFile" desc="The information about each file.">
+  <type record name="FormDataFile" desc="The information about each file." noToc>
     <prop name="fieldname" string>
       The field name specified in the form.
     </prop>
