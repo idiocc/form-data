@@ -1,25 +1,27 @@
 ## API
 
-The package is available by importing its default function:
+The package is available by importing its default and named functions:
 
 ```js
-import multer from '@multipart/form-data'
+import MultipartFormData, {
+  diskStorage, memoryStorage, FormDataError,
+} from '@multipart/form-data'
 ```
 
 %~%
 
-```## multer
+## `class MultipartFormData`
+
+This class is used to create middleware according to the required file upload strategy.
+
+```### constructor
 [
-  ["arg1", "string"],
-  ["arg2?", "boolean"]
+  ["options", "FormDataConfig?"]
 ]
 ```
 
-Call this function to get the result you want.
+Creates a new instance according to the config. It is later used to access the middleware functions described below.
 
 %TYPEDEF types/index.xml%
-
-%EXAMPLE: example, ../src => @multipart/form-data%
-%FORK example%
 
 %~%

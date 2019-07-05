@@ -12,6 +12,7 @@ function allowAll() {
  */
 export default class MultipartFormData {
   /**
+   * Creates a new instance.
    * @param {_multipart.FormDataConfig} options
    * @param {string} [options.dest] The directory where to store the files using the `DiskStorage`.
    * @param {_multipart.FormDataStorageEngine} [options.storage] An _instance_ of a custom storage engine.
