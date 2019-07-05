@@ -22,14 +22,14 @@ This class is used to create middleware according to the required file upload st
 
 Creates a new instance according to the config. It is later used to access the middleware functions described below.
 
-%TYPEDEF types/index.xml FormDataConfig%
+%TYPEDEF types/index.xml%
 
 <details>
 <summary>
 The constructor will create an instance with the methods described below.
 </summary>
 
-%TYPEDEF types/index.xml FormData%
+%TYPEDEF types/misc.xml FormData%
 </details>
 
 <!-- ### `single` -->
@@ -38,7 +38,10 @@ The constructor will create an instance with the methods described below.
 
 <table>
 <!-- block-start -->
-<tr><th><a href="example">Source</a></th><th>Output</th></tr>
+<!-- <thead> -->
+<!-- <tr><th><a href="example">Source</a></th><th>Output</th></tr> -->
+<!-- </thead> -->
+<tr><td colspan="2"><md2html><h3>[`single(fieldname)`](###): Accept a single file.</h3></md2html></td></tr>
 <tr><td>
 
 %EXAMPLE: example/single, ../src => @multipart/form-data%
@@ -47,8 +50,9 @@ The constructor will create an instance with the methods described below.
 
 %FORK-js example/single%
 </td></tr>
-<tr><td colspan="2"><md2html>[`single(fieldname)`](###): Accept a single file.</md2html></td></tr>
 <!-- block-start -->
+<tr><td colspan="2"><md2html><h3>[`array(fieldname, maxCount)`](###): Accept multiple files under the same field name.</h3></md2html></td></tr>
+
 <tr><td>
 
 %EXAMPLE: example/array, ../src => @multipart/form-data%
@@ -57,9 +61,20 @@ The constructor will create an instance with the methods described below.
 
 %FORK-js example/array%
 </td></tr>
-<tr><td colspan="2"><md2html>[`array(fieldname, maxCount)`](###): Accept multiple files under the same field name.</md2html></td></tr>
 
 <!-- block-start -->
+<tr><td colspan="2">
+<!-- Show <em>FormDataField</em> Interface -->
+<md2html><h3>[`fields(Array&lt;FormDataField&gt;)`](###): Accept files according to the configured fields and place them in a hashmap.</h3> </md2html>
+<details>
+<summary>
+<md2html>Click to show the _FormDataField_ interface.</md2html>
+</summary>
+
+%TYPEDEF types/misc.xml FormDataField%
+</details>
+</td></tr>
+
 <tr><td>
 
 %EXAMPLE: example/fields, ../src => @multipart/form-data%
@@ -68,9 +83,9 @@ The constructor will create an instance with the methods described below.
 
 %FORK-js example/fields%
 </td></tr>
-<tr><td colspan="2"><md2html>[`fields(Array&lt;FormDataField&gt;)`](###): Accept files according to the configured fields and place them in a hashmap.</md2html></td></tr>
-
 <!-- block-start -->
+<tr><td colspan="2"><md2html><h3>[`none()`](###): Do not accept files, only fields.</h3></md2html></td></tr>
+
 <tr><td>
 
 %EXAMPLE: example/none, ../src => @multipart/form-data%
@@ -79,6 +94,5 @@ The constructor will create an instance with the methods described below.
 
 %FORK-js example/none%
 </td></tr>
-<tr><td colspan="2"><md2html>[`none()`](###): Do not accept files, only fields.</md2html></td></tr>
 
 <!-- continued in the next file -->

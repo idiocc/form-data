@@ -24,9 +24,11 @@ yarn add @multipart/form-data
   * [<code>single(fieldname)</code>](#singlefieldname)
   * [<code>array(fieldname, maxCount)</code>](#arrayfieldname-maxcount)
   * [<code>fields(Array&lt;FormDataField&gt;)</code>](#fieldsarrayltformdatafieldgt)
+    * [`FormDataField`](#type-formdatafield)
   * [<code>none()</code>](#none)
   * [<code>any()</code>](#any)
 - [`FormDataFile`](#formdatafile)
+- [Limits](#limits)
 - [Copyright](#copyright)
 
 <p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/0.svg?sanitize=true"></a></p>
@@ -51,15 +53,17 @@ This class is used to create middleware according to the required file upload st
 
 Creates a new instance according to the config. It is later used to access the middleware functions described below.
 
+[`import('@goa/busboy').BusBoyLimits`](https://github.com/idiocc/busboy#type-_goabusboylimits) __<a name="type-_goabusboylimits">`_goa.BusBoyLimits`</a>__: Various limits on incoming data.
+
 __<a name="type-formdataconfig">`FormDataConfig`</a>__: The configuration for the instance.
 
-|     Name     |              Type              |                                                                      Description                                                                      | Default |
-| ------------ | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| dest         | <em>string</em>                | The directory where to store the files using the `DiskStorage`. If not specified, files will be saved in the system's temp directory (`os.tmpdir()`). | -       |
-| storage      | <em>FormDataStorageEngine</em> | An _instance_ of a custom storage engine.                                                                                                             | -       |
-| fileFilter   | <em>FormDataFileFilter</em>    | The file filter.                                                                                                                                      | -       |
-| limits       | <em>_goa.BusBoyLimits</em>     | The limits of the uploaded data.                                                                                                                      | -       |
-| preservePath | <em>boolean</em>               | Whether to keep the full path of files instead of just the base name.                                                                                 | `false` |
+|     Name     |                                                   Type                                                   |                                                                      Description                                                                      | Default |
+| ------------ | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| dest         | <em>string</em>                                                                                          | The directory where to store the files using the `DiskStorage`. If not specified, files will be saved in the system's temp directory (`os.tmpdir()`). | -       |
+| storage      | <em>FormDataStorageEngine</em>                                                                           | An _instance_ of a custom storage engine.                                                                                                             | -       |
+| fileFilter   | <em>FormDataFileFilter</em>                                                                              | The file filter.                                                                                                                                      | -       |
+| limits       | <em><a href="#type-_goabusboylimits" title="Various limits on incoming data.">_goa.BusBoyLimits</a></em> | The limits of the uploaded data.                                                                                                                      | -       |
+| preservePath | <em>boolean</em>                                                                                         | Whether to keep the full path of files instead of just the base name.                                                                                 | `false` |
 
 <details>
 <summary>
@@ -68,17 +72,17 @@ The constructor will create an instance with the methods described below.
 
 __<a name="type-formdata">`FormData`</a>__: An instance to create middleware.
 
-|    Name     |                              Type                               |                                                       Description                                                       |
-| ----------- | --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| __single*__ | <em>function(string): _goa.Middleware</em>                      | Accept a single file. The first argument is the name of the field.                                                      |
-| __array*__  | <em>function(string, number): _goa.Middleware</em>              | Accept multiple files. The first argument is the name of the field, and the second argument is the max number of files. |
-| __fields*__ | <em>function(!Array&lt;FormDataField&gt;): _goa.Middleware</em> | Accept files according to the configured fields.                                                                        |
-| __none*__   | <em>function(): _goa.Middleware</em>                            | Do not accept files, only fields.                                                                                       |
-| __any*__    | <em>function(): _goa.Middleware</em>                            | Accept any fields and files.                                                                                            |
+|    Name     |                                                                        Type                                                                        |                                                       Description                                                       |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| __single*__ | <em>function(string): _goa.Middleware</em>                                                                                                         | Accept a single file. The first argument is the name of the field.                                                      |
+| __array*__  | <em>function(string, number): _goa.Middleware</em>                                                                                                 | Accept multiple files. The first argument is the name of the field, and the second argument is the max number of files. |
+| __fields*__ | <em>function(!Array&lt;<a href="#type-formdatafield" title="The item to use in the `.fields` method.">FormDataField</a>&gt;): _goa.Middleware</em> | Accept files according to the configured fields.                                                                        |
+| __none*__   | <em>function(): _goa.Middleware</em>                                                                                                               | Do not accept files, only fields.                                                                                       |
+| __any*__    | <em>function(): _goa.Middleware</em>                                                                                                               | Accept any fields and files.                                                                                            |
 </details>
 
 <table>
-<tr><th><a href="example">Source</a></th><th>Output</th></tr>
+<tr><td colspan="2"><h3><a name="singlefieldname"><code>single(fieldname)</code></a>: Accept a single file.</h3></td></tr>
 <tr><td>
 
 ```js
@@ -112,7 +116,8 @@ File: { fieldname: 'file',
   size: 12 }
 ```
 </td></tr>
-<tr><td colspan="2"><a name="singlefieldname"><code>single(fieldname)</code></a>: Accept a single file.</td></tr>
+<tr><td colspan="2"><h3><a name="arrayfieldname-maxcount"><code>array(fieldname, maxCount)</code></a>: Accept multiple files under the same field name.</h3></td></tr>
+
 <tr><td>
 
 ```js
@@ -154,7 +159,22 @@ Files: [ { fieldname: 'file',
     size: 12 } ]
 ```
 </td></tr>
-<tr><td colspan="2"><a name="arrayfieldname-maxcount"><code>array(fieldname, maxCount)</code></a>: Accept multiple files under the same field name.</td></tr>
+
+<tr><td colspan="2">
+<h3><a name="fieldsarrayltformdatafieldgt"><code>fields(Array&lt;FormDataField&gt;)</code></a>: Accept files according to the configured fields and place them in a hashmap.</h3>
+<details>
+<summary>
+Click to show the <em>FormDataField</em> interface.
+</summary>
+
+__<a name="type-formdatafield">`FormDataField`</a>__: The item to use in the `.fields` method.
+
+|   Name    |      Type       |           Description           |
+| --------- | --------------- | ------------------------------- |
+| __name*__ | <em>string</em> | The name of the field.          |
+| maxCount  | <em>number</em> | The maximum count of the field. |
+</details>
+</td></tr>
 
 <tr><td>
 
@@ -209,7 +229,7 @@ Files: { file:
        size: 2845021 } ] }
 ```
 </td></tr>
-<tr><td colspan="2"><a name="fieldsarrayltformdatafieldgt"><code>fields(Array&lt;FormDataField&gt;)</code></a>: Accept files according to the configured fields and place them in a hashmap.</td></tr>
+<tr><td colspan="2"><h3><a name="none"><code>none()</code></a>: Do not accept files, only fields.</h3></td></tr>
 
 <tr><td>
 
@@ -236,9 +256,10 @@ Fields: { hello: 'world', name: 'multipart' }
 Files: undefined
 ```
 </td></tr>
-<tr><td colspan="2"><a name="none"><code>none()</code></a>: Do not accept files, only fields.</td></tr>
 
 
+
+<tr><td colspan="2"><h3><a name="any"><code>any()</code></a>: Accept all files and fields.</h3></td></tr>
 
 <tr><td>
 
@@ -280,7 +301,6 @@ Files: [ { fieldname: 'file',
     size: 2845021 } ]
 ```
 </td></tr>
-<tr><td colspan="2"><a name="any"><code>any()</code></a>: Accepts all files and fields.</td></tr>
 </table>
 
 <p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/2.svg?sanitize=true"></a></p>
@@ -308,7 +328,9 @@ __<a name="type-formdatafile">`FormDataFile`</a>__: The information about each f
 
 <p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/3.svg?sanitize=true"></a></p>
 
+## Limits
 
+To limit how many fields, files and the length of names of the fields, the limits object can be used.
 
 ## Copyright
 
