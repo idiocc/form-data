@@ -25,6 +25,7 @@ yarn add @multipart/form-data
   * [<code>array(fieldname, maxCount)</code>](#arrayfieldname-maxcount)
   * [<code>fields(Array&lt;FormDataField&gt;)</code>](#fieldsarrayltformdatafieldgt)
   * [<code>none()</code>](#none)
+  * [<code>any()</code>](#any)
 - [`FormDataFile`](#formdatafile)
 - [Copyright](#copyright)
 
@@ -236,6 +237,50 @@ Files: undefined
 ```
 </td></tr>
 <tr><td colspan="2"><a name="none"><code>none()</code></a>: Do not accept files, only fields.</td></tr>
+
+
+
+<tr><td>
+
+```js
+import Multipart from '@multipart/form-data'
+import Goa from '@goa/koa'
+
+const app = new Goa()
+const multipart = new Multipart({
+  dest: 'temp',
+})
+const middleware = multipart.any()
+app.use(middleware)
+app.use((ctx) => {
+  log('Fields', ctx.req.body)
+  log('Files', ctx.req.files)
+})
+```
+</td>
+<td>
+
+```js
+Fields: { hello: 'world', name: 'multipart' }
+Files: [ { fieldname: 'file',
+    originalname: 'test.txt',
+    encoding: '7bit',
+    mimetype: 'application/octet-stream',
+    destination: 'temp',
+    filename: '06ebe8385b',
+    path: 'temp/06ebe8385b',
+    size: 12 },
+  { fieldname: 'picture',
+    originalname: 'large.jpg',
+    encoding: '7bit',
+    mimetype: 'application/octet-stream',
+    destination: 'temp',
+    filename: '20c7da97ab',
+    path: 'temp/20c7da97ab',
+    size: 2845021 } ]
+```
+</td></tr>
+<tr><td colspan="2"><a name="any"><code>any()</code></a>: Accepts all files and fields.</td></tr>
 </table>
 
 <p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/2.svg?sanitize=true"></a></p>
@@ -262,6 +307,8 @@ __<a name="type-formdatafile">`FormDataFile`</a>__: The information about each f
 | __stream*__       | <em><a href="#type-streamreadable" title="A stream that pushes data when it becomes available.">stream.Readable</a></em> | The _Readable_ stream with the file data. This stream should not be read other than by a storage engine. |
 
 <p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/3.svg?sanitize=true"></a></p>
+
+
 
 ## Copyright
 
