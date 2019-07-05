@@ -47,7 +47,7 @@ The constructor will create an instance with the methods described below.
 
 %FORK-js example/single%
 </td></tr>
-<tr><td colspan="2">[`single`](t)</td></tr>
+<tr><td colspan="2"><md2html>[`single`](t): Accept a single file.</md2html></td></tr>
 <!-- block-start -->
 <tr><td>
 
@@ -57,7 +57,7 @@ The constructor will create an instance with the methods described below.
 
 %FORK-js example/single%
 </td></tr>
-<tr><td colspan="2">[`array`](t)</td></tr>
+<tr><td colspan="2"><md2html>[`array`](t): Accept multiple files.</md2html></td></tr>
 </table>
 
 %~%

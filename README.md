@@ -21,8 +21,8 @@ yarn add @multipart/form-data
 - [`class MultipartFormData`](#class-multipartformdata)
   * [`constructor(options: FormDataConfig?): MultipartFormData`](#constructoroptions-formdataconfig-multipartformdata)
     * [`FormDataConfig`](#type-formdataconfig)
-    * [`single`](#single)
-    * [`array`](#array)
+    * [<code>single</code>](#single)
+    * [<code>array</code>](#array)
 - [`FormDataFile`](#formdatafile)
 - [Copyright](#copyright)
 
@@ -109,7 +109,7 @@ File: { fieldname: 'file',
   size: 12 }
 ```
 </td></tr>
-<tr><td colspan="2"><a name="single">`single`</a></td></tr>
+<tr><td colspan="2"><a name="single"><code>single</code></a>: Accept a single file.</td></tr>
 <tr><td>
 
 ```js
@@ -143,7 +143,7 @@ File: { fieldname: 'file',
   size: 12 }
 ```
 </td></tr>
-<tr><td colspan="2"><a name="array">`array`</a></td></tr>
+<tr><td colspan="2"><a name="array"><code>array</code></a>: Accept multiple files.</td></tr>
 </table>
 
 <p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/2.svg?sanitize=true"></a></p>
