@@ -51,39 +51,6 @@
     </prop>
   </type>
 
-  <type record name="FormDataFile" desc="The information about each file." noToc>
-    <prop name="fieldname" string>
-      The field name specified in the form.
-    </prop>
-    <prop name="originalname" string>
-      The name of the file on the user's computer.
-    </prop>
-    <prop name="encoding" string>
-      The encoding type of the file.
-    </prop>
-    <prop name="mimetype" string>
-      The mime type of the file.
-    </prop>
-    <prop name="size" number>
-      The size of the file in bytes.
-    </prop>
-    <prop name="destination" string>
-      The folder to which the file has been saved. Set by _DiskStorage_.
-    </prop>
-    <prop name="filename" string>
-      The name of the file within the `destination`. Set by _DiskStorage_.
-    </prop>
-    <prop name="path" string>
-      The full path to the uploaded file. Set by _DiskStorage_.
-    </prop>
-    <prop name="buffer" type="Buffer">
-      The `Buffer` of the entire file. Set by _MemoryStorage_.
-    </prop>
-    <prop name="stream" type="stream.Readable">
-      The _Readable_ stream with the file data. This stream should not be read other than by a storage engine.
-    </prop>
-  </type>
-
   <type name="FormDataField" desc="The item to use in the .fields method.">
     <prop name="name" string>The name of the field.</prop>
     <prop opt name="maxCount" number>The maximum count of the field.</prop>
@@ -99,9 +66,4 @@
     link="https://nodejs.org/api/http.html#http_class_http_incomingmessage"
     desc="The Node.JS http server request object."
   />
-
-  <import name="Readable" from="stream"
-    link="https://nodejs.org/api/stream.html#stream_readable_streams"
-    desc="A stream that pushes data when it becomes available."
-    />
 </types>

@@ -1,5 +1,26 @@
 export {}
 
+/* typal types/file.xml closure noSuppress */
+/**
+ * @typedef {_multipart.FormDataFile} FormDataFile `＠record` The information about each file.
+ */
+/**
+ * @typedef {Object} _multipart.FormDataFile `＠record` The information about each file.
+ * @prop {string} fieldname The field name specified in the form.
+ * @prop {string} originalname The name of the file on the user's computer.
+ * @prop {string} encoding The encoding type of the file.
+ * @prop {string} mimetype The mime type of the file.
+ * @prop {number} size The size of the file in bytes.
+ * @prop {string} destination The folder to which the file has been saved. Set by _DiskStorage_.
+ * @prop {string} filename The name of the file within the `destination`. Set by _DiskStorage_.
+ * @prop {string} path The full path to the uploaded file. Set by _DiskStorage_.
+ * @prop {Buffer} buffer The `Buffer` of the entire file. Set by _MemoryStorage_.
+ * @prop {stream.Readable} stream The _Readable_ stream with the file data. This stream should not be read other than by a storage engine.
+ */
+/**
+ * @typedef {import('stream').Readable} stream.Readable
+ */
+
 /* typal types/index.xml closure noSuppress */
 /**
  * @typedef {_multipart.FormDataFileFilter} FormDataFileFilter The function to control which files are accepted.
@@ -38,22 +59,6 @@ export {}
  * @prop {function(!http.IncomingMessage, _multipart.FormDataFile): !Promise} _removeFile Removes the file asynchronously.
  */
 /**
- * @typedef {_multipart.FormDataFile} FormDataFile `＠record` The information about each file.
- */
-/**
- * @typedef {Object} _multipart.FormDataFile `＠record` The information about each file.
- * @prop {string} fieldname The field name specified in the form.
- * @prop {string} originalname The name of the file on the user's computer.
- * @prop {string} encoding The encoding type of the file.
- * @prop {string} mimetype The mime type of the file.
- * @prop {number} size The size of the file in bytes.
- * @prop {string} destination The folder to which the file has been saved. Set by _DiskStorage_.
- * @prop {string} filename The name of the file within the `destination`. Set by _DiskStorage_.
- * @prop {string} path The full path to the uploaded file. Set by _DiskStorage_.
- * @prop {Buffer} buffer The `Buffer` of the entire file. Set by _MemoryStorage_.
- * @prop {stream.Readable} stream The _Readable_ stream with the file data. This stream should not be read other than by a storage engine.
- */
-/**
  * @typedef {_multipart.FormDataField} FormDataField The item to use in the .fields method.
  */
 /**
@@ -74,9 +79,6 @@ export {}
  */
 /**
  * @typedef {import('http').IncomingMessage} http.IncomingMessage
- */
-/**
- * @typedef {import('stream').Readable} stream.Readable
  */
 
 /* typal types/disk-storage.xml closure noSuppress */

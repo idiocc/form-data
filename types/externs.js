@@ -31,6 +31,34 @@ _multipart.FormDataStorageEngine.prototype._handleFile
  */
 _multipart.FormDataStorageEngine.prototype._removeFile
 /**
+ * The item to use in the .fields method.
+ * @typedef {{ name: string, maxCount: (number|undefined) }}
+ */
+_multipart.FormDataField
+/**
+ * An error object which extends Error.
+ * @typedef {{ code: string, field: (string|undefined) }}
+ */
+_multipart.FormDataError
+
+/* typal types/disk-storage.xml externs */
+/**
+ * @record
+ */
+_multipart.FormDataDiskStorageOptions
+/**
+ * Used to determine within which folder the uploaded files should be stored. If given as a string, the location will be ensured prior at the start. Default is `tmpdir()`.
+ * @type {(string|function(http.IncomingMessage, _multipart.FormDataFile): !Promise<string>)|undefined}
+ */
+_multipart.FormDataDiskStorageOptions.prototype.destination
+/**
+ * Used to determine what the file should be named inside the folder. If no filename is given, each file will be given a random name that doesn't include any file extension.
+ * @type {(function(http.IncomingMessage, _multipart.FormDataFile): !Promise<string>)|undefined}
+ */
+_multipart.FormDataDiskStorageOptions.prototype.filename
+
+/* typal types/file.xml externs */
+/**
  * The information about each file.
  * @record
  */
@@ -85,32 +113,6 @@ _multipart.FormDataFile.prototype.buffer
  * @type {stream.Readable}
  */
 _multipart.FormDataFile.prototype.stream
-/**
- * The item to use in the .fields method.
- * @typedef {{ name: string, maxCount: (number|undefined) }}
- */
-_multipart.FormDataField
-/**
- * An error object which extends Error.
- * @typedef {{ code: string, field: (string|undefined) }}
- */
-_multipart.FormDataError
-
-/* typal types/disk-storage.xml externs */
-/**
- * @record
- */
-_multipart.FormDataDiskStorageOptions
-/**
- * Used to determine within which folder the uploaded files should be stored. If given as a string, the location will be ensured prior at the start. Default is `tmpdir()`.
- * @type {(string|function(http.IncomingMessage, _multipart.FormDataFile): !Promise<string>)|undefined}
- */
-_multipart.FormDataDiskStorageOptions.prototype.destination
-/**
- * Used to determine what the file should be named inside the folder. If no filename is given, each file will be given a random name that doesn't include any file extension.
- * @type {(function(http.IncomingMessage, _multipart.FormDataFile): !Promise<string>)|undefined}
- */
-_multipart.FormDataDiskStorageOptions.prototype.filename
 
 /**
  * @type {!Object}

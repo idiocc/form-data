@@ -92,8 +92,8 @@ File: { fieldname: 'file',
   encoding: '7bit',
   mimetype: 'application/octet-stream',
   destination: 'example/temp',
-  filename: '9d9d533fafeb004991dcfa621a0a21fb',
-  path: 'example/temp/9d9d533fafeb004991dcfa621a0a21fb',
+  filename: '72e9db00761171c1f4d9dd8821f8a324',
+  path: 'example/temp/72e9db00761171c1f4d9dd8821f8a324',
   size: 12 }
 ```
 
@@ -103,7 +103,22 @@ File: { fieldname: 'file',
 
 _MultipartFormData_ adds a `body` object and a `file` or `files` object to the request object. The `body` hashmap contains the values of the text fields of the form, the `file` or `files` object contains the files uploaded via the form.
 
+[`import('stream').Readable`](https://nodejs.org/api/stream.html#stream_readable_streams) __<a name="type-streamreadable">`stream.Readable`</a>__: A stream that pushes data when it becomes available.
 
+__<a name="type-formdatafile">`FormDataFile`</a>__: The information about each file.
+
+|       Name        |                                                           Type                                                           |                                               Description                                                |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------- |
+| __fieldname*__    | <em>string</em>                                                                                                          | The field name specified in the form.                                                                    |
+| __originalname*__ | <em>string</em>                                                                                                          | The name of the file on the user's computer.                                                             |
+| __encoding*__     | <em>string</em>                                                                                                          | The encoding type of the file.                                                                           |
+| __mimetype*__     | <em>string</em>                                                                                                          | The mime type of the file.                                                                               |
+| __size*__         | <em>number</em>                                                                                                          | The size of the file in bytes.                                                                           |
+| __destination*__  | <em>string</em>                                                                                                          | The folder to which the file has been saved. Set by _DiskStorage_.                                       |
+| __filename*__     | <em>string</em>                                                                                                          | The name of the file within the `destination`. Set by _DiskStorage_.                                     |
+| __path*__         | <em>string</em>                                                                                                          | The full path to the uploaded file. Set by _DiskStorage_.                                                |
+| __buffer*__       | <em>Buffer</em>                                                                                                          | The `Buffer` of the entire file. Set by _MemoryStorage_.                                                 |
+| __stream*__       | <em><a href="#type-streamreadable" title="A stream that pushes data when it becomes available.">stream.Readable</a></em> | The _Readable_ stream with the file data. This stream should not be read other than by a storage engine. |
 
 <p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/3.svg?sanitize=true"></a></p>
 
