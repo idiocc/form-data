@@ -10,17 +10,22 @@ const app = new Goa()
 const multipart = new Multipart({
   dest: 'temp',
 })
-const mw = multipart.array('file', 2)
-app.use(mw)
+const middleware = multipart.array('file', 2)
+app.use(middleware)
 app.use((ctx) => {
-  console.log('Fields: %O', ctx.req.body)
-  clearStream(ctx.req.files)
-  console.log('Files: %O', ctx.req.files)
+  log('Fields', ctx.req.body)
+  log('Files', ctx.req.files)
 })
 /* end example */
 
-function clearStream(files) {
-  files.forEach(file => delete file.stream)
+function log(label, data) {
+  if (Array.isArray(data))
+    data.forEach((file) => {
+      delete file.stream
+      file.filename = file.filename.substring(0, 10)
+      file.path = file.path.substring(0, 15)
+    })
+  console.log('%s: %O', label, data)
 }
 
 (async () => {

@@ -120,12 +120,11 @@ const app = new Goa()
 const multipart = new Multipart({
   dest: 'temp',
 })
-const mw = multipart.array('file', 2)
-app.use(mw)
+const middleware = multipart.array('file', 2)
+app.use(middleware)
 app.use((ctx) => {
-  console.log('Fields: %O', ctx.req.body)
-  clearStream(ctx.req.files)
-  console.log('Files: %O', ctx.req.files)
+  log('Fields', ctx.req.body)
+  log('Files', ctx.req.files)
 })
 ```
 </td>
@@ -138,16 +137,16 @@ Files: [ { fieldname: 'file',
     encoding: '7bit',
     mimetype: 'application/octet-stream',
     destination: 'temp',
-    filename: '1e66b5d1e2cc7cf67f2a95e61fabdb47',
-    path: 'temp/1e66b5d1e2cc7cf67f2a95e61fabdb47',
+    filename: '8aa883127f',
+    path: 'temp/8aa883127f',
     size: 12 },
   { fieldname: 'file',
     originalname: 'test.txt',
     encoding: '7bit',
     mimetype: 'application/octet-stream',
     destination: 'temp',
-    filename: '74ecadfae68b694089df1b19a4a1bde4',
-    path: 'temp/74ecadfae68b694089df1b19a4a1bde4',
+    filename: '2a45e32e56',
+    path: 'temp/2a45e32e56',
     size: 12 } ]
 ```
 </td></tr>
