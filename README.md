@@ -140,16 +140,16 @@ Files: [ { fieldname: 'file',
     encoding: '7bit',
     mimetype: 'application/octet-stream',
     destination: 'temp',
-    filename: '8ebcc2c287',
-    path: 'temp/8ebcc2c287',
+    filename: 'b8814eb68d',
+    path: 'temp/b8814eb68d',
     size: 12 },
   { fieldname: 'file',
     originalname: 'test/fixture/test.txt',
     encoding: '7bit',
     mimetype: 'application/octet-stream',
     destination: 'temp',
-    filename: 'e069da8cda',
-    path: 'temp/e069da8cda',
+    filename: '7e39078c3f',
+    path: 'temp/7e39078c3f',
     size: 12 } ]
 ```
 </td></tr>
@@ -232,32 +232,7 @@ app.use((ctx) => {
 
 ```js
 Fields: { hello: 'world', name: 'multipart' }
-Files: { file: 
-   [ { fieldname: 'file',
-       originalname: 'test.txt',
-       encoding: '7bit',
-       mimetype: 'application/octet-stream',
-       destination: 'temp',
-       filename: '9d884ab2a3',
-       path: 'temp/9d884ab2a3',
-       size: 12 },
-     { fieldname: 'file',
-       originalname: 'test.txt',
-       encoding: '7bit',
-       mimetype: 'application/octet-stream',
-       destination: 'temp',
-       filename: 'e413a27fd2',
-       path: 'temp/e413a27fd2',
-       size: 12 } ],
-  picture: 
-   [ { fieldname: 'picture',
-       originalname: 'large.jpg',
-       encoding: '7bit',
-       mimetype: 'application/octet-stream',
-       destination: 'temp',
-       filename: 'ce4e1c30e3',
-       path: 'temp/ce4e1c30e3',
-       size: 2845021 } ] }
+Files: undefined
 ```
 </td></tr>
 <tr><td colspan="2"><a name="none"><code>none()</code></a>: Do not accept files, only fields.</td></tr>

@@ -29,9 +29,6 @@ function log(label, data) {
     .postForm('/', async (form) => {
       form.addSection('hello', 'world')
       form.addSection('name', 'multipart')
-      await form.addFile('test/fixture/test.txt', 'file')
-      await form.addFile('test/fixture/test.txt', 'file')
-      await form.addFile('test/fixture/large.jpg', 'picture')
     })
   await http._destroy()
   // try { await temp._destroy() } catch (err) { /** */}

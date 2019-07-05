@@ -77,7 +77,7 @@ The constructor will create an instance with the methods described below.
 </td>
 <td>
 
-%FORK-js example/fields%
+%FORK-js example/none%
 </td></tr>
 <tr><td colspan="2"><md2html>[`none()`](###): Do not accept files, only fields.</md2html></td></tr>
 </table>
