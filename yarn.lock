@@ -7,13 +7,14 @@
   resolved "https://registry.yarnpkg.com/@artdeco/clean-stack/-/clean-stack-1.1.1.tgz#0a68b9a061b5076ebaf948c150ea26d09c1e753f"
   integrity sha512-q5lO3vGUo0WgkSqzgzjL0HQdA9t2HzQqZISuVuQWMh9xqLuiLFP/ZTsxFc8vpMl7mNpGk7Mm0OeyFQ+Evrp0Cw==
 
-"@contexts/http@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@contexts/http/-/http-1.4.0.tgz#eaf2e7edfeaa2b64c692dd8ffff327187bb69a8c"
-  integrity sha512-D/SSTCHnrKeZsCQTrDBa8FMgpuaPbd/eYTIGFhlohaZDTAlwJCfsOUJhaeE8bzYSAx5cNZvnBya/juopnGA+mA==
+"@contexts/http@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@contexts/http/-/http-1.5.0.tgz#e200bc12c8310f15c37c9caa6a91e263349d3a4b"
+  integrity sha512-s9ct/15deEa6EAOZ0CpqDWAk1eA7DZBZ6pphS8T14KiMG4WlYXHSGHvPrBXD+W+vinkuDTsMsJxopJ5Qdx2nMQ==
   dependencies:
     "@artdeco/clean-stack" "^1.1.1"
-    "@rqt/aqt" "^1.2.5"
+    "@multipart/form" "^1.0.0"
+    "@rqt/aqt" "^1.2.6"
     "@zoroaster/deep-equal" "^1.0.1"
     erotic "^2.1.1"
     erte "^1.2.0"
@@ -77,12 +78,19 @@
   resolved "https://registry.yarnpkg.com/@multipart/append-field/-/append-field-1.0.1.tgz#75e018bb986aaf8dd186c98520d584a0f7d1d4cb"
   integrity sha512-VKFpXy/6SdUrWpU2iHBvung//7kb0hak/gnasstJQhLVWFnrq4bYvQNvrlK/gQpIwJzw4KbeytbcoEh+MgsaVg==
 
+"@multipart/form@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@multipart/form/-/form-1.0.0.tgz#c318d7185300d2d3339e64d38b64197d64613620"
+  integrity sha512-FDeaYHoXe4HeEZ3QYJzfrFH8EJFKTG2WIoEGwL3Vms71LT20skaMifehgMNmQ8pNrTq+Zg8FKTGJDxDTTXoM3A==
+  dependencies:
+    "@wrote/read" "^1.0.4"
+
 "@multipart/test-form-data@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@multipart/test-form-data/-/test-form-data-1.0.0.tgz#d815df5427b2b3a1b045471c0a3bbb23ed837435"
   integrity sha512-uMA4BTDEnr8fwqO3MySs7y2CwJswh4IvQVFzI8opjDA5CW0NPHiWDnH5dhPB6Od8wEx9P57nStvcBP0Y3dFkog==
 
-"@rqt/aqt@^1.2.5":
+"@rqt/aqt@^1.2.6":
   version "1.2.6"
   resolved "https://registry.yarnpkg.com/@rqt/aqt/-/aqt-1.2.6.tgz#0f41a4596b6a84ec8caa77d456972c0bb026cc2b"
   integrity sha512-vyfh/xac0RqE4rBxmM5YX2CNZprad3XT6Nz71D2udO0aseuOiAa/vR7dVMDTF6gJD5CpppCYsO14geItdthu7g==
