@@ -22,6 +22,7 @@ yarn add @multipart/form-data
   * [`constructor(options: FormDataConfig?): MultipartFormData`](#constructoroptions-formdataconfig-multipartformdata)
     * [`FormDataConfig`](#type-formdataconfig)
     * [`FormData`](#type-formdata)
+- [`FormDataFile`](#formdatafile)
 - [Copyright](#copyright)
 
 <p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/0.svg?sanitize=true"></a></p>
@@ -68,9 +69,41 @@ __<a name="type-formdata">`FormData`</a>__
 | __none*__   | <em>function(): _goa.Middleware</em>                            | Do not accept files, only fields.                                                                                       |
 | __any*__    | <em>function(): _goa.Middleware</em>                            | Accept any fields and files.                                                                                            |
 
+```js
+import MultipartFormData from '@multipart/form-data'
+import Goa from '@goa/koa'
+
+const app = new Goa()
+const multer = new MultipartFormData({
+  dest: 'example/temp',
+})
+const middleware = multer.single('file')
+app.use(middleware)
+app.use((ctx) => {
+  console.log('Fields: %O', ctx.req.body)
+  delete ctx.req.file.stream
+  console.log('File: %O', ctx.req.file)
+})
+```
+```js
+Fields: { hello: 'world', name: '@multipart/form-data' }
+File: { fieldname: 'file',
+  originalname: 'test.txt',
+  encoding: '7bit',
+  mimetype: 'application/octet-stream',
+  destination: 'example/temp',
+  filename: '271d4dcf17d420dcf2def1880a138e51',
+  path: 'example/temp/271d4dcf17d420dcf2def1880a138e51',
+  size: 12 }
+```
+
 <p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/2.svg?sanitize=true"></a></p>
 
+## `FormDataFile`
 
+_MultipartFormData_ adds a `body` object and a `file` or `files` object to the request object. The `body` hashmap contains the values of the text fields of the form, the `file` or `files` object contains the files uploaded via the form.
+
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/3.svg?sanitize=true"></a></p>
 
 ## Copyright
 

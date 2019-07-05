@@ -28,4 +28,7 @@ The constructor will create an instance with the methods described below.
 
 %TYPEDEF types/index.xml FormData%
 
+%EXAMPLE: example, ../src => @multipart/form-data%
+%FORK-js example%
+
 %~%

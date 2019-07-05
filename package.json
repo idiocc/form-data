@@ -12,7 +12,7 @@
     "depack": "depack-dev src/depack -o depack -a -s -l -p --externs types/externs.js --hide_warnings_for node_modules/events --hide_warnings_for node_modules/http",
     "test-build": "ALAMODE_ENV=test-build yarn test",
     "lint": "eslint .",
-    "doc": "NODE_DEBUG=doc doc -o README.md",
+    "doc": "NODE_DEBUG=doc doc -o README.md -n _multipart",
     "b": "alamode src -o build -s",
     "d": "yarn-s d1 externs",
     "d1": "typal depack/index.js src/index.js types/index.js -c -t types/index.xml",

@@ -1,13 +1,35 @@
-/* alanode example/ */
-import multer from '../src'
+import Http from '@contexts/http'
+import Temp from 'temp-context'
+const http = new Http()
+const temp = new Temp()
+/* start example */
+import MultipartFormData from '../src'
 import Goa from '@goa/koa'
 
-(async () => {
-  const app = new Goa()
-  app.use((ctx) => {
-    throw new Error('error')
-  })
-  app.listen(function() {
-    console.log('http://localhost:' + this.address().port)
-  })
+const app = new Goa()
+const multer = new MultipartFormData({
+  dest: 'example/temp',
+})
+const middleware = multer.single('file')
+app.use(middleware)
+app.use((ctx) => {
+  console.log('Fields: %O', ctx.req.body)
+  delete ctx.req.file.stream
+  console.log('File: %O', ctx.req.file)
+})
+/* end example */
+
+;(async () => {
+  temp._TEMP = 'example/temp'
+  await temp._init()
+  await http.startPlain(app.callback())
+    .postForm('/', async (form) => {
+      form.addSection('hello', 'world')
+      form.addSection('name', '@multipart/form-data')
+      await form.addFile('test/fixture/test.txt', 'file')
+    })
+  await http._destroy()
+  await temp._destroy()
 })()
+
+/* end example */

@@ -30,7 +30,7 @@ export default class DiskStorage {
     this.getFilename = filename
 
     if (typeof destination == 'string') {
-      ensurePathSync(destination)
+      ensurePathSync(join(destination, 'file.dat'))
       this.getDestination = () => destination
     } else {
       this.getDestination = destination
