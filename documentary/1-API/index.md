@@ -14,7 +14,7 @@ import MultipartFormData, {
 
 This class is used to create middleware according to the required file upload strategy.
 
-```### constructor
+```### constructor => MultipartFormData
 [
   ["options", "FormDataConfig?"]
 ]
@@ -22,6 +22,10 @@ This class is used to create middleware according to the required file upload st
 
 Creates a new instance according to the config. It is later used to access the middleware functions described below.
 
-%TYPEDEF types/index.xml%
+%TYPEDEF types/index.xml FormDataConfig%
+
+The constructor will create an instance with the methods described below.
+
+%TYPEDEF types/index.xml FormData%
 
 %~%

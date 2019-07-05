@@ -6,9 +6,9 @@
     name="FormDataFileFilter"
     desc="The function to control which files are accepted." />
 
-  <type name="FormDataConfig" noToc>
+  <type name="FormDataConfig">
     <prop opt string name="dest">
-      The directory where to store the files using the `DiskStorage`.
+      The directory where to store the files using the `DiskStorage`. If not specified, files will be saved in the system's temp directory (`os.tmpdir()`).
     </prop>
     <prop opt type="_multipart.FormDataStorageEngine" name="storage">
       An _instance_ of a custom storage engine.
@@ -97,8 +97,11 @@
     name="IncomingMessage"
     from="http"
     link="https://nodejs.org/api/http.html#http_class_http_incomingmessage"
+    desc="The Node.JS http server request object."
   />
-  <import name="Stats" from="fs"
-    link="https://nodejs.org/api/fs.html#fs_class_fs_stats" />
-  <import name="Readable" from="stream" />
+
+  <import name="Readable" from="stream"
+    link="https://nodejs.org/api/stream.html#stream_readable_streams"
+    desc="A stream that pushes data when it becomes available."
+    />
 </types>
