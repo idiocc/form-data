@@ -14,27 +14,61 @@ class MultipartFormData extends _MultipartFormData {
   constructor(options) {
     super(options)
   }
+  /**
+   * Accept a single file.
+   * @param {string} name The name of the field.
+   * @example
+   * ```js
+   * const middleware = multer.single('file')
+   *   // => req.file = FILE
+   *   //    req.body = { field: FIELD }
+   * ```
+   */
   single(name) {
     return super.single(name)
   }
+  /**
+   * Accept multiple files.
+   * @param {string} name The name of the field.
+   * @param {string} maxCount The maximum number of files to accept under the specified field name.
+   * @example
+   * ```js
+   * const middleware = multer.array('file', 2)
+   *   // => req.files = [FILE1, FILE2]
+   *   //    req.body = { field: FIELD }
+   * ```
+   */
   array(name, maxCount) {
     return super.array(name, maxCount)
   }
   /**
+   * Accept files according to the configured fields. The result will be stored in the `req.files` object.
    * @param {!Array<_multipart.FormDataField>} fields The fields to accept.
+   * @example
+   * ```js
+   * const middleware = multer.fields([
+   *  { name: 'file', maxCount: 2 },
+   *  { name: 'picture', maxCount: 1 },
+   * ]) // => req.files = { file: [FILE1, FILE2], picture: [PICTURE] }
+   *    //    req.body = { field: FIELD }
+   * ```
    */
   fields(fields) {
     return super.fields(fields)
   }
   /**
    * Do not accept files, only fields.
-   * @returns {goa.Middleware}
+   * @example
+   * ```js
+   * const middleware = multer.none()
+   *   // => req.body = { field: FIELD }
+   * ```
    */
   none() {
     return super.none()
   }
   /**
-   *
+   * Accept any fields and files.
    */
   any() {
     return super.any()
@@ -43,7 +77,9 @@ class MultipartFormData extends _MultipartFormData {
 
 /**
  * Creates a new disk storage.
- * @param {_multipart.FormDataDiskStorageOptions} [opt] Options for the disk storage.
+ * @param {_multipart.FormDataDiskStorageOptions} [opt]
+ * @param {string|function(http.IncomingMessage, _multipart.FormDataFile): !Promise<string>} [opt.destination] Used to determine within which folder the uploaded files should be stored. If given as a string, the location will be ensured prior at the start. Default is `tmpdir()`.
+ * @param {function(http.IncomingMessage, _multipart.FormDataFile): !Promise<string>} [opt.filename] Used to determine what the file should be named inside the folder. If no filename is given, each file will be given a random name that doesn't include any file extension.
  */
 function diskStorage(opt) {
   return _diskStorage(opt)
