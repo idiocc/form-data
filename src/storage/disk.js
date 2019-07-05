@@ -15,11 +15,11 @@ async function getFilename() {
 }
 
 /**
- * @implements {_idio.MulterStorageEngine}
+ * @implements {_multipart.FormDataStorageEngine}
  */
 export default class DiskStorage {
   /**
-   * @param {_idio.MulterDiskStorageOptions} [opts] The options.
+   * @param {_multipart.FormDataDiskStorageOptions} [opts] The options.
    */
   constructor(opts = {}) {
     const {
@@ -69,9 +69,9 @@ export default class DiskStorage {
 
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../../types').MulterStorageEngine} _idio.MulterStorageEngine
+ * @typedef {import('../../types').FormDataStorageEngine} _multipart.FormDataStorageEngine
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../../types').MulterDiskStorageOptions} _idio.MulterDiskStorageOptions
+ * @typedef {import('../../types').FormDataDiskStorageOptions} _multipart.FormDataDiskStorageOptions
  */

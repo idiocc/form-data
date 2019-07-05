@@ -1,7 +1,7 @@
 import { collect } from 'catchment'
 
 /**
- * @implements {_idio.MulterStorageEngine}
+ * @implements {_multipart.FormDataStorageEngine}
  */
 export default class MemoryStorage {
   /**

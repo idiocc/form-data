@@ -6,7 +6,7 @@ import MultipartFormData, { diskStorage, FormDataError, memoryStorage } from '..
 /** @type {Object.<string, (c: Context, t: TempContext)>} */
 const T = {
   context: [Context, TempContext],
-  async 'is an instance of both `Error` and `MulterError` classes'(
+  async 'is an instance of both Error and FormDataError classes'(
     { error, startApp, fixture }, { TEMP }) {
     const storage = diskStorage({ destination: TEMP })
     const upload = new MultipartFormData({ storage })

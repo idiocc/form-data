@@ -48,7 +48,7 @@ const T = {
     await startApp()
       .postForm('/', async (form) => {
         await form.addFile(fixture`empty.dat`, 'empty')
-        form.addSection('name', 'Multer')
+        form.addSection('name', '@multipart/form-data')
         form.addSection('version', '')
         form.addSection('year', '')
         form.addSection('checkboxfull', 'cb1')
@@ -64,7 +64,7 @@ const T = {
           checkboxempty: ['', ''],
           checkboxfull: ['cb1', 'cb2'],
           checkboxhalfempty: ['cb1', ''],
-          name: 'Multer',
+          name: '@multipart/form-data',
           version: '',
           year: '',
         })
