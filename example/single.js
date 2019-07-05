@@ -8,7 +8,7 @@ import Goa from '@goa/koa'
 
 const app = new Goa()
 const multipart = new Multipart({
-  dest: 'example/temp',
+  dest: 'temp',
 })
 const middleware = multipart.single('file')
 app.use(middleware)
@@ -20,7 +20,7 @@ app.use((ctx) => {
 /* end example */
 
 ;(async () => {
-  temp._TEMP = 'example/temp'
+  temp._TEMP = 'temp'
   await temp._init()
   await http.startPlain(app.callback())
     .postForm('/', async (form) => {

@@ -84,7 +84,7 @@ import Goa from '@goa/koa'
 
 const app = new Goa()
 const multipart = new Multipart({
-  dest: 'example/temp',
+  dest: 'temp',
 })
 const middleware = multipart.single('file')
 app.use(middleware)
@@ -103,9 +103,9 @@ File: { fieldname: 'file',
   originalname: 'test.txt',
   encoding: '7bit',
   mimetype: 'application/octet-stream',
-  destination: 'example/temp',
-  filename: 'c58a771a8a48416953f356e0e7087ff7',
-  path: 'example/temp/c58a771a8a48416953f356e0e7087ff7',
+  destination: 'temp',
+  filename: '5c35e781fbb0305f157ea498e8b6e462',
+  path: 'temp/5c35e781fbb0305f157ea498e8b6e462',
   size: 12 }
 ```
 </td></tr>
