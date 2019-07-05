@@ -111,6 +111,10 @@ _multipart.FormDataDiskStorageOptions.prototype.filename
  */
 http.IncomingMessage.prototype.body
 /**
- * @type {!Array<_idio.MulterFile>|!Object<string, !Array<_idio.MulterFile>>|_idio.MulterFile}
+ * @type {!Array<_multipart.FormDataFile>|!Object<string, !Array<_multipart.FormDataFile>>|_multipart.FormDataFile}
  */
 http.IncomingMessage.prototype.files
+/**
+ * @type {_multipart.FormDataFile}
+ */
+http.IncomingMessage.prototype.file

@@ -5,8 +5,8 @@ import { collect } from 'catchment'
  */
 export default class MemoryStorage {
   /**
-   * @param {?} req
-   * @param {{ stream }} file
+   * @param {http.IncomingMessage} req
+   * @param {_multipart.FormDataFile} file
    */
   async _handleFile(req, file) {
     const data = await collect(/** @type {stream.Readable } */ (file['stream']), {
@@ -17,8 +17,17 @@ export default class MemoryStorage {
       'size': data.length,
     }
   }
-  _removeFile(req, file, cb) {
+  async _removeFile(req, file) {
     delete file['buffer']
-    cb(null)
+    return null
   }
 }
+
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('../../types').FormDataFile} _multipart.FormDataFile
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('http').IncomingMessage} http.IncomingMessage
+ */

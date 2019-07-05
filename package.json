@@ -9,6 +9,7 @@
     "test": "yarn t test/spec test/mask",
     "spec": "yarn t test/spec",
     "mask": "yarn t test/mask",
+    "depack": "depack-dev src/depack -o depack -a -l -p --externs types/externs.js --hide_warnings_for node_modules/events --hide_warnings_for node_modules/http",
     "test-build": "ALAMODE_ENV=test-build yarn test",
     "lint": "eslint .",
     "doc": "NODE_DEBUG=doc doc -o README.md",
@@ -49,9 +50,9 @@
   "homepage": "https://github.com/idiocc/multer#readme",
   "devDependencies": {
     "@contexts/http": "^1.5.0",
+    "@externs/goa": "^0.1.0",
     "@goa/busboy": "^1.1.1",
     "@goa/koa": "^1.1.3",
-    "@goa/type-is": "^1.0.2",
     "@idio/dicer": "^1.0.2",
     "@multipart/append-field": "^1.0.1",
     "@multipart/test-form-data": "^1.0.0",

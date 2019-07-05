@@ -17,6 +17,10 @@ export default class FormDataError extends Error {
     this.code = null
     this.field = null
   }
+  /**
+   * @param {string} code
+   * @param {string} [field]
+   */
   static create(code, field) {
     const message = errorMessages[code]
     const err = new FormDataError(message)

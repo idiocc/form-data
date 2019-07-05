@@ -24,9 +24,9 @@ export default class FileAppender {
    * @param {_multipart.FormDataFile} placeholder The information about each file.
    */
   insertPlaceholder({ fieldname }) {
-    const placeholder = {
+    const placeholder = /** @type {!_multipart.FormDataFile} */ ({
       fieldname,
-    }
+    })
 
     switch (this.strategy) {
     case 'NONE': break

@@ -10,14 +10,9 @@ function allowAll() {
 export default class MultipartFormData {
   /**
    * @param {_multipart.FormDataConfig} options
-   * @param {string} [options.dest] The directory where to store the files using the `DiskStorage`.
-   * @param {_multipart.FormDataStorageEngine} [options.storage] An _instance_ of a custom storage engine.
-   * @param {_multipart.FormDataFileFilter} [options.fileFilter] The file filter.
-   * @param {_goa.BusBoyLimits} [options.limits] The limits of the uploaded data.
-   * @param {boolean} [options.preservePath=false] Whether to keep the full path of files instead of just the base name. Default `false`.
    */
   constructor (options = {}) {
-    const { storage, dest, limits = {}, preservePath, fileFilter = allowAll } = options
+    const { storage, dest, limits = {}, preservePath = false, fileFilter = allowAll } = options
     if (storage) {
       this.storage = storage
     } else if (dest) {
@@ -26,7 +21,8 @@ export default class MultipartFormData {
       this.storage = new MemoryStorage()
     }
 
-    this.limits = limits
+
+    this.limits = /** @type {!_goa.BusBoyLimits} */ (limits)
     this.preservePath = preservePath
     this.fileFilter = fileFilter
   }

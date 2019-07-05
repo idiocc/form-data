@@ -2,27 +2,33 @@
 // alamode({
 //   ignoreNodeModules: false,
 // })
-import is from '@goa/type-is'
+// import typeis from '@goa/type-is'
 import Busboy from '@goa/busboy'
 import appendField from '@multipart/append-field'
 import FileAppender from './file-appender'
 import FormDataError from './error'
 import Counter from './counter'
 
+const testMultipart = (headers) => {
+  const { 'content-type': contentType } = headers
+  if (!contentType) return false
+  return contentType.toLowerCase().startsWith('multipart/form-data')
+}
+
 /**
- * @param {{ limits: _goa.BusBoyLimits,
+ * @param {{ limits: !_goa.BusBoyLimits,
  *           preservePath: boolean,
- *           storage: _multipart.FormDataStorageEngine,
- *           fileFilter: _multipart.FormDataFileFilter,
+ *           storage: !_multipart.FormDataStorageEngine,
+ *           fileFilter: !_multipart.FormDataFileFilter,
  *           fileStrategy: string }} options
  * @returns {_goa.Middleware}
  */
 export default function makeMiddleware(options) {
   return async function multerMiddleware(ctx, next) {
     const { req } = ctx
-    if (!is(ctx.req, ['multipart'])) return next()
+    if (!testMultipart(req.headers)) return next()
 
-    const { limits, storage, fileFilter, fileStrategy, preservePath } = options
+    const { limits = {}, storage, fileFilter, fileStrategy, preservePath } = options
 
     const body = {}
     req.body = body
@@ -113,7 +119,7 @@ export default function makeMiddleware(options) {
         if (tryCancel()) return
 
         const info = await storage._handleFile(req, file)
-        const fileInfo = { ...file, ...info }
+        const fileInfo = /** @type {!_multipart.FormDataFile} */ ({ ...file, ...info })
 
         if (tryCancel()) {
           return uploadedFiles.push(fileInfo)
