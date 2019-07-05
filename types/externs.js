@@ -11,6 +11,10 @@ _multipart.FormDataFileFilter
  */
 _multipart.FormDataConfig
 /**
+ * @typedef {{ single: function(string): _goa.Middleware, array: function(string, number): _goa.Middleware, fields: function(!Array<_multipart.FormDataField>): _goa.Middleware, none: function(): _goa.Middleware, any: function(): _goa.Middleware }}
+ */
+_multipart.FormData
+/**
  * @interface
  */
 _multipart.FormDataStorageEngine

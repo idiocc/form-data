@@ -24,6 +24,24 @@
     </prop>
   </type>
 
+  <type name="FormData">
+    <prop type="function(string): _goa.Middleware" name="single">
+      Accept a single file. The first argument is the name of the field.
+    </prop>
+    <prop type="function(string, number): _goa.Middleware" name="array">
+      Accept multiple files. The first argument is the name of the field, and the second argument is the max number of files.
+    </prop>
+    <prop type="function(!Array<_multipart.FormDataField>): _goa.Middleware" name="fields">
+      Accept files according to the configured fields.
+    </prop>
+    <prop type="function(): _goa.Middleware" name="none">
+      Do not accept files, only fields.
+    </prop>
+    <prop type="function(): _goa.Middleware" name="any">
+      Accept any fields and files.
+    </prop>
+  </type>
+
   <type interface name="FormDataStorageEngine">
     <prop type="function(!http.IncomingMessage, _multipart.FormDataFile): !Promise" name="_handleFile">
       Saves the file asynchronously.

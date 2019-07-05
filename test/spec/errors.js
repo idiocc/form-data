@@ -21,7 +21,8 @@ const T = {
       })
       .assert(500)
     const err = await p
-    ok(err instanceof FormDataError)
+    if (process.env['ALAMODE_ENV'] != 'test-build')
+      ok(err instanceof FormDataError)
     ok(err instanceof Error)
     equal(err.code, 'LIMIT_UNEXPECTED_FILE')
   },
