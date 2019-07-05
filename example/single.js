@@ -3,11 +3,11 @@ import Temp from 'temp-context'
 const http = new Http()
 const temp = new Temp()
 /* start example */
-import MultipartFormData from '../src'
+import Multipart from '../src'
 import Goa from '@goa/koa'
 
 const app = new Goa()
-const multipart = new MultipartFormData({
+const multipart = new Multipart({
   dest: 'example/temp',
 })
 const middleware = multipart.single('file')
@@ -25,7 +25,7 @@ app.use((ctx) => {
   await http.startPlain(app.callback())
     .postForm('/', async (form) => {
       form.addSection('hello', 'world')
-      form.addSection('name', '@multipart/form-data')
+      form.addSection('name', 'multipart')
       await form.addFile('test/fixture/test.txt', 'file')
     })
   await http._destroy()

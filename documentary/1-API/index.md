@@ -28,7 +28,21 @@ The constructor will create an instance with the methods described below.
 
 %TYPEDEF types/index.xml FormData%
 
-%EXAMPLE: example, ../src => @multipart/form-data%
-%FORK-js example%
+### `single`
+
+Accept a single file.
+
+<table>
+<!-- block-start -->
+<tr><th><a href="example/single.js">Source</a></th><th>Output</th></tr>
+<tr><td>
+
+%EXAMPLE: example/single, ../src => @multipart/form-data%
+</td>
+<td>
+
+%FORK-js example/single%
+</td></tr>
+</table>
 
 %~%
