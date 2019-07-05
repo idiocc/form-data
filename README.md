@@ -21,8 +21,8 @@ yarn add @multipart/form-data
 - [`class MultipartFormData`](#class-multipartformdata)
   * [`constructor(options: FormDataConfig?): MultipartFormData`](#constructoroptions-formdataconfig-multipartformdata)
     * [`FormDataConfig`](#type-formdataconfig)
-    * [<code>single</code>](#single)
-    * [<code>array</code>](#array)
+  * [<code>single(fieldname)</code>](#singlefieldname)
+  * [<code>array(fieldname, maxCount)</code>](#arrayfieldname-maxcount)
 - [`FormDataFile`](#formdatafile)
 - [Copyright](#copyright)
 
@@ -109,7 +109,7 @@ File: { fieldname: 'file',
   size: 12 }
 ```
 </td></tr>
-<tr><td colspan="2"><a name="single"><code>single</code></a>: Accept a single file.</td></tr>
+<tr><td colspan="2"><a name="singlefieldname"><code>single(fieldname)</code></a>: Accept a single file.</td></tr>
 <tr><td>
 
 ```js
@@ -120,12 +120,12 @@ const app = new Goa()
 const multipart = new Multipart({
   dest: 'temp',
 })
-const middleware = multipart.single('file')
-app.use(middleware)
+const mw = multipart.array('file', 2)
+app.use(mw)
 app.use((ctx) => {
   console.log('Fields: %O', ctx.req.body)
-  delete ctx.req.file.stream
-  console.log('File: %O', ctx.req.file)
+  clearStream(ctx.req.files)
+  console.log('Files: %O', ctx.req.files)
 })
 ```
 </td>
@@ -133,17 +133,25 @@ app.use((ctx) => {
 
 ```js
 Fields: { hello: 'world', name: 'multipart' }
-File: { fieldname: 'file',
-  originalname: 'test.txt',
-  encoding: '7bit',
-  mimetype: 'application/octet-stream',
-  destination: 'temp',
-  filename: '5c35e781fbb0305f157ea498e8b6e462',
-  path: 'temp/5c35e781fbb0305f157ea498e8b6e462',
-  size: 12 }
+Files: [ { fieldname: 'file',
+    originalname: 'test.txt',
+    encoding: '7bit',
+    mimetype: 'application/octet-stream',
+    destination: 'temp',
+    filename: '1e66b5d1e2cc7cf67f2a95e61fabdb47',
+    path: 'temp/1e66b5d1e2cc7cf67f2a95e61fabdb47',
+    size: 12 },
+  { fieldname: 'file',
+    originalname: 'test.txt',
+    encoding: '7bit',
+    mimetype: 'application/octet-stream',
+    destination: 'temp',
+    filename: '74ecadfae68b694089df1b19a4a1bde4',
+    path: 'temp/74ecadfae68b694089df1b19a4a1bde4',
+    size: 12 } ]
 ```
 </td></tr>
-<tr><td colspan="2"><a name="array"><code>array</code></a>: Accept multiple files.</td></tr>
+<tr><td colspan="2"><a name="arrayfieldname-maxcount"><code>array(fieldname, maxCount)</code></a>: Accept multiple files under the same field name.</td></tr>
 </table>
 
 <p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/2.svg?sanitize=true"></a></p>

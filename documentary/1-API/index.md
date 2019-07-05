@@ -47,17 +47,17 @@ The constructor will create an instance with the methods described below.
 
 %FORK-js example/single%
 </td></tr>
-<tr><td colspan="2"><md2html>[`single`](t): Accept a single file.</md2html></td></tr>
+<tr><td colspan="2"><md2html>[`single(fieldname)`](###): Accept a single file.</md2html></td></tr>
 <!-- block-start -->
 <tr><td>
 
-%EXAMPLE: example/single, ../src => @multipart/form-data%
+%EXAMPLE: example/array, ../src => @multipart/form-data%
 </td>
 <td>
 
-%FORK-js example/single%
+%FORK-js example/array%
 </td></tr>
-<tr><td colspan="2"><md2html>[`array`](t): Accept multiple files.</md2html></td></tr>
+<tr><td colspan="2"><md2html>[`array(fieldname, maxCount)`](###): Accept multiple files under the same field name.</md2html></td></tr>
 </table>
 
 %~%
