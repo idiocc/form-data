@@ -23,6 +23,7 @@ yarn add @multipart/form-data
     * [`FormDataConfig`](#type-formdataconfig)
     * [`FormData`](#type-formdata)
 - [`FormDataFile`](#formdatafile)
+  * [`FormDataFile`](#type-formdatafile)
 - [Copyright](#copyright)
 
 <p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/0.svg?sanitize=true"></a></p>
@@ -47,7 +48,7 @@ This class is used to create middleware according to the required file upload st
 
 Creates a new instance according to the config. It is later used to access the middleware functions described below.
 
-__<a name="type-formdataconfig">`FormDataConfig`</a>__
+__<a name="type-formdataconfig">`FormDataConfig`</a>__: The configuration for the instance.
 
 |     Name     |              Type              |                                                                      Description                                                                      | Default |
 | ------------ | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
@@ -92,8 +93,8 @@ File: { fieldname: 'file',
   encoding: '7bit',
   mimetype: 'application/octet-stream',
   destination: 'example/temp',
-  filename: 'ff6d1810a8b3f7e41cecab162a31a430',
-  path: 'example/temp/ff6d1810a8b3f7e41cecab162a31a430',
+  filename: '9d9d533fafeb004991dcfa621a0a21fb',
+  path: 'example/temp/9d9d533fafeb004991dcfa621a0a21fb',
   size: 12 }
 ```
 
@@ -102,6 +103,21 @@ File: { fieldname: 'file',
 ## `FormDataFile`
 
 _MultipartFormData_ adds a `body` object and a `file` or `files` object to the request object. The `body` hashmap contains the values of the text fields of the form, the `file` or `files` object contains the files uploaded via the form.
+
+__<a name="type-formdatafile">`FormDataFile`</a>__: The information about each file.
+
+|       Name        |           Type           |                                               Description                                                |
+| ----------------- | ------------------------ | -------------------------------------------------------------------------------------------------------- |
+| __fieldname*__    | <em>string</em>          | The field name specified in the form.                                                                    |
+| __originalname*__ | <em>string</em>          | The name of the file on the user's computer.                                                             |
+| __encoding*__     | <em>string</em>          | The encoding type of the file.                                                                           |
+| __mimetype*__     | <em>string</em>          | The mime type of the file.                                                                               |
+| __size*__         | <em>number</em>          | The size of the file in bytes.                                                                           |
+| __destination*__  | <em>string</em>          | The folder to which the file has been saved. Set by _DiskStorage_.                                       |
+| __filename*__     | <em>string</em>          | The name of the file within the `destination`. Set by _DiskStorage_.                                     |
+| __path*__         | <em>string</em>          | The full path to the uploaded file. Set by _DiskStorage_.                                                |
+| __buffer*__       | <em>Buffer</em>          | The `Buffer` of the entire file. Set by _MemoryStorage_.                                                 |
+| __stream*__       | <em>stream.Readable</em> | The _Readable_ stream with the file data. This stream should not be read other than by a storage engine. |
 
 <p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/3.svg?sanitize=true"></a></p>
 

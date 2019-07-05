@@ -6,7 +6,7 @@
     name="FormDataFileFilter"
     desc="The function to control which files are accepted." />
 
-  <type name="FormDataConfig">
+  <type name="FormDataConfig" desc="The configuration for the instance.">
     <prop opt string name="dest">
       The directory where to store the files using the `DiskStorage`. If not specified, files will be saved in the system's temp directory (`os.tmpdir()`).
     </prop>

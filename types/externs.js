@@ -7,10 +7,12 @@ var _multipart = {}
  */
 _multipart.FormDataFileFilter
 /**
+ * The configuration for the instance.
  * @typedef {{ dest: (string|undefined), storage: (_multipart.FormDataStorageEngine|undefined), fileFilter: (_multipart.FormDataFileFilter|undefined), limits: (_goa.BusBoyLimits|undefined), preservePath: (boolean|undefined) }}
  */
 _multipart.FormDataConfig
 /**
+ * An instance to create middleware.
  * @typedef {{ single: function(string): _goa.Middleware, array: function(string, number): _goa.Middleware, fields: function(!Array<_multipart.FormDataField>): _goa.Middleware, none: function(): _goa.Middleware, any: function(): _goa.Middleware }}
  */
 _multipart.FormData

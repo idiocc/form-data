@@ -13,8 +13,8 @@ function allowAll() {
 export default class MultipartFormData {
   /**
    * Creates a new instance.
-   * @param {_multipart.FormDataConfig} options
-   * @param {string} [options.dest] The directory where to store the files using the `DiskStorage`.
+   * @param {_multipart.FormDataConfig} options The configuration for the instance.
+   * @param {string} [options.dest] The directory where to store the files using the `DiskStorage`. If not specified, files will be saved in the system's temp directory (`os.tmpdir()`).
    * @param {_multipart.FormDataStorageEngine} [options.storage] An _instance_ of a custom storage engine.
    * @param {_multipart.FormDataFileFilter} [options.fileFilter] The file filter.
    * @param {_goa.BusBoyLimits} [options.limits] The limits of the uploaded data.

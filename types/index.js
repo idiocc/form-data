@@ -8,21 +8,21 @@ export {}
  * @typedef {function(http.IncomingMessage, _multipart.FormDataFile): !Promise<boolean>} _multipart.FormDataFileFilter The function to control which files are accepted.
  */
 /**
- * @typedef {_multipart.FormDataConfig} FormDataConfig
+ * @typedef {_multipart.FormDataConfig} FormDataConfig The configuration for the instance.
  */
 /**
- * @typedef {Object} _multipart.FormDataConfig
- * @prop {string} [dest] The directory where to store the files using the `DiskStorage`.
+ * @typedef {Object} _multipart.FormDataConfig The configuration for the instance.
+ * @prop {string} [dest] The directory where to store the files using the `DiskStorage`. If not specified, files will be saved in the system's temp directory (`os.tmpdir()`).
  * @prop {_multipart.FormDataStorageEngine} [storage] An _instance_ of a custom storage engine.
  * @prop {_multipart.FormDataFileFilter} [fileFilter] The file filter.
  * @prop {_goa.BusBoyLimits} [limits] The limits of the uploaded data.
  * @prop {boolean} [preservePath=false] Whether to keep the full path of files instead of just the base name. Default `false`.
  */
 /**
- * @typedef {_multipart.FormData} FormData
+ * @typedef {_multipart.FormData} FormData An instance to create middleware.
  */
 /**
- * @typedef {Object} _multipart.FormData
+ * @typedef {Object} _multipart.FormData An instance to create middleware.
  * @prop {function(string): _goa.Middleware} single Accept a single file. The first argument is the name of the field.
  * @prop {function(string, number): _goa.Middleware} array Accept multiple files. The first argument is the name of the field, and the second argument is the max number of files.
  * @prop {function(!Array<_multipart.FormDataField>): _goa.Middleware} fields Accept files according to the configured fields.
@@ -74,9 +74,6 @@ export {}
  */
 /**
  * @typedef {import('http').IncomingMessage} http.IncomingMessage
- */
-/**
- * @typedef {import('fs').Stats} fs.Stats
  */
 /**
  * @typedef {import('stream').Readable} stream.Readable

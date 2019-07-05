@@ -4,8 +4,8 @@ const {
 
 class MultipartFormData extends _MultipartFormData {
   /**
-   * @param {_multipart.FormDataConfig} options
-   * @param {string} [options.dest] The directory where to store the files using the `DiskStorage`.
+   * @param {_multipart.FormDataConfig} options The configuration for the instance.
+   * @param {string} [options.dest] The directory where to store the files using the `DiskStorage`. If not specified, files will be saved in the system's temp directory (`os.tmpdir()`).
    * @param {_multipart.FormDataStorageEngine} [options.storage] An _instance_ of a custom storage engine.
    * @param {_multipart.FormDataFileFilter} [options.fileFilter] The file filter.
    * @param {_goa.BusBoyLimits} [options.limits] The limits of the uploaded data.
@@ -113,12 +113,12 @@ module.exports.FormDataError = FormDataError
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {_multipart.FormDataConfig} FormDataConfig
+ * @typedef {_multipart.FormDataConfig} FormDataConfig The configuration for the instance.
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {Object} _multipart.FormDataConfig
- * @prop {string} [dest] The directory where to store the files using the `DiskStorage`.
+ * @typedef {Object} _multipart.FormDataConfig The configuration for the instance.
+ * @prop {string} [dest] The directory where to store the files using the `DiskStorage`. If not specified, files will be saved in the system's temp directory (`os.tmpdir()`).
  * @prop {_multipart.FormDataStorageEngine} [storage] An _instance_ of a custom storage engine.
  * @prop {_multipart.FormDataFileFilter} [fileFilter] The file filter.
  * @prop {_goa.BusBoyLimits} [limits] The limits of the uploaded data.
@@ -126,11 +126,11 @@ module.exports.FormDataError = FormDataError
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {_multipart.FormData} FormData
+ * @typedef {_multipart.FormData} FormData An instance to create middleware.
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {Object} _multipart.FormData
+ * @typedef {Object} _multipart.FormData An instance to create middleware.
  * @prop {function(string): _goa.Middleware} single Accept a single file. The first argument is the name of the field.
  * @prop {function(string, number): _goa.Middleware} array Accept multiple files. The first argument is the name of the field, and the second argument is the max number of files.
  * @prop {function(!Array<_multipart.FormDataField>): _goa.Middleware} fields Accept files according to the configured fields.
@@ -192,10 +192,6 @@ module.exports.FormDataError = FormDataError
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('http').IncomingMessage} http.IncomingMessage
- */
-/**
- * @suppress {nonStandardJsDocs}
- * @typedef {import('fs').Stats} fs.Stats
  */
 /**
  * @suppress {nonStandardJsDocs}
