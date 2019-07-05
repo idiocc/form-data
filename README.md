@@ -21,7 +21,8 @@ yarn add @multipart/form-data
 - [`class MultipartFormData`](#class-multipartformdata)
   * [`constructor(options: FormDataConfig?): MultipartFormData`](#constructoroptions-formdataconfig-multipartformdata)
     * [`FormDataConfig`](#type-formdataconfig)
-  * [`single`](#single)
+    * [`single`](#single)
+    * [`array`](#array)
 - [`FormDataFile`](#formdatafile)
 - [Copyright](#copyright)
 
@@ -73,12 +74,8 @@ __<a name="type-formdata">`FormData`</a>__: An instance to create middleware.
 | __any*__    | <em>function(): _goa.Middleware</em>                            | Accept any fields and files.                                                                                            |
 </details>
 
-### `single`
-
-Accept a single file.
-
 <table>
-<tr><th><a href="example/single.js">Source</a></th><th>Output</th></tr>
+<tr><th><a href="example">Source</a></th><th>Output</th></tr>
 <tr><td>
 
 ```js
@@ -112,6 +109,41 @@ File: { fieldname: 'file',
   size: 12 }
 ```
 </td></tr>
+<tr><td colspan="2"><a name="single">`single`</a></td></tr>
+<tr><td>
+
+```js
+import Multipart from '@multipart/form-data'
+import Goa from '@goa/koa'
+
+const app = new Goa()
+const multipart = new Multipart({
+  dest: 'temp',
+})
+const middleware = multipart.single('file')
+app.use(middleware)
+app.use((ctx) => {
+  console.log('Fields: %O', ctx.req.body)
+  delete ctx.req.file.stream
+  console.log('File: %O', ctx.req.file)
+})
+```
+</td>
+<td>
+
+```js
+Fields: { hello: 'world', name: 'multipart' }
+File: { fieldname: 'file',
+  originalname: 'test.txt',
+  encoding: '7bit',
+  mimetype: 'application/octet-stream',
+  destination: 'temp',
+  filename: '5c35e781fbb0305f157ea498e8b6e462',
+  path: 'temp/5c35e781fbb0305f157ea498e8b6e462',
+  size: 12 }
+```
+</td></tr>
+<tr><td colspan="2"><a name="array">`array`</a></td></tr>
 </table>
 
 <p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/2.svg?sanitize=true"></a></p>
