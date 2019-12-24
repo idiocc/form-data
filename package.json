@@ -48,9 +48,9 @@
   },
   "homepage": "https://www.idio.cc",
   "devDependencies": {
-    "@contexts/http": "^1.6.1",
+    "@contexts/http": "^1.6.2",
     "@externs/goa": "^1.0.1",
-    "@goa/busboy": "^1.2.1",
+    "@goa/busboy": "1.2.2",
     "@goa/koa": "^2.1.0",
     "@idio/dicer": "^1.1.0",
     "@multipart/append-field": "^1.0.1",
