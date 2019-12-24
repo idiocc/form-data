@@ -1,8 +1,9 @@
-import 'http'
 import '@externs/goa'
+import '../types/externs'
+
 import MultipartFormData, { diskStorage, memoryStorage, FormDataError } from './'
 
-DEPACK_EXPORT = {
+module.exports = {
   '_MultipartFormData': MultipartFormData,
   '_diskStorage': diskStorage,
   '_memoryStorage': memoryStorage,
