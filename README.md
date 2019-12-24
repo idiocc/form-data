@@ -1,6 +1,6 @@
 # @multipart/form-data
 
-[![npm version](https://badge.fury.io/js/%40multipart%2Fform-data.svg)](https://npmjs.org/package/@multipart/form-data)
+[![npm version](https://badge.fury.io/js/%40multipart%2Fform-data.svg)](https://www.npmjs.com/package/@multipart/form-data)
 
 `@multipart/form-data` is Multipart/Form-Data And File Upload Middleware For Koa Written In ES6 And Optimised With [JavaScript Compiler](https://compiler.page).
 
@@ -18,9 +18,9 @@ yarn add @multipart/form-data
 
 - [Table Of Contents](#table-of-contents)
 - [API](#api)
-- [`class MultipartFormData`](#class-multipartformdata)
-  * [`constructor(options: FormDataConfig?): MultipartFormData`](#constructoroptions-formdataconfig-multipartformdata)
-    * [`FormDataConfig`](#type-formdataconfig)
+- [`class FormData`](#class-formdata)
+  * [`FormData`](#type-formdata)
+  * [`FormDataConfig`](#type-formdataconfig)
   * [<code>single(fieldname)</code>](#singlefieldname)
   * [<code>array(fieldname, maxCount)</code>](#arrayfieldname-maxcount)
   * [<code>fields(Array&lt;FormDataField&gt;)</code>](#fieldsarrayltformdatafieldgt)
@@ -28,58 +28,111 @@ yarn add @multipart/form-data
   * [<code>none()</code>](#none)
   * [<code>any()</code>](#any)
 - [`FormDataFile`](#formdatafile)
-- [Limits](#limits)
-- [Copyright](#copyright)
+- [Copyright & License](#copyright--license)
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/0.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/0.svg?sanitize=true">
+</a></p>
 
 ## API
 
 The package is available by importing its default and named functions:
 
 ```js
-import MultipartFormData, {
+import FormData, {
   diskStorage, memoryStorage, FormDataError,
 } from '@multipart/form-data'
 ```
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/1.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/1.svg?sanitize=true">
+</a></p>
 
-## `class MultipartFormData`
+## `class FormData`
 
 This class is used to create middleware according to the required file upload strategy.
 
-### `constructor(`<br/>&nbsp;&nbsp;`options: FormDataConfig?,`<br/>`): MultipartFormData`
+__<a name="type-formdata">`FormData`</a>__: An instance to create middleware.
+<table>
+ <thead><tr>
+  <th>Name</th>
+  <th>Type &amp; Description</th>
+ </tr></thead>
+ <tr>
+  <td rowSpan="3" align="center"><ins>constructor</ins></td>
+  <td><em>new (options?: <a href="#type-formdataconfig" title="The configuration for the instance.">!FormDataConfig</a>) => <a href="#type-formdata" title="An instance to create middleware.">FormData</a></em></td>
+ </tr>
+ <tr></tr>
+ <tr>
+  <td>
+   Creates a new form-data instance.
+  </td>
+ </tr>
+ <tr>
+  <td rowSpan="3" align="center"><ins>single</ins></td>
+  <td><em>(name: string) => <a href="#type-_goamiddleware">!_goa.Middleware</a></em></td>
+ </tr>
+ <tr></tr>
+ <tr>
+  <td>
+   Accept a single file.
+  </td>
+ </tr>
+ <tr>
+  <td rowSpan="3" align="center"><ins>array</ins></td>
+  <td><em>(name: string, maxFiles: string) => <a href="#type-_goamiddleware">!_goa.Middleware</a></em></td>
+ </tr>
+ <tr></tr>
+ <tr>
+  <td>
+   Accept multiple files.
+  </td>
+ </tr>
+ <tr>
+  <td rowSpan="3" align="center"><ins>fields</ins></td>
+  <td><em>(fields: !Array&lt;<a href="#type-formdatafield" title="The item to use in the `.fields` method.">FormDataField</a>&gt;) => <a href="#type-_goamiddleware">!_goa.Middleware</a></em></td>
+ </tr>
+ <tr></tr>
+ <tr>
+  <td>
+   Accept files according to the configured fields.
+  </td>
+ </tr>
+ <tr>
+  <td rowSpan="3" align="center"><ins>none</ins></td>
+  <td><em>() => <a href="#type-_goamiddleware">!_goa.Middleware</a></em></td>
+ </tr>
+ <tr></tr>
+ <tr>
+  <td>
+   Do not accept files, only fields.
+  </td>
+ </tr>
+ <tr>
+  <td rowSpan="3" align="center"><ins>any</ins></td>
+  <td><em>() => <a href="#type-_goamiddleware">!_goa.Middleware</a></em></td>
+ </tr>
+ <tr></tr>
+ <tr>
+  <td>
+   Accept any fields and files.
+  </td>
+ </tr>
+</table>
 
 Creates a new instance according to the config. It is later used to access the middleware functions described below.
 
-[`import('@goa/busboy').BusBoyLimits`](https://github.com/idiocc/busboy#type-_goabusboylimits) __<a name="type-_goabusboylimits">`_goa.BusBoyLimits`</a>__: Various limits on incoming data.
 
 __<a name="type-formdataconfig">`FormDataConfig`</a>__: The configuration for the instance.
 
-|     Name     |                                                   Type                                                   |                                                                      Description                                                                      | Default |
-| ------------ | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| dest         | <em>string</em>                                                                                          | The directory where to store the files using the `DiskStorage`. If not specified, files will be saved in the system's temp directory (`os.tmpdir()`). | -       |
-| storage      | <em>FormDataStorageEngine</em>                                                                           | An _instance_ of a custom storage engine.                                                                                                             | -       |
-| fileFilter   | <em>FormDataFileFilter</em>                                                                              | The file filter.                                                                                                                                      | -       |
-| limits       | <em><a href="#type-_goabusboylimits" title="Various limits on incoming data.">_goa.BusBoyLimits</a></em> | The limits of the uploaded data.                                                                                                                      | -       |
-| preservePath | <em>boolean</em>                                                                                         | Whether to keep the full path of files instead of just the base name.                                                                                 | `false` |
 
-<details>
-<summary>
-The constructor will create an instance with the methods described below.
-</summary>
-
-__<a name="type-formdata">`FormData`</a>__: An instance to create middleware.
-
-|    Name     |                                                                        Type                                                                        |                                                       Description                                                       |
-| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| __single*__ | <em>function(string): _goa.Middleware</em>                                                                                                         | Accept a single file. The first argument is the name of the field.                                                      |
-| __array*__  | <em>function(string, number): _goa.Middleware</em>                                                                                                 | Accept multiple files. The first argument is the name of the field, and the second argument is the max number of files. |
-| __fields*__ | <em>function(!Array&lt;<a href="#type-formdatafield" title="The item to use in the `.fields` method.">FormDataField</a>&gt;): _goa.Middleware</em> | Accept files according to the configured fields.                                                                        |
-| __none*__   | <em>function(): _goa.Middleware</em>                                                                                                               | Do not accept files, only fields.                                                                                       |
-| __any*__    | <em>function(): _goa.Middleware</em>                                                                                                               | Accept any fields and files.                                                                                            |
-</details>
+|     Name     |                                                                 Type                                                                 |                                                                      Description                                                                      | Default |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| dest         | <em>string</em>                                                                                                                      | The directory where to store the files using the `DiskStorage`. If not specified, files will be saved in the system's temp directory (`os.tmpdir()`). | -       |
+| storage      | <em>FormDataStorageEngine</em>                                                                                                       | An _instance_ of a custom storage engine.                                                                                                             | -       |
+| fileFilter   | <em>FormDataFileFilter</em>                                                                                                          | The file filter.                                                                                                                                      | -       |
+| limits       | <em><a href="https://github.com/idiocc/busboy#type-busboylimits" title="Various limits on incoming data.">_goa.BusBoyLimits</a></em> | The limits of the uploaded data.                                                                                                                      | -       |
+| preservePath | <em>boolean</em>                                                                                                                     | Whether to keep the full path of files instead of just the base name.                                                                                 | `false` |
 
 <table>
 <tr><td colspan="2"><h3><a name="singlefieldname"><code>single(fieldname)</code></a>: Accept a single file.</h3></td></tr>
@@ -111,8 +164,8 @@ File: { fieldname: 'file',
   encoding: '7bit',
   mimetype: 'application/octet-stream',
   destination: 'temp',
-  filename: '3f9f0a389368d08f142ba8642a991b3d',
-  path: 'temp/3f9f0a389368d08f142ba8642a991b3d',
+  filename: 'afb49cada5f721d7fa8337f072d03ec5',
+  path: 'temp/afb49cada5f721d7fa8337f072d03ec5',
   size: 12 }
 ```
 </td></tr>
@@ -146,16 +199,16 @@ Files: [ { fieldname: 'file',
     encoding: '7bit',
     mimetype: 'application/octet-stream',
     destination: 'temp',
-    filename: 'b8814eb68d',
-    path: 'temp/b8814eb68d',
+    filename: '0fa202db40',
+    path: 'temp/0fa202db40',
     size: 12 },
   { fieldname: 'file',
     originalname: 'test/fixture/test.txt',
     encoding: '7bit',
     mimetype: 'application/octet-stream',
     destination: 'temp',
-    filename: '7e39078c3f',
-    path: 'temp/7e39078c3f',
+    filename: '149e4b08d6',
+    path: 'temp/149e4b08d6',
     size: 12 } ]
 ```
 </td></tr>
@@ -207,16 +260,16 @@ Files: { file:
        encoding: '7bit',
        mimetype: 'application/octet-stream',
        destination: 'temp',
-       filename: '9d884ab2a3',
-       path: 'temp/9d884ab2a3',
+       filename: '13093f0764',
+       path: 'temp/13093f0764',
        size: 12 },
      { fieldname: 'file',
        originalname: 'test.txt',
        encoding: '7bit',
        mimetype: 'application/octet-stream',
        destination: 'temp',
-       filename: 'e413a27fd2',
-       path: 'temp/e413a27fd2',
+       filename: '22e2e6e6f7',
+       path: 'temp/22e2e6e6f7',
        size: 12 } ],
   picture: 
    [ { fieldname: 'picture',
@@ -224,9 +277,9 @@ Files: { file:
        encoding: '7bit',
        mimetype: 'application/octet-stream',
        destination: 'temp',
-       filename: 'ce4e1c30e3',
-       path: 'temp/ce4e1c30e3',
-       size: 2845021 } ] }
+       filename: '352a1aea6a',
+       path: 'temp/352a1aea6a',
+       size: 1592548 } ] }
 ```
 </td></tr>
 <tr><td colspan="2"><h3><a name="none"><code>none()</code></a>: Do not accept files, only fields.</h3></td></tr>
@@ -288,22 +341,24 @@ Files: [ { fieldname: 'file',
     encoding: '7bit',
     mimetype: 'application/octet-stream',
     destination: 'temp',
-    filename: '06ebe8385b',
-    path: 'temp/06ebe8385b',
+    filename: '7218bd891a',
+    path: 'temp/7218bd891a',
     size: 12 },
   { fieldname: 'picture',
     originalname: 'large.jpg',
     encoding: '7bit',
     mimetype: 'application/octet-stream',
     destination: 'temp',
-    filename: '20c7da97ab',
-    path: 'temp/20c7da97ab',
-    size: 2845021 } ]
+    filename: 'e7a8050980',
+    path: 'temp/e7a8050980',
+    size: 1592548 } ]
 ```
 </td></tr>
 </table>
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/2.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/2.svg?sanitize=true">
+</a></p>
 
 ## `FormDataFile`
 
@@ -326,19 +381,24 @@ __<a name="type-formdatafile">`FormDataFile`</a>__: The information about each f
 | __buffer*__       | <em>Buffer</em>                                                                                                          | The `Buffer` of the entire file. Set by _MemoryStorage_.                                                 |
 | __stream*__       | <em><a href="#type-streamreadable" title="A stream that pushes data when it becomes available.">stream.Readable</a></em> | The _Readable_ stream with the file data. This stream should not be read other than by a storage engine. |
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/3.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/3.svg?sanitize=true">
+</a></p>
 
-## Limits
 
-To limit how many fields, files and the length of names of the fields, the limits object can be used.
 
-## Copyright
+## Copyright & License
+
+GNU Affero General Public License v3.0
+
+[Original work](https://github.com/expressjs/multer) by Multer's contributors under MIT license found in [COPYING](COPYING).
 
 <table>
   <tr>
     <th>
       <a href="https://artd.eco">
-        <img src="https://raw.githubusercontent.com/wrote/wrote/master/images/artdeco.png" alt="Art Deco">
+        <img width="100" src="https://raw.githubusercontent.com/wrote/wrote/master/images/artdeco.png"
+          alt="Art Deco">
       </a>
     </th>
     <th>© <a href="https://artd.eco">Art Deco</a> for <a href="https://idio.cc">Idio</a> 2019</th>
@@ -349,7 +409,7 @@ To limit how many fields, files and the length of names of the fields, the limit
     </th>
     <th>
       <a href="https://www.technation.sucks" title="Tech Nation Visa">
-        <img src="https://raw.githubusercontent.com/artdecoweb/www.technation.sucks/master/anim.gif"
+        <img width="100" src="https://raw.githubusercontent.com/idiocc/cookies/master/wiki/arch4.jpg"
           alt="Tech Nation Visa">
       </a>
     </th>
@@ -357,4 +417,6 @@ To limit how many fields, files and the length of names of the fields, the limit
   </tr>
 </table>
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/-1.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/-1.svg?sanitize=true">
+</a></p>

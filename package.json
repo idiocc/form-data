@@ -29,6 +29,7 @@
     "type": "git",
     "url": "git://github.com/idiocc/multer.git"
   },
+  "typedefs": "typedefs.json",
   "keywords": [
     "multer",
     "goa",
@@ -50,7 +51,7 @@
   "devDependencies": {
     "@contexts/http": "^1.6.2",
     "@externs/goa": "^1.0.1",
-    "@goa/busboy": "1.2.2",
+    "@goa/busboy": "1.2.3",
     "@goa/koa": "^2.1.0",
     "@idio/dicer": "^1.1.0",
     "@multipart/append-field": "^1.0.1",

@@ -1,0 +1,18 @@
+{
+  "_multipart.FormData": {
+    "link": "https://github.com/idiocc/multer#type-formdata",
+    "description": "An instance to create middleware."
+  },
+  "_multipart.FormDataField": {
+    "link": "https://github.com/idiocc/multer#type-formdatafield",
+    "description": "The item to use in the `.fields` method."
+  },
+  "_multipart.FormDataFile": {
+    "link": "https://github.com/idiocc/multer#type-formdatafile",
+    "description": "The information about each file."
+  },
+  "_multipart.FormDataConfig": {
+    "link": "https://github.com/idiocc/multer#type-formdataconfig",
+    "description": "The configuration for the instance."
+  }
+}

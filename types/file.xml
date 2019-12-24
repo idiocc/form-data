@@ -32,5 +32,5 @@
     </prop>
   </record>
 
-  <import name="Readable" from="stream" />
+  <import name="Readable" from="stream" link="https://nodejs.org/api/stream.html#stream_readable_streams" desc="A stream that pushes data when it becomes available." />
 </types>

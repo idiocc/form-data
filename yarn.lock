@@ -35,10 +35,10 @@
   resolved "https://registry.yarnpkg.com/@externs/nodejs/-/nodejs-1.5.0.tgz#88ff9e7a03c53d19101ee49768e598ff0f39c9ad"
   integrity sha512-2J+FRDjGfKKldTQ5YqLmhQ04/sA9swTQ6OTtPzo4xhg41u1+eiufciXiqW6u3UXEcmm413a27NakgnLbzfp0wQ==
 
-"@goa/busboy@1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@goa/busboy/-/busboy-1.2.2.tgz#bd675e853c387b08c64c6f928d7f7fec3591a6c3"
-  integrity sha512-VqMQCHvuPyEUXSAY7XgLHDQTwNb1GpmzxYGUbIDT4hEPZubYPmhJRPdE7KWgbUnVgZuEKIvogqhWrpFsHbE0WA==
+"@goa/busboy@1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@goa/busboy/-/busboy-1.2.3.tgz#df7b633f9f1825d9dab2b99bcf4f40cba1d7c936"
+  integrity sha512-ais1rZsKnE/k9beKFFcv+1YAqxuiCgRWnbxZ5WxbWJ+3aI2Gw3rYmyzQ2/araWYAAKUMKXZeCxE+9kbzFkOqnw==
   dependencies:
     text-decoding "^1.0.0"
 

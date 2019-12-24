@@ -3,34 +3,24 @@
 The package is available by importing its default and named functions:
 
 ```js
-import MultipartFormData, {
+import FormData, {
   diskStorage, memoryStorage, FormDataError,
 } from '@multipart/form-data'
 ```
 
 %~%
 
-## `class MultipartFormData`
+## `class FormData`
 
 This class is used to create middleware according to the required file upload strategy.
 
-```### constructor => MultipartFormData
-[
-  ["options", "FormDataConfig?"]
-]
-```
+<typedef narrow slimFunctions name="FormData">types/misc.xml</typedef>
 
 Creates a new instance according to the config. It is later used to access the middleware functions described below.
 
-%TYPEDEF types/index.xml%
+<include-typedefs>@goa/busboy</include-typedefs>
 
-<details>
-<summary>
-The constructor will create an instance with the methods described below.
-</summary>
-
-%TYPEDEF types/misc.xml FormData%
-</details>
+<typedef>types/index.xml</typedef>
 
 <!-- ### `single` -->
 
