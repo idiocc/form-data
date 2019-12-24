@@ -1,3 +1,9 @@
+## 24 December 2019
+
+### [1.0.0](https://github.com/idiocc/multer/compare/v0.0.0-pre...v1.0.0)
+
+- [fix] Publish the first version of the package.
+
 ## 2 July 2019
 
 ### 0.0.0-pre
