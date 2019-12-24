@@ -3,6 +3,7 @@ import TempContext from 'temp-context'
 import Context from '../context'
 import MultipartFormData, { diskStorage } from '../../src'
 import { join } from 'path'
+import { readFileSync } from 'fs'
 
 /** @type {Object.<string, (c: Context, t: TempContext)>} */
 const T = {
@@ -81,7 +82,7 @@ const T = {
     equal(length, 0, 'File should be empty.')
   },
   async 'processes multiple files'(
-    { getApp, startApp, fixture, normalise }, { TEMP, read }) {
+    { getApp, startApp, fixture, normalise }, { TEMP, read, resolve }) {
     const upload = new MultipartFormData({ dest: TEMP })
     const mw = upload.fields([
       { name: 'empty', maxCount: 1 },
@@ -162,11 +163,14 @@ const T = {
           encoding: '7bit',
           mimetype: 'application/octet-stream',
           destination: 'test/temp',
-          size: 2845021 } ] })
+          size: 1592548 } ] })
       })
     const s = await Object.entries(result).reduce(async (acc, [key, filename]) => {
       let accRes = await acc
-      let val = await read(filename)
+      let val
+      if (key == 'large') {
+        val = readFileSync(resolve(filename))
+      } else val = await read(filename)
       if (key == 'large') val = `<<${val.length} bytes>>`
       accRes += `## ${key}\n\n${val}\n\n`
       return accRes

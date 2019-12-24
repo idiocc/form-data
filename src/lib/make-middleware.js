@@ -1,8 +1,3 @@
-// import alamode from 'alamode'
-// alamode({
-//   ignoreNodeModules: false,
-// })
-// import typeis from '@goa/type-is'
 import Busboy from '@goa/busboy'
 import appendField from '@multipart/append-field'
 import FileAppender from './file-appender'
@@ -21,10 +16,10 @@ const testMultipart = (headers) => {
  *           storage: !_multipart.FormDataStorageEngine,
  *           fileFilter: !_multipart.FormDataFileFilter,
  *           fileStrategy: string }} options
- * @returns {_goa.Middleware}
  */
 export default function makeMiddleware(options) {
-  return async function multerMiddleware(ctx, next) {
+  /** @type {!_goa.Middleware} */
+  async function multerMiddleware(ctx, next) {
     const { req } = ctx
     if (!testMultipart(req.headers)) return next()
 
@@ -168,6 +163,7 @@ export default function makeMiddleware(options) {
     await pendingWrites.awaitZero()
     await next()
   }
+  return multerMiddleware
 }
 
 /**

@@ -10,11 +10,13 @@ const T = {
     const mw = upload.single('small0')
     const app = getApp(mw)
     let file
-    app.use((ctx) => { ctx.body = 200; file = ctx.req.file })
+    app.use((ctx) => {
+      ctx.body = 200; file = ctx.req.file
+    })
     await startApp()
       .postForm('/', async (form) => {
         await form.addFile(fixture`small0.dat`, 'small0', {
-          filename: '\uD83E\uDD95.dat',
+          filename: '🦕.dat',
         })
       })
       .assert(200)
