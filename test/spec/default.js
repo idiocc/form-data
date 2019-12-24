@@ -1,4 +1,4 @@
-import { equal, deepEqual } from '@zoroaster/assert'
+import { equal, deepEqual, ok } from '@zoroaster/assert'
 import TempContext from 'temp-context'
 import Context from '../context'
 import MultipartFormData, { diskStorage } from '../../src'
@@ -17,6 +17,7 @@ const T = {
     const mw = upload.single('file')
     const app = getApp(mw)
     app.use((ctx) => {
+      ok(ctx.req.file, 'Expected file in the request.')
       ctx.body = ctx.req.file
     })
     let fn
@@ -24,6 +25,7 @@ const T = {
       .postForm('/', async (form) => {
         await form.addFile(fixture`tiny0.dat`, 'file')
       })
+      .assert(200)
       .assert(({ body }) => {
         fn = body.filename
         deepEqual(normalise(body), {

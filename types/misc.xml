@@ -9,7 +9,7 @@
 
   <interface name="FormData" desc="An instance to create middleware.">
     <fn name="constructor">
-      <arg name="options" type="!_multipart.FormDataConfig">
+      <arg name="options" type="!_multipart.FormDataConfig" opt>
         The options for the instance.
       </arg>
       Creates a new form-data instance.
@@ -44,12 +44,12 @@
   <interface name="FormDataStorageEngine">
     <fn void name="_handleFile">
       <arg type="!http.IncomingMessage" name="req">The request.</arg>
-      <arg type="_multipart.FormDataFile" name="file">The file instance.</arg>
+      <arg type="!_multipart.FormDataFile" name="file">The file instance.</arg>
       Saves the file asynchronously.
     </fn>
     <fn void name="_removeFile">
       <arg type="!http.IncomingMessage" name="req">The request.</arg>
-      <arg type="_multipart.FormDataFile" name="file">The file instance.</arg>
+      <arg type="!_multipart.FormDataFile" name="file">The file instance.</arg>
       Removes the file asynchronously.
     </fn>
   </interface>
@@ -62,5 +62,9 @@
   <interface name="FormDataError" desc="An error object which extends Error.">
     <prop name="code" string>The error code.</prop>
     <prop opt name="field" string>The field which resulted in error.</prop>
+    <!-- <static1 name="create">
+      <arg string name="code">The error code.</arg>
+      <arg string name="field" opt>The field name.</arg>
+    </static> -->
   </interface>
 </types>

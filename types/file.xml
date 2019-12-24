@@ -1,5 +1,5 @@
 <types namespace="_multipart">
-  <type record name="FormDataFile" desc="The information about each file." noToc>
+  <record name="FormDataFile" desc="The information about each file." noToc>
     <prop name="fieldname" string>
       The field name specified in the form.
     </prop>
@@ -30,7 +30,7 @@
     <prop name="stream" type="stream.Readable">
       The _Readable_ stream with the file data. This stream should not be read other than by a storage engine.
     </prop>
-  </type>
+  </record>
 
   <import name="Readable" from="stream" />
 </types>

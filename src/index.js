@@ -13,9 +13,9 @@ function allowAll() {
 export default class MultipartFormData {
   /**
    * Creates a new instance.
-   * @param {_multipart.FormDataConfig} options The configuration for the instance.
+   * @param {_multipart.FormDataConfig} [options] The configuration for the instance.
    */
-  constructor (options = {}) {
+  constructor(options = {}) {
     const { storage, dest, limits = {}, preservePath = false, fileFilter = allowAll } = options
     if (storage) {
       this.storage = storage

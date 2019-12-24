@@ -5,7 +5,9 @@ import FormDataError from './error'
 import Counter from './counter'
 
 const testMultipart = (headers) => {
-  const { 'content-type': contentType } = headers
+  const contentType = headers['content-type']
+  // https://github.com/google/closure-compiler/issues/3529
+  // const { 'content-type': contentType } = headers
   if (!contentType) return false
   return contentType.toLowerCase().startsWith('multipart/form-data')
 }
@@ -64,7 +66,7 @@ export default function makeMiddleware(options) {
 
       /**
        * @suppress {checkTypes}
-       * @type {_multipart.FormDataFile}
+       * @type {!_multipart.FormDataFile}
        */
       const file = {
         fieldname,

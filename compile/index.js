@@ -1,14 +1,14 @@
 const {
-  _MultipartFormData, _diskStorage, _memoryStorage, _FormDataError,
+  _FormData, _diskStorage, _memoryStorage, _FormDataError,
 } = require('./form-data')
 
 /**
  * An instance to create middleware.
  */
-class MultipartFormData extends _MultipartFormData {
+class FormData extends _FormData {
   /**
    * Creates a new form-data instance.
-   * @param {!_multipart.FormDataConfig} options The configuration for the instance.
+   * @param {!_multipart.FormDataConfig} [options] The configuration for the instance.
    * @param {string} [options.dest] The directory where to store the files using the `DiskStorage`. If not specified, files will be saved in the system's temp directory (`os.tmpdir()`).
    * @param {_multipart.FormDataStorageEngine} [options.storage] An _instance_ of a custom storage engine.
    * @param {_multipart.FormDataFileFilter} [options.fileFilter] The file filter.
@@ -87,7 +87,7 @@ class FormDataError extends _FormDataError {
   }
 }
 
-module.exports = MultipartFormData
+module.exports = FormData
 module.exports.diskStorage = diskStorage
 module.exports.memoryStorage = memoryStorage
 module.exports.FormDataError = FormDataError
@@ -111,4 +111,21 @@ module.exports.FormDataError = FormDataError
  * @typedef {Object} _multipart.FormDataDiskStorageOptions `＠record`
  * @prop {string|function(http.IncomingMessage, _multipart.FormDataFile): !Promise<string>} [destination] Used to determine within which folder the uploaded files should be stored. If given as a string, the location will be ensured prior at the start. Default is `tmpdir()`.
  * @prop {(req: !http.IncomingMessage, file: !_multipart.FormDataFile) => !Promise<string>} [filename] Used to determine what the file should be named inside the folder. If no filename is given, each file will be given a random name that doesn't include any file extension.
+ */
+
+/* typal types/file.xml namespace */
+/**
+ * @typedef {import('stream').Readable} stream.Readable
+ * @typedef {_multipart.FormDataFile} FormDataFile `＠record` The information about each file.
+ * @typedef {Object} _multipart.FormDataFile `＠record` The information about each file.
+ * @prop {string} fieldname The field name specified in the form.
+ * @prop {string} originalname The name of the file on the user's computer.
+ * @prop {string} encoding The encoding type of the file.
+ * @prop {string} mimetype The mime type of the file.
+ * @prop {number} size The size of the file in bytes.
+ * @prop {string} destination The folder to which the file has been saved. Set by _DiskStorage_.
+ * @prop {string} filename The name of the file within the `destination`. Set by _DiskStorage_.
+ * @prop {string} path The full path to the uploaded file. Set by _DiskStorage_.
+ * @prop {Buffer} buffer The `Buffer` of the entire file. Set by _MemoryStorage_.
+ * @prop {stream.Readable} stream The _Readable_ stream with the file data. This stream should not be read other than by a storage engine.
  */

@@ -14,8 +14,8 @@ const errorMessages = {
 export default class FormDataError extends Error {
   constructor(message) {
     super(message)
-    this.code = null
-    this.field = null
+    this.code = ''
+    this.field = undefined
   }
   /**
    * @param {string} code
@@ -32,5 +32,5 @@ export default class FormDataError extends Error {
 
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../../types').FormDataError} _multipart.FormDataError
+ * @typedef {import('../..').FormDataError} _multipart.FormDataError
  */

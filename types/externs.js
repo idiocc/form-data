@@ -21,7 +21,7 @@ _multipart.FormDataFileFilter
 /**
  * An instance to create middleware.
  * Creates a new form-data instance.
- * @param {!_multipart.FormDataConfig} options The options for the instance.
+ * @param {!_multipart.FormDataConfig=} [options] The options for the instance.
  * @interface
  */
 _multipart.FormData = function(options) {}
@@ -62,13 +62,13 @@ _multipart.FormDataStorageEngine = function() {}
 /**
  * Saves the file asynchronously.
  * @param {!http.IncomingMessage} req The request.
- * @param {_multipart.FormDataFile} file The file instance.
+ * @param {!_multipart.FormDataFile} file The file instance.
  */
 _multipart.FormDataStorageEngine.prototype._handleFile = function(req, file) {}
 /**
  * Removes the file asynchronously.
  * @param {!http.IncomingMessage} req The request.
- * @param {_multipart.FormDataFile} file The file instance.
+ * @param {!_multipart.FormDataFile} file The file instance.
  */
 _multipart.FormDataStorageEngine.prototype._removeFile = function(req, file) {}
 /**
