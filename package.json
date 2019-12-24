@@ -1,6 +1,6 @@
 {
   "name": "@multipart/form-data",
-  "version": "0.0.0-pre",
+  "version": "1.0.0",
   "description": "Multipart/Form-Data And File Upload Middleware For Koa Written In ES6 And Optimised With JavaScript Compiler.",
   "main": "compile/index.js",
   "module": "src/index.js",
