@@ -1,13 +1,14 @@
 <types namespace="_multipart">
-  <type record name="FormDataDiskStorageOptions">
+  <import name="IncomingMessage" from="http" />
+
+  <record name="FormDataDiskStorageOptions">
     <prop type="string|function(http.IncomingMessage, _multipart.FormDataFile): !Promise<string>" name="destination" opt>
       Used to determine within which folder the uploaded files should be stored. If given as a string, the location will be ensured prior at the start. Default is `tmpdir()`.
     </prop>
-    <prop type="function(http.IncomingMessage, _multipart.FormDataFile): !Promise<string>"  name="filename" opt>
+    <fn async return="string" name="filename" opt>
+      <arg name="req" type="!http.IncomingMessage">The request.</arg>
+      <arg name="file" type="!_multipart.FormDataFile">The file.</arg>
       Used to determine what the file should be named inside the folder. If no filename is given, each file will be given a random name that doesn't include any file extension.
-    </prop>
-  </type>
-
-  <import name="IncomingMessage" from="http"
-    link="https://nodejs.org/api/http.html#http_class_http_incomingmessage" desc="The request object from the server callback."/>
+    </fn>
+  </record>
 </types>

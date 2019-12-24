@@ -2,7 +2,7 @@
   "name": "@multipart/form-data",
   "version": "0.0.0-pre",
   "description": "Multipart/Form-Data And File Upload Middleware For Koa Written In ES6 And Optimised With JavaScript Compiler.",
-  "main": "depack/index.js",
+  "main": "compile/index.js",
   "module": "src/index.js",
   "scripts": {
     "t": "zoroaster -a",
@@ -14,13 +14,13 @@
     "lint": "eslint .",
     "doc": "doc -o README.md -n _multipart -d -a",
     "d": "yarn-s template d1 externs",
-    "template": "yarn-s compile/template.js -T compile/index.js -t types",
+    "template": "typal compile/template.js -T compile/index.js -t types",
     "d1": "typal compile/index.js -u -t types",
     "externs": "typal types/externs.js",
     "e": "alanode"
   },
   "files": [
-    "depack",
+    "compile",
     "src",
     "types/externs.js"
   ],
@@ -50,7 +50,7 @@
   "devDependencies": {
     "@contexts/http": "^1.6.1",
     "@externs/goa": "^1.0.1",
-    "@goa/busboy": "^1.2.0",
+    "@goa/busboy": "^1.2.1",
     "@goa/koa": "^2.1.0",
     "@idio/dicer": "^1.1.0",
     "@multipart/append-field": "^1.0.1",

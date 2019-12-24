@@ -1,5 +1,5 @@
 <types namespace="_multipart">
-  <import name="BusBoyLimits" ns="_goa" from="@goa/busboy" link="https://github.com/idiocc/busboy#type-_goabusboylimits" desc="Various limits on incoming data."/>
+  <import name="BusBoyLimits" ns="_goa" from="@goa/busboy" />
 
   <type name="FormDataConfig" desc="The configuration for the instance.">
     <prop opt string name="dest">

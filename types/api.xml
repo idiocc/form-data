@@ -1,0 +1,9 @@
+<types ns="_multipart">
+  <method name="diskStorage">
+    <arg type="_multipart.FormDataDiskStorageOptions" name="opt" opt>The options.</arg>
+    Creates a new disk storage.
+  </method>
+  <method name="memoryStorage">
+    Creates a new memory storage.
+  </method>
+</types>

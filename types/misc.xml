@@ -1,49 +1,66 @@
 <types namespace="_multipart">
-  <type
-    type="function(http.IncomingMessage, _multipart.FormDataFile): !Promise<boolean>"
-    name="FormDataFileFilter"
-    desc="The function to control which files are accepted." />
+  <import name="IncomingMessage" from="http" />
+  <import from="@typedefs/goa" name="Middleware" ns="_goa" />
 
-  <type name="FormData" desc="An instance to create middleware." noToc>
-    <prop type="function(string): _goa.Middleware" name="single">
-      Accept a single file. The first argument is the name of the field.
-    </prop>
-    <prop type="function(string, number): _goa.Middleware" name="array">
-      Accept multiple files. The first argument is the name of the field, and the second argument is the max number of files.
-    </prop>
-    <prop type="function(!Array<_multipart.FormDataField>): _goa.Middleware" name="fields">
+  <method name="FormDataFileFilter" desc="The function to control which files are accepted.">
+    <arg type="!http.IncomingMessage" name="req">The request object.</arg>
+    <arg type="!_multipart.FormDataFile" name="file">The file.</arg>
+  </method>
+
+  <interface name="FormData" desc="An instance to create middleware.">
+    <fn name="constructor">
+      <arg name="options" type="!_multipart.FormDataConfig">
+        The options for the instance.
+      </arg>
+      Creates a new form-data instance.
+    </fn>
+    <fn return="!_goa.Middleware" name="single">
+      <arg string name="name">The name of the field.</arg>
+      Accept a single file.
+    </fn>
+    <fn return="!_goa.Middleware" name="array">
+      <arg string name="name">
+        The name of the field.
+      </arg>
+      <arg string name="maxFiles">
+        The maximum number of files.
+      </arg>
+      Accept multiple files.
+    </fn>
+    <fn return="!_goa.Middleware" name="fields">
+      <arg type="!Array<_multipart.FormDataField>" name="fields">
+        The fields to accept.
+      </arg>
       Accept files according to the configured fields.
-    </prop>
-    <prop type="function(): _goa.Middleware" name="none">
+    </fn>
+    <fn return="!_goa.Middleware" name="none">
       Do not accept files, only fields.
-    </prop>
-    <prop type="function(): _goa.Middleware" name="any">
+    </fn>
+    <fn return="!_goa.Middleware" name="any">
       Accept any fields and files.
-    </prop>
-  </type>
+    </fn>
+  </interface>
 
-  <type interface name="FormDataStorageEngine">
-    <prop type="function(!http.IncomingMessage, _multipart.FormDataFile): !Promise" name="_handleFile">
+  <interface name="FormDataStorageEngine">
+    <fn void name="_handleFile">
+      <arg type="!http.IncomingMessage" name="req">The request.</arg>
+      <arg type="_multipart.FormDataFile" name="file">The file instance.</arg>
       Saves the file asynchronously.
-    </prop>
-    <prop type="function(!http.IncomingMessage, _multipart.FormDataFile): !Promise" name="_removeFile">
+    </fn>
+    <fn void name="_removeFile">
+      <arg type="!http.IncomingMessage" name="req">The request.</arg>
+      <arg type="_multipart.FormDataFile" name="file">The file instance.</arg>
       Removes the file asynchronously.
-    </prop>
-  </type>
+    </fn>
+  </interface>
 
   <type name="FormDataField" desc="The item to use in the `.fields` method.">
     <prop name="name" string>The name of the field.</prop>
     <prop opt name="maxCount" number>The maximum count of the field.</prop>
   </type>
-  <type name="FormDataError" desc="An error object which extends Error.">
+
+  <interface name="FormDataError" desc="An error object which extends Error.">
     <prop name="code" string>The error code.</prop>
     <prop opt name="field" string>The field which resulted in error.</prop>
-  </type>
-
-  <import
-    name="IncomingMessage"
-    from="http"
-    link="https://nodejs.org/api/http.html#http_class_http_incomingmessage"
-    desc="The Node.JS http server request object."
-  />
+  </interface>
 </types>

@@ -1,45 +1,97 @@
+/**
+ * @fileoverview
+ * @externs
+ */
+
 /* typal types/index.xml externs */
 /** @const */
 var _multipart = {}
-/**
- * The function to control which files are accepted.
- * @typedef {function(http.IncomingMessage, _multipart.FormDataFile): !Promise<boolean>}
- */
-_multipart.FormDataFileFilter
 /**
  * The configuration for the instance.
  * @typedef {{ dest: (string|undefined), storage: (_multipart.FormDataStorageEngine|undefined), fileFilter: (_multipart.FormDataFileFilter|undefined), limits: (_goa.BusBoyLimits|undefined), preservePath: (boolean|undefined) }}
  */
 _multipart.FormDataConfig
+
+/* typal types/misc.xml externs */
+/**
+ * The function to control which files are accepted.
+ * @typedef {function(!http.IncomingMessage,!_multipart.FormDataFile)}
+ */
+_multipart.FormDataFileFilter
 /**
  * An instance to create middleware.
- * @typedef {{ single: function(string): _goa.Middleware, array: function(string, number): _goa.Middleware, fields: function(!Array<_multipart.FormDataField>): _goa.Middleware, none: function(): _goa.Middleware, any: function(): _goa.Middleware }}
- */
-_multipart.FormData
-/**
+ * Creates a new form-data instance.
+ * @param {!_multipart.FormDataConfig} options The options for the instance.
  * @interface
  */
-_multipart.FormDataStorageEngine
+_multipart.FormData = function(options) {}
+/**
+ * Accept a single file.
+ * @param {string} name The name of the field.
+ * @return {!_goa.Middleware}
+ */
+_multipart.FormData.prototype.single = function(name) {}
+/**
+ * Accept multiple files.
+ * @param {string} name The name of the field.
+ * @param {string} maxFiles The maximum number of files.
+ * @return {!_goa.Middleware}
+ */
+_multipart.FormData.prototype.array = function(name, maxFiles) {}
+/**
+ * Accept files according to the configured fields.
+ * @param {!Array<_multipart.FormDataField>} fields The fields to accept.
+ * @return {!_goa.Middleware}
+ */
+_multipart.FormData.prototype.fields = function(fields) {}
+/**
+ * Do not accept files, only fields.
+ * @return {!_goa.Middleware}
+ */
+_multipart.FormData.prototype.none = function() {}
+/**
+ * Accept any fields and files.
+ * @return {!_goa.Middleware}
+ */
+_multipart.FormData.prototype.any = function() {}
+/**
+ * Constructor method.
+ * @interface
+ */
+_multipart.FormDataStorageEngine = function() {}
 /**
  * Saves the file asynchronously.
- * @type {function(!http.IncomingMessage, _multipart.FormDataFile): !Promise}
+ * @param {!http.IncomingMessage} req The request.
+ * @param {_multipart.FormDataFile} file The file instance.
  */
-_multipart.FormDataStorageEngine.prototype._handleFile
+_multipart.FormDataStorageEngine.prototype._handleFile = function(req, file) {}
 /**
  * Removes the file asynchronously.
- * @type {function(!http.IncomingMessage, _multipart.FormDataFile): !Promise}
+ * @param {!http.IncomingMessage} req The request.
+ * @param {_multipart.FormDataFile} file The file instance.
  */
-_multipart.FormDataStorageEngine.prototype._removeFile
+_multipart.FormDataStorageEngine.prototype._removeFile = function(req, file) {}
 /**
- * The item to use in the .fields method.
+ * The item to use in the `.fields` method.
  * @typedef {{ name: string, maxCount: (number|undefined) }}
  */
 _multipart.FormDataField
 /**
  * An error object which extends Error.
- * @typedef {{ code: string, field: (string|undefined) }}
+ * Constructor method.
+ * @interface
  */
-_multipart.FormDataError
+_multipart.FormDataError = function() {}
+/**
+ * The error code.
+ * @type {string}
+ */
+_multipart.FormDataError.prototype.code
+/**
+ * The field which resulted in error.
+ * @type {string|undefined}
+ */
+_multipart.FormDataError.prototype.field
 
 /* typal types/disk-storage.xml externs */
 /**
@@ -53,9 +105,9 @@ _multipart.FormDataDiskStorageOptions
 _multipart.FormDataDiskStorageOptions.prototype.destination
 /**
  * Used to determine what the file should be named inside the folder. If no filename is given, each file will be given a random name that doesn't include any file extension.
- * @type {(function(http.IncomingMessage, _multipart.FormDataFile): !Promise<string>)|undefined}
+ * @type {(function(!http.IncomingMessage,!_multipart.FormDataFile): !Promise<string>)|undefined}
  */
-_multipart.FormDataDiskStorageOptions.prototype.filename
+_multipart.FormDataDiskStorageOptions.prototype.filename = function(req, file) {}
 
 /* typal types/file.xml externs */
 /**

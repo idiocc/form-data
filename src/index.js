@@ -14,11 +14,6 @@ export default class MultipartFormData {
   /**
    * Creates a new instance.
    * @param {_multipart.FormDataConfig} options The configuration for the instance.
-   * @param {string} [options.dest] The directory where to store the files using the `DiskStorage`. If not specified, files will be saved in the system's temp directory (`os.tmpdir()`).
-   * @param {_multipart.FormDataStorageEngine} [options.storage] An _instance_ of a custom storage engine.
-   * @param {_multipart.FormDataFileFilter} [options.fileFilter] The file filter.
-   * @param {_goa.BusBoyLimits} [options.limits] The limits of the uploaded data.
-   * @param {boolean} [options.preservePath=false] Whether to keep the full path of files instead of just the base name. Default `false`.
    */
   constructor (options = {}) {
     const { storage, dest, limits = {}, preservePath = false, fileFilter = allowAll } = options
@@ -114,19 +109,19 @@ export { FormDataError }
 
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../types').FormDataConfig} _multipart.FormDataConfig
+ * @typedef {import('..').FormDataConfig} _multipart.FormDataConfig
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../types').FormDataField} _multipart.FormDataField
+ * @typedef {import('..').FormDataField} _multipart.FormDataField
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../types').FormDataFileFilter} _multipart.FormDataFileFilter
+ * @typedef {import('..').FormDataFileFilter} _multipart.FormDataFileFilter
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../types').FormDataDiskStorageOptions} _multipart.FormDataDiskStorageOptions
+ * @typedef {import('..').FormDataDiskStorageOptions} _multipart.FormDataDiskStorageOptions
  */
 /**
  * @suppress {nonStandardJsDocs}
