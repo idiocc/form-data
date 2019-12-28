@@ -22,7 +22,7 @@
       <arg string name="name">
         The name of the field.
       </arg>
-      <arg string name="maxFiles">
+      <arg number name="maxFiles">
         The maximum number of files.
       </arg>
       Accept multiple files.

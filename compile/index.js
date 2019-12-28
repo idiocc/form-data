@@ -29,7 +29,7 @@ class FormData extends _FormData {
   /**
    * Accept multiple files.
    * @param {string} name The name of the field.
-   * @param {string} maxFiles The maximum number of files.
+   * @param {number} maxFiles The maximum number of files.
    * @return {!_goa.Middleware}
    */
   array(name, maxFiles) {
